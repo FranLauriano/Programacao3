@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         				   http://www.springframework.org/schema/beans/spring-beans.xsd
+         				   http://www.springframework.org/schema/context
+         				   http://www.springframework.org/schema/context/spring-context.xsd
+         				   http://www.springframework.org/schema/tx
+       					   http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <context:component-scan base-package="prefeitura.siab"></context:component-scan>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+  	<bean name="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+  		<property name="entityManagerFactory" ref="entityManagerFactory"/>
+  	</bean>	
+	
+	<bean name="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+		
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource" destroy-method="close">
+		<property name="driverClass" value="org.postgresql.Driver"/>
+		<property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/siab"/>
+   		<property name="username" value="postgres"/>
+   		<property name="password" value="@ibm200glM"/>
+	</bean>
+</beans>
