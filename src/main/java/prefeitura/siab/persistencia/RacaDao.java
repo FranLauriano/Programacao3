@@ -88,8 +88,21 @@ public class RacaDao {
 		manager.remove(racaAux);
 	}
 
-	public void updatePedido(Raca raca) {
+	public void updateRaca(Raca raca) {
 		manager.merge(raca);
+	}
+
+
+	public Raca searchRacaName(String nome) {
+		TypedQuery<Raca> query = manager.createQuery("Select raca from Raca raca where upper(raca.nome) = :racaNome", Raca.class);
+		query.setParameter("racaNome", nome.toUpperCase());
+		List<Raca> result = query.getResultList();
+		
+		if(result.isEmpty()){
+			return null;
+		}else{
+			return result.get(0);
+		}
 	}
 	
 }

@@ -35,8 +35,29 @@ public class RacaController {
 		return dao.searchListRaca(raca);
 	}
 
+	@Transactional
+	public void updateRaca(Raca raca) throws BusinessException {
+		Raca racaAux = dao.searchRacaName(raca.getNome());
+		if(racaAux == null){
+			dao.updateRaca(raca);
+		}else{
+			if(raca.getCodigo() == (racaAux.getCodigo())){
+				dao.updateRaca(raca);
+			}else{
+				throw new BusinessException("Não foi encontrado uma raca com o nome: "+ raca.getNome());
+			}
+		}
+		
+	}
 	
-	
-	
+	@Transactional
+	public void deleteRaca(Raca raca) throws BusinessException{
+		Raca racaAux = dao.searchRacaName(raca.getNome());
+		if(racaAux != null){
+			dao.delete(raca);
+		}else{
+			throw new BusinessException("Impossível deletar, pois essa "+ raca.getNome() + " não existe!");
+		}
+	}
 	
 }
