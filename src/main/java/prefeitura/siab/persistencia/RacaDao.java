@@ -83,5 +83,13 @@ public class RacaDao {
 		return result;
 	}
 	
+	public void delete(Raca raca) {
+		Raca racaAux = manager.find(Raca.class, raca.getCodigo());
+		manager.remove(racaAux);
+	}
+
+	public void updatePedido(Raca raca) {
+		manager.merge(raca);
+	}
 	
 }
