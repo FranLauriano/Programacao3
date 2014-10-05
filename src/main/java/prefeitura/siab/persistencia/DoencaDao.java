@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
 
 import prefeitura.siab.tabela.Doenca;
+import prefeitura.siab.tabela.Raca;
 
 @Component
 public class DoencaDao {
@@ -19,6 +20,15 @@ public class DoencaDao {
 		manager.persist(doenca);
 	}
 	
+	public void updateDoenca(Doenca doenca) {
+		manager.merge(doenca);
+	}
+
+	public void delete(Doenca doenca) {
+		Doenca doencaAux = manager.find(Doenca.class, doenca.getSigla());
+		manager.remove(doencaAux);
+	}
+
 	public Doenca searchDoenca(Doenca doenca){
 		StringBuilder predicate = new StringBuilder("1 = 1");
 		if (doenca.getSigla() != null && doenca.getSigla().length() > 0 && doenca.getNome() != null && doenca.getNome().length() > 0) {
@@ -51,4 +61,47 @@ public class DoencaDao {
 			return result.get(0);
 		}
 	}
+	
+	public List<Doenca> searchListDoenca(Doenca doenca) {
+		StringBuilder predicate = new StringBuilder("1 = 1");
+		if (doenca.getSigla() != null && doenca.getSigla().length() != 0 && doenca.getNome() != null && doenca.getNome().length() > 1) {
+			predicate.append(" and doenca.sigla = :doencaSigla and upper(doenca.nome) like :doencaNome");
+		} else {
+			if (doenca.getSigla() != null && doenca.getSigla().length() != 0) {
+				predicate.append(" and doenca.sigla = :doencaSigla");
+			}
+			if (doenca.getNome() != null && doenca.getNome().length() > 1) {
+				predicate.append(" and upper(doenca.nome) like :doencaNome");
+			}
+		}
+		String jpql = "Select doenca from Doenca doenca where " + predicate;
+		TypedQuery<Doenca> query = manager.createQuery(jpql, Doenca.class);
+		if (doenca.getSigla() != null && doenca.getSigla().length() != 0 && doenca.getNome() != null && doenca.getNome().length() > 1) {
+			query.setParameter("doencaSigla", doenca.getSigla());
+			query.setParameter("doencaNome", doenca.getNome().toUpperCase());
+		}else{
+			if (doenca.getSigla() != null && doenca.getSigla().length() != 0) {
+				query.setParameter("doencaSigla", doenca.getSigla());
+			}
+			if (doenca.getNome() != null && doenca.getNome().length() > 1) {
+				query.setParameter("doencaNome", doenca.getNome().toUpperCase());
+			}
+		}
+		List<Doenca> result = query.getResultList();
+		System.out.println(result);
+		return result;
+	}
+	
+	public Doenca searchDoencaName(String nome) {
+		TypedQuery<Doenca> query = manager.createQuery("Select doenca from Doenca doenca where upper(doenca.nome) = :doencaNome", Doenca.class);
+		query.setParameter("doencaNome", nome.toUpperCase());
+		List<Doenca> result = query.getResultList();
+		
+		if(result.isEmpty()){
+			return null;
+		}else{
+			return result.get(0);
+		}
+	}
+
 }

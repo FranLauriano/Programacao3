@@ -16,6 +16,19 @@ public class RacaDao {
 	private @PersistenceContext
 	EntityManager manager;
 
+	public void insert(Raca raca) {
+		manager.persist(raca);
+	}
+
+	public void updateRaca(Raca raca) {
+		manager.merge(raca);
+	}
+
+	public void delete(Raca raca) {
+		Raca racaAux = manager.find(Raca.class, raca.getCodigo());
+		manager.remove(racaAux);
+	}
+
 	public Raca searchRaca(Raca raca) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
 		if (raca.getCodigo() != null && raca.getCodigo() != 0 && raca.getNome() != null && raca.getNome().length() > 1) {
@@ -49,10 +62,6 @@ public class RacaDao {
 		}
 	}
 
-	public void insert(Raca raca) {
-		manager.persist(raca);
-	}
-
 	public List<Raca> searchListRaca(Raca raca) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
 		if (raca.getCodigo() != null && raca.getCodigo() != 0 && raca.getNome() != null && raca.getNome().length() > 1) {
@@ -83,16 +92,6 @@ public class RacaDao {
 		return result;
 	}
 	
-	public void delete(Raca raca) {
-		Raca racaAux = manager.find(Raca.class, raca.getCodigo());
-		manager.remove(racaAux);
-	}
-
-	public void updateRaca(Raca raca) {
-		manager.merge(raca);
-	}
-
-
 	public Raca searchRacaName(String nome) {
 		TypedQuery<Raca> query = manager.createQuery("Select raca from Raca raca where upper(raca.nome) = :racaNome", Raca.class);
 		query.setParameter("racaNome", nome.toUpperCase());

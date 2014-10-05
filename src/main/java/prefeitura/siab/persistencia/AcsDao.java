@@ -10,11 +10,25 @@ import org.springframework.stereotype.Component;
 
 import prefeitura.siab.controller.AcsSearchOptions;
 import prefeitura.siab.tabela.Acs;
+import prefeitura.siab.tabela.Raca;
 
 @Component
 public class AcsDao {
 
 	private @PersistenceContext EntityManager manager;
+
+	public void insert(Acs acs){
+		manager.persist(acs);
+	}
+
+	public void updateAcs(Acs acs) {
+		manager.merge(acs);
+	}
+
+	public void delete(Acs acs) {
+		Acs acsAux = manager.find(Acs.class, acs.getMatricula());
+		manager.remove(acsAux);
+	}
 
 	public Acs searchAcs(Acs agente) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
@@ -49,10 +63,6 @@ public class AcsDao {
 		}
 	}
 	
-	public void insert(Acs acs){
-		manager.persist(acs);
-	}
-
 	public List<Acs> searchListAcs(AcsSearchOptions options) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
 		if (options.getMatricula() != null && options.getMatricula() != 0) {
@@ -90,5 +100,16 @@ public class AcsDao {
 		List<Acs> result = query.getResultList();
 		return result;
 	}
-	
+
+	public Acs searchAcsName(String nome) {
+		TypedQuery<Acs> query = manager.createQuery("Select acs from Acs acs where upper(acs.nome) = :acsNome", Acs.class);
+		query.setParameter("acsNome", nome.toUpperCase());
+		List<Acs> result = query.getResultList();
+		
+		if(result.isEmpty()){
+			return null;
+		}else{
+			return result.get(0);
+		}
+	}
 }

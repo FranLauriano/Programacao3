@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
 
 import prefeitura.siab.tabela.Escolaridade;
+import prefeitura.siab.tabela.Raca;
 
 @Component
 public class EscolaridadeDao {
@@ -17,6 +18,15 @@ public class EscolaridadeDao {
 	
 	public void insert(Escolaridade escolaridade){
 		manager.persist(escolaridade);
+	}
+
+	public void updateEscolaridade(Escolaridade escolaridade) {
+		manager.merge(escolaridade);
+	}
+
+	public void delete(Escolaridade escolaridade) {
+		Escolaridade escolaridadeAux = manager.find(Escolaridade.class, escolaridade.getCodigo());
+		manager.remove(escolaridadeAux);
 	}
 
 	public Escolaridade searchEscolaridade(Escolaridade escolaridade) {
