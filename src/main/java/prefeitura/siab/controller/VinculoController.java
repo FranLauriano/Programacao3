@@ -34,5 +34,28 @@ public class VinculoController {
 		return dao.searchListVinculo(vinculo);
 	}
 	
+	@Transactional
+	public void updateVinculo(VinculoEmpregaticio vinculo) throws BusinessException {
+		VinculoEmpregaticio vinculoAux = dao.searchVinculoName(vinculo.getNome());
+		if(vinculoAux == null){
+			dao.updateVinculo(vinculo);
+		}else{
+			if(vinculo.getCodigo() == (vinculoAux.getCodigo())){
+				dao.updateVinculo(vinculo);
+			}else{
+				throw new BusinessException("Já existe um vinculo com o nome: "+ vinculo.getNome());
+			}
+		}
+	}
+	
+	@Transactional
+	public void deleteRaca(VinculoEmpregaticio vinculo) throws BusinessException{
+		VinculoEmpregaticio vinculoAux = dao.searchVinculoName(vinculo.getNome());
+		if(vinculoAux != null){
+			dao.delete(vinculo);
+		}else{
+			throw new BusinessException("Impossível deletar, pois essa "+ vinculo.getNome() + " não existe!");
+		}
+	}
 	
 }
