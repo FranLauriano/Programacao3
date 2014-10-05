@@ -6,7 +6,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Nova Raça</title>
+	<title>Procurar Doença</title>
 </h:head>
 
 <h:body>
@@ -14,36 +14,41 @@
 	<p:messages />
 		<p:panelGrid columns="2">
 			<f:facet name="header">
-				Procurar Nova Raça
+				Procurar Doença
 			</f:facet>
 
-			<p:outputLabel value="Codigo" for="codigo" />
-			<p:inputText id="codigo" label="Codigo"
-				value="#{searchRaca.raca.codigo}" />
+			<p:outputLabel value="Sigla" for="sigla" />
+			<p:inputText id="sigla" label="Sigla"
+				value="#{searchDoenca.options.sigla}" />
 
 			<p:outputLabel value="Nome" for="nome" />
 			<p:inputText id="nome" label="Nome"
-				value="#{searchRaca.raca.nome}" />
+				value="#{searchDoenca.options.nome}" />
 				
 			<f:facet name="footer">
-				<p:commandButton value="Procurar" action="#{searchRaca.search}" ajax="false" />
+				<p:commandButton value="Procurar" action="#{searchDoenca.search}" ajax="false" />
 			</f:facet>
 		</p:panelGrid>
 		
-		<p:dataTable value="#{searchRaca.result}" var="raca" rendered="#{searchRaca.result.isEmpty() == false}">
+		<p:dataTable value="#{searchDoenca.result}" var="doenca" rendered="#{searchDoenca.result.isEmpty() == false}">
 			<p:column>
 				<f:facet name="header">
-					Codigo
+					Sigla
 				</f:facet>
-				#{raca.codigo}
+				#{doenca.sigla}
 			</p:column>
 			<p:column>
 				<f:facet name="header">
 					Nome
 				</f:facet>
-				#{raca.nome}
+				#{doenca.nome}
 			</p:column>
-		
+			<p:column>
+				<p:commandButton 	value="Update" action="#{searchDoenca.update(doenca)}" ajax="false"/>
+			</p:column>
+			<p:column>
+				<p:commandButton	value="Deletar"	action="#{searchDoenca.delete(doenca)}" ajax="false"/>
+			</p:column>
 		</p:dataTable>
 	</h:form>
 

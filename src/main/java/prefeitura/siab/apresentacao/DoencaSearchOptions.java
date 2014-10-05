@@ -1,19 +1,19 @@
 package prefeitura.siab.apresentacao;
 
-public class RacaSearchOptions {
+
+public class DoencaSearchOptions {
 	
 		//ATRIBUTOS
-		private Integer codigo;
+		private String sigla;
 		private String nome;
 		
 		//PROPRIEDADES
-		public Integer getCodigo() {
-			return codigo;
+		public String getSigla() {
+			return sigla;
 		}
-		public void setCodigo(Integer codigo) {
-			this.codigo = codigo;
+		public void setSigla(String sigla) {
+			this.sigla = sigla;
 		}
-		
 		public String getNome() {
 			return nome;
 		}
