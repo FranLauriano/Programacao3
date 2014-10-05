@@ -1,4 +1,4 @@
-package prefeitura.siab.controller;
+package prefeitura.siab.apresentacao;
 
 public class AcsSearchOptions {
 	

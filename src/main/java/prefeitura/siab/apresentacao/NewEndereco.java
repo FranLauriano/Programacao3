@@ -13,7 +13,6 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.jsf.FacesContextUtils;
 
 import prefeitura.siab.controller.AcsController;
-import prefeitura.siab.controller.AcsSearchOptions;
 import prefeitura.siab.controller.BusinessException;
 import prefeitura.siab.controller.EnderecoController;
 import prefeitura.siab.tabela.Acs;

@@ -1,5 +1,7 @@
 package prefeitura.siab.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,8 +22,35 @@ public class EnderecoController {
 				throw new BusinessException("Esse CEP já foi cadastrado na rua " + aux.getRua());
 			}
 		}
-		dao.insert(endereco);
-		
+		dao.insert(endereco);	
+	}
+	
+	public List<Endereco> searchListEndereco(Endereco endereco) {
+		return dao.searchListEndereco(endereco);
+	}
+
+	@Transactional
+	public void updateEndereco(Endereco endereco) throws BusinessException {
+		Endereco enderecoAux = dao.searchEnderecoName(endereco.getRua());
+		if(enderecoAux == null){
+			dao.updateEndereco(endereco);
+		}else{
+			if(endereco.getCep() == (enderecoAux.getCep())){
+				dao.updateEndereco(endereco);
+			}else{
+				throw new BusinessException("Já existe uma rua com o nome: "+ endereco.getRua());
+			}
+		}
+	}
+	
+	@Transactional
+	public void deleteEndereco(Endereco endereco) throws BusinessException{
+		Endereco enderecoAux = dao.searchEnderecoName(endereco.getRua());
+		if(enderecoAux != null){
+			dao.delete(enderecoAux);
+		}else{
+			throw new BusinessException("Impossível deletar, pois a rua "+ endereco.getRua() + " não existe!");
+		}
 	}
 	
 }

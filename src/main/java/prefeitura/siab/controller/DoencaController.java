@@ -1,5 +1,7 @@
 package prefeitura.siab.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,5 +27,33 @@ public class DoencaController {
 			}
 		}
 		dao.insert(doenca);
+	}
+	
+	public List<Doenca> searchListDoenca(Doenca doenca) {
+		return dao.searchListDoenca(doenca);
+	}
+
+	@Transactional
+	public void updateDoenca(Doenca doenca) throws BusinessException {
+		Doenca doencaAux = dao.searchDoencaName(doenca.getNome());
+		if(doencaAux == null){
+			dao.updateDoenca(doenca);
+		}else{
+			if(doenca.getSigla() == (doencaAux.getSigla())){
+				dao.updateDoenca(doenca);
+			}else{
+				throw new BusinessException("Já existe uma doença com o nome: "+ doenca.getNome());
+			}
+		}
+	}
+	
+	@Transactional
+	public void deleteDoenca(Doenca doenca) throws BusinessException{
+		Doenca doencaAux = dao.searchDoencaName(doenca.getNome());
+		if(doencaAux != null){
+			dao.delete(doencaAux);
+		}else{
+			throw new BusinessException("Impossível deletar, pois a doença "+ doenca.getNome() + " não existe!");
+		}
 	}
 }

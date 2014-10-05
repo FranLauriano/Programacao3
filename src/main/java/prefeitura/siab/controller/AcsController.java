@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import prefeitura.siab.apresentacao.AcsSearchOptions;
 import prefeitura.siab.persistencia.AcsDao;
 import prefeitura.siab.tabela.Acs;
 
@@ -34,5 +35,19 @@ public class AcsController {
 		return dao.searchListAcs(options);
 	}
 
+	@Transactional
+	public void updateAcs(Acs acs) throws BusinessException {
+		dao.updateAcs(acs);
+	}
+	
+	@Transactional
+	public void deleteAcs(Acs acs) throws BusinessException{
+		Acs acsAux = dao.searchAcs(acs);
+		if(acsAux != null){
+			dao.delete(acsAux);
+		}else{
+			throw new BusinessException("Impossível deletar, pois a matricula "+ acs.getMatricula() + " não existe!");
+		}
+	}
 	
 }
