@@ -37,7 +37,12 @@ public class AcsController {
 
 	@Transactional
 	public void updateAcs(Acs acs) throws BusinessException {
-		dao.updateAcs(acs);
+		Acs acsAux = dao.searchAcs(acs); //TEM QUE MODIFICAR PARA ELE BUSCAR PELA MATRICULA
+		if(acsAux != null){
+			dao.updateAcs(acs);			
+		}else{
+			throw new BusinessException("Impossível atualizar, "+ acs.getMatricula() + " não existe!");
+		}
 	}
 	
 	@Transactional

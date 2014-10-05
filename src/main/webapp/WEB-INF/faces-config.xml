@@ -56,4 +56,52 @@
 		</navigation-case>		
 	</navigation-rule>
 	
+		<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>updateDoenca</from-outcome>
+			<to-view-id>/doenca/updateDoenca.xhtml</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>deleteDoenca</from-outcome>
+			<to-view-id>/doenca/deleteDoenca.xhtml</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>searchDoenca</from-outcome>
+			<to-view-id>/doenca/searchDoenca.xhtml</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+		<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>updateAcs</from-outcome>
+			<to-view-id>/acs/updateAcs.xhtml</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>deleteAcs</from-outcome>
+			<to-view-id>/acs/deleteAcs.xhtml</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>searchAcs</from-outcome>
+			<to-view-id>/acs/searchAcs.xhtml</to-view-id>
+		</navigation-case>		
+	</navigation-rule>
+	
 </faces-config>
