@@ -44,10 +44,9 @@ public class RacaController {
 			if(raca.getCodigo() == (racaAux.getCodigo())){
 				dao.updateRaca(raca);
 			}else{
-				throw new BusinessException("Não foi encontrado uma raca com o nome: "+ raca.getNome());
+				throw new BusinessException("Já existe uma Raça com o nome: "+ raca.getNome());
 			}
 		}
-		
 	}
 	
 	@Transactional
