@@ -49,7 +49,7 @@ public class VinculoController {
 	}
 	
 	@Transactional
-	public void deleteRaca(VinculoEmpregaticio vinculo) throws BusinessException{
+	public void deleteVinculo(VinculoEmpregaticio vinculo) throws BusinessException{
 		VinculoEmpregaticio vinculoAux = dao.searchVinculoName(vinculo.getNome());
 		if(vinculoAux != null){
 			dao.delete(vinculo);
