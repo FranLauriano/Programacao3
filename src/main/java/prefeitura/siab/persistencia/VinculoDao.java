@@ -8,7 +8,6 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Component;
 
-import prefeitura.siab.tabela.Raca;
 import prefeitura.siab.tabela.VinculoEmpregaticio;
 
 @Component
@@ -93,7 +92,7 @@ public class VinculoDao {
 	}
 
 	public VinculoEmpregaticio searchVinculoName(String nomeVinculo) {
-		TypedQuery<VinculoEmpregaticio> query = manager.createQuery("Select vinculo from VinculoEmpregaticio vinculo where upper(vinculo.nome) = :vinculoNome", VinculoEmpregaticio.class);
+		TypedQuery<VinculoEmpregaticio> query = manager.createQuery("Select vinculo from VinculoEmpregaticio vinculo where upper(vinculo.nome) like :vinculoNome", VinculoEmpregaticio.class);
 		query.setParameter("vinculoNome", nomeVinculo.toUpperCase());
 		List<VinculoEmpregaticio> result = query.getResultList();
 		

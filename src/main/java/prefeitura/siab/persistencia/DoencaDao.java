@@ -9,7 +9,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
 
 import prefeitura.siab.tabela.Doenca;
-import prefeitura.siab.tabela.Raca;
 
 @Component
 public class DoencaDao {
@@ -93,7 +92,7 @@ public class DoencaDao {
 	}
 	
 	public Doenca searchDoencaName(String nome) {
-		TypedQuery<Doenca> query = manager.createQuery("Select doenca from Doenca doenca where upper(doenca.nome) = :doencaNome", Doenca.class);
+		TypedQuery<Doenca> query = manager.createQuery("Select doenca from Doenca doenca where upper(doenca.nome) like :doencaNome", Doenca.class);
 		query.setParameter("doencaNome", nome.toUpperCase());
 		List<Doenca> result = query.getResultList();
 		

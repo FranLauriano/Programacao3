@@ -9,7 +9,6 @@ import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Component;
 
 import prefeitura.siab.tabela.Endereco;
-import prefeitura.siab.tabela.Raca;
 
 @Component
 public class EnderecoDao {
@@ -78,7 +77,7 @@ public class EnderecoDao {
 	}
 	
 	public Endereco searchEnderecoName(String nomeRua) {
-		TypedQuery<Endereco> query = manager.createQuery("Select endereco from Endereco endereco where upper(endereco.rua) = :enderecoRua", Endereco.class);
+		TypedQuery<Endereco> query = manager.createQuery("Select endereco from Endereco endereco where upper(endereco.rua) like :enderecoRua", Endereco.class);
 		query.setParameter("enderecoRua", nomeRua.toUpperCase());
 		List<Endereco> result = query.getResultList();
 		

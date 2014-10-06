@@ -8,9 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Component;
 
-import prefeitura.siab.apresentacao.AcsSearchOptions;
 import prefeitura.siab.tabela.Acs;
-import prefeitura.siab.tabela.Raca;
 
 @Component
 public class AcsDao {
@@ -102,7 +100,7 @@ public class AcsDao {
 	}
 
 	public Acs searchAcsName(String nome) {
-		TypedQuery<Acs> query = manager.createQuery("Select acs from Acs acs where upper(acs.nome) = :acsNome", Acs.class);
+		TypedQuery<Acs> query = manager.createQuery("Select acs from Acs acs where upper(acs.nome) like :acsNome", Acs.class);
 		query.setParameter("acsNome", nome.toUpperCase());
 		List<Acs> result = query.getResultList();
 		
@@ -112,4 +110,17 @@ public class AcsDao {
 			return result.get(0);
 		}
 	}
+
+	public Acs searchAcsMatricula(int matricula) {
+		TypedQuery<Acs> query = manager.createQuery("Select acs from Acs acs where acs.matricula = :acsMatricula", Acs.class);
+		query.setParameter("acsMatricula", matricula);
+		List<Acs> result = query.getResultList();
+		
+		if(result.isEmpty()){
+			return null;
+		}else{
+			return result.get(0);
+		}
+	}
+
 }

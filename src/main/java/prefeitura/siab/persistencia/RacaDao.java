@@ -93,7 +93,7 @@ public class RacaDao {
 	}
 	
 	public Raca searchRacaName(String nome) {
-		TypedQuery<Raca> query = manager.createQuery("Select raca from Raca raca where upper(raca.nome) = :racaNome", Raca.class);
+		TypedQuery<Raca> query = manager.createQuery("Select raca from Raca raca where upper(raca.nome) like :racaNome", Raca.class);
 		query.setParameter("racaNome", nome.toUpperCase());
 		List<Raca> result = query.getResultList();
 		
