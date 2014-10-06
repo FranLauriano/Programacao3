@@ -13,7 +13,6 @@ import org.springframework.web.context.WebApplicationContext;
 import prefeitura.siab.controller.AcsController;
 import prefeitura.siab.controller.BusinessException;
 import prefeitura.siab.tabela.Acs;
-import prefeitura.siab.tabela.Doenca;
 
 @Component
 @Scope(WebApplicationContext.SCOPE_SESSION)

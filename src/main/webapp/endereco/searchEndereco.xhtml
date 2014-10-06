@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Procurar Endereço</title>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+	<p:messages />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				Procurar Endereço
+			</f:facet>
+
+			<p:outputLabel 	value="Rua" for="rua" />
+			<p:inputText 	id="rua" label="Rua"
+							value="#{searchEndereco.options.rua}" />
+			
+			<p:outputLabel 	value="Bairro" for="bairro" />
+			<p:inputText 	id="bairro" label="Bairro"
+							value="#{searchEndereco.options.bairro}" />
+							
+			<p:outputLabel 	value="Municipio" for="municipio" />
+			<p:inputText 	id="municipio" label="Municipio"
+							value="#{searchEndereco.options.municipio}" />
+			
+			<p:outputLabel 	value="UF" for="uf" />
+			<p:inputText 	id="uf" label="UF"
+							value="#{searchEndereco.options.uf}" />
+							
+			<p:outputLabel 	value="CEP" for="cep" />
+			<p:inputText 	id="cep" label="CEP"
+							value="#{searchEndereco.options.cep}" />
+			
+			<p:outputLabel 	value="ACS" for="acs" />
+			<p:inputText 	id="acs" label="ACS"
+							value="#{searchEndereco.options.agente.nome}" />
+				
+			<f:facet name="footer">
+				<p:commandButton value="Procurar" action="#{searchEndereco.search}" ajax="false" />
+			</f:facet>
+		</p:panelGrid>
+		
+		<p:dataTable value="#{searchEndereco.result}" var="endereco" rendered="#{searchEndereco.result.isEmpty() == false}">
+			<p:column>
+				<f:facet name="header">
+					CEP
+				</f:facet>
+				#{endereco.cep}
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					Rua
+				</f:facet>
+				#{endereco.rua}
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					Bairro
+				</f:facet>
+				#{endereco.bairro}
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					Municipio
+				</f:facet>
+				#{endereco.municipio}
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					UF
+				</f:facet>
+				#{endereco.uf}
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					Agente de Saúde
+				</f:facet>
+				#{endereco.agente.nome}
+			</p:column>
+			<p:column>
+				<p:commandButton 	value="Update" action="#{searchEndereco.update(endereco)}" ajax="false"/>
+			</p:column>
+			<p:column>
+				<p:commandButton	value="Deletar"	action="#{searchEndereco.delete(endereco)}" ajax="false"/>
+			</p:column>
+		
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+</html>
