@@ -31,6 +31,7 @@ public class RacaDao {
 
 	public Raca searchRaca(Raca raca) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
+		
 		if (raca.getCodigo() != null && raca.getCodigo() != 0 && raca.getNome() != null && raca.getNome().length() > 1) {
 			predicate.append(" and (raca.codigo = :racaCodigo or upper(raca.nome) like :racaNome)");
 		} else {

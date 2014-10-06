@@ -30,6 +30,7 @@ public class AcsDao {
 
 	public Acs searchAcs(Acs agente) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
+		
 		if (agente.getMatricula() != null && agente.getMatricula() != 0 && agente.getMicroarea() != null && agente.getMicroarea() != 0) {
 			predicate.append(" and (acs.matricula = :acsMatricula or acs.microarea = :acsMicroarea)");
 		} else {

@@ -30,7 +30,7 @@ public class FamiliaDao {
 
 	public Familia searchFamilia(Familia familia) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
-		
+
 		if (familia.getCodigo() != null && familia.getCodigo() != 0) {
 			predicate.append(" and familia.codigo = :familiaCodigo");
 		}

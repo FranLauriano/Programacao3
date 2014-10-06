@@ -30,6 +30,7 @@ public class EscolaridadeDao {
 
 	public Escolaridade searchEscolaridade(Escolaridade escolaridade) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
+		
 		if (escolaridade.getCodigo() != null && escolaridade.getCodigo() != 0 && escolaridade.getNome() != null && escolaridade.getNome().length() > 1) {
 			predicate.append(" and escolaridade.codigo = :escolaridadeCodigo and upper(escolaridade.nome) like :escolaridadeNome");
 		} else {

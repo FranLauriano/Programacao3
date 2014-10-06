@@ -30,6 +30,7 @@ public class DoencaDao {
 
 	public Doenca searchDoenca(Doenca doenca){
 		StringBuilder predicate = new StringBuilder("1 = 1");
+		
 		if (doenca.getSigla() != null && doenca.getSigla().length() > 0 && doenca.getNome() != null && doenca.getNome().length() > 0) {
 			predicate.append(" and (upper(doenca.sigla) = :doencaSigla or upper(doenca.nome) = :doencaNome)");
 		} else {

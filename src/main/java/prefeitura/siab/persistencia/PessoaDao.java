@@ -30,7 +30,7 @@ public class PessoaDao {
 
 	public Pessoa searchPessoa(Pessoa pessoa) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
-		
+
 		if (pessoa.getCodigo() != 0) {
 			predicate.append(" and pessoa.codigo = :pessoaCodigo");
 		}

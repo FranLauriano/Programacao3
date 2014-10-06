@@ -30,6 +30,7 @@ public class EnderecoDao {
 
 	public Endereco searchEndereco(Endereco endereco) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
+		
 		if (endereco.getCep() != null && endereco.getCep() != 0) {
 			predicate.append(" and endereco.cep = :enderecoCep");
 		}

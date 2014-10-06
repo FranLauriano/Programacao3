@@ -30,6 +30,7 @@ public class VinculoDao {
 
 	public VinculoEmpregaticio searchVinculo(VinculoEmpregaticio vinculo) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
+		
 		if (vinculo.getCodigo() != null && vinculo.getCodigo() != 0 && vinculo.getNome() != null && vinculo.getNome().length() > 1) {
 			predicate.append(" and (vinculoempregaticio.codigo = :vinculoempregaticioCodigo or upper(vinculoempregaticio.nome) like :vinculoempregaticioNome)");
 		} else {
