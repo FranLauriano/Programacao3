@@ -19,32 +19,33 @@
 
 			<p:outputLabel 	value="Rua" for="rua" />
 			<p:inputText 	id="rua" required="true" label="Rua"
-							value="#{newEndereco.endereco.rua}" />
+							value="#{searchEndereco.endereco.rua}" />
 			
 			<p:outputLabel 	value="Bairro" for="bairro" />
 			<p:inputText 	id="bairro" required="true" label="Bairro"
-							value="#{newEndereco.endereco.bairro}" />
+							value="#{searchEndereco.endereco.bairro}" />
 							
 			<p:outputLabel 	value="Municipio" for="municipio" />
 			<p:inputText 	id="municipio" required="true" label="Municipio"
-							value="#{newEndereco.endereco.municipio}" />
+							value="#{searchEndereco.endereco.municipio}" />
 			
 			<p:outputLabel 	value="UF" for="uf" />
 			<p:inputText 	id="uf" required="true" label="UF"
-							value="#{newEndereco.endereco.uf}" />
+							value="#{searchEndereco.endereco.uf}" />
 							
 			<p:outputLabel 	value="CEP" for="cep" />
 			<p:inputText 	id="cep" required="true" label="CEP"
-							value="#{newEndereco.endereco.cep}" />
+							value="#{searchEndereco.endereco.cep}" />
 	
 			<p:outputLabel 	value="ACS" for="acs" />
 			<p:selectOneMenu id="acs" label="ACS" value="#{newEndereco.acsMatricula}">
 				<f:selectItem itemLabel="Selecione um ACS" itemValue="#{null}" />
-				<f:selectItems value="#{newEndereco.agentes}" var="agente" itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
+				<f:selectItems value="#{searchEndereco.agentes}" var="agente" itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
 			</p:selectOneMenu>
 				
 			<f:facet name="footer">
-				<p:commandButton value="Cadastrar" action="#{newEndereco.saveEndereco}" ajax="false" />
+				<p:commandButton value="Salvar" action="#{searchEndereco.confirmUpdate}" ajax="false" />
+				<p:button value="Voltar" outcome="searchEndereco" ajax="false" />
 			</f:facet>
 		</p:panelGrid>
 	</h:form>
