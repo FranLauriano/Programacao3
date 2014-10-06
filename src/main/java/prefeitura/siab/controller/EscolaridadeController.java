@@ -1,5 +1,7 @@
 package prefeitura.siab.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +30,34 @@ public class EscolaridadeController {
 		}
 		dao.insert(escolaridade);
 
+	}
+
+	public List<Escolaridade> searchEscolaridade(Escolaridade escolaridade) {
+		return dao.searchListEscolaridade(escolaridade);
+	}
+
+	@Transactional
+	public void updateEscolaridade(Escolaridade escolaridade) throws BusinessException {
+		Escolaridade escolaridadeAux = dao.searchEscolaridadeName(escolaridade.getNome());
+		if(escolaridadeAux == null){
+			dao.updateEscolaridade(escolaridade);
+		}else{
+			if(escolaridade.getCodigo() == (escolaridadeAux.getCodigo())){
+				dao.updateEscolaridade(escolaridade);
+			}else{
+				throw new BusinessException("Já existe uma Escolaridade com o nome: "+ escolaridade.getNome());
+			}
+		}
+	}
+
+	@Transactional
+	public void deleteEscolaridade(Escolaridade escolaridade) throws BusinessException{
+		Escolaridade escolaridadeAux = dao.searchEscolaridadeName(escolaridade.getNome());
+		if(escolaridadeAux != null){
+			dao.delete(escolaridade);
+		}else{
+			throw new BusinessException("Impossível deletar, pois essa escolaridade '"+ escolaridade.getNome() + "' não existe!");
+		}
 	}
 
 }

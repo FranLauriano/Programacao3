@@ -19,7 +19,7 @@ public class PessoaDao {
 		manager.persist(pessoa);
 	}
 
-	public void updateVinculo(Pessoa pessoa) {
+	public void updatePessoa(Pessoa pessoa) {
 		manager.merge(pessoa);
 	}
 

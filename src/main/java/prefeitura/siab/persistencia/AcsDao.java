@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Component;
 
+import prefeitura.siab.apresentacao.AcsSearchOptions;
 import prefeitura.siab.tabela.Acs;
 
 @Component
