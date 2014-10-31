@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://xmlns.jcp.org/jsf/core"
+		xmlns:osms="http://java.sun.com/jsf/composite/osms"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+   		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	
+		<link href="/siab/lib/dist/css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="/siab/lib/dist/css/justified-nav.css" rel="stylesheet"/>
+		
+		<script src="/siab/lib/jquery.min.js"></script>
+	    <script src="/siab/lib/dist/js/bootstrap.min.js"></script>
+		
+		<title>
+			<ui:insert name="title"></ui:insert>
+		</title>
+</h:head>
+
+<body>
+
+	<div class="row navbar navbar-fixed-top">
+		<div class="col-md-11">
+		<img src="image/logo.png"/>	
+		<form class="navbar-form navbar-right" role="form" style="padding-top: 25px">
+			<div class="form-group">
+				<input type="text" placeholder="Matricula" class="form-control"/>
+			</div>
+			<div class="form-group">
+				<input type="password" placeholder="Password" class="form-control"/>
+			</div>
+				<button type="submit" class="btn btn-success">Entrar</button>
+		</form>
+		</div>
+	</div>
+	
+	<div class="page-header" style="padding-top: 31px"></div>
+
+
+	<div class="container col-sm-10 col-sm-offset-1">
+		<div class="masthead">
+		<ul class="nav nav-justified">
+			<li class="active"><a href="#">Agente de Saúde</a></li>
+			<li><a href="#">Família</a></li>
+			<li><a href="#">Pessoa</a></li>
+			<li><a href="#">Endereço</a></li>
+			<li><a href="#">Doença/Condição</a></li>
+			<li><a href="#">Escolaridade</a></li>
+			<li><a href="#">Raça</a></li>
+			<li><a href="#">Vinculo Empregatício</a></li>
+		</ul>
+		</div>
+	</div>
+
+
+	
+	<div class="container col-sm-12">
+		<ui:insert name="mensagem"></ui:insert>
+		<ui:insert name="content"></ui:insert>
+	</div>
+</body>
+</html>
