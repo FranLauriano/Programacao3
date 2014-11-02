@@ -22,7 +22,6 @@ public class SearchRaca {
 	private @Autowired RacaController controller;
 	private Raca raca;
 	private List<Raca> result;
-	private boolean racaDeletada;
 	private RacaSearchOptions options;
 
 	//PROPRIEDADES
@@ -37,12 +36,6 @@ public class SearchRaca {
 	}
 	public void setResult(List<Raca> result) {
 		this.result = result;
-	}
-	public boolean getRacaDeletada() {
-		return racaDeletada;
-	}
-	public void setRacaDeletada(boolean racaDeletada) {
-		this.racaDeletada = racaDeletada;
 	}
 	public RacaSearchOptions getOptions() {
 		return options;
@@ -95,17 +88,15 @@ public class SearchRaca {
 		return null;
 	}
 	
-	public String delete(Raca raca){
-		this.raca = raca;
-		this.racaDeletada = false;
-		return "deleteRaca";
-	}
-
 	
-	public String confirmDeletion() throws BusinessException{
+	public String confirmDeletion(Raca raca) throws BusinessException{
 		controller.deleteRaca(raca);
-		this.racaDeletada = true;
-		reset();
+		options = new RacaSearchOptions();	
+		for(int i = 0; i < result.size(); i++){
+			if(result.get(i).equals(raca)){
+				result.remove(i);
+			}
+		}
 		FacesMessage message = new FacesMessage();
 		message.setSummary("A Raça foi Deletada!");
 		message.setSeverity(FacesMessage.SEVERITY_INFO);

@@ -4,11 +4,10 @@
 	  xmlns:siab="http://java.sun.com/jsf/composite/siab"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/index.xhtml">  
-  	<ui:define name="title">Alterar Raça</ui:define>
+  	<ui:define name="title">Raça</ui:define>
 
   	<ui:define name="mensagem">
   		<h:messages/>
@@ -33,22 +32,33 @@
   	
   	<ol class="breadcrumb">
 	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-	  <li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
-	  <li><a href="http://localhost:8080/siab/raca/searchRaca.xhtml">Procurar Raça</a></li>
-	  <li class="active">Alterar Raça</li>
+	  <li class="active">Raça</li>
 	</ol>
   	
   	
+  	
+  
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<center><h3><strong>Alterar Raça</strong></h3></center>
+				<center><h3>O que deseja fazer?</h3></center>
 			</div>
-			
-			<siab:raca id="raca" raca="#{searchRaca.raca}" disabled="true">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchRaca.confirmUpdate}"/>
-				</f:facet>
-			</siab:raca>
+			<div class="container">
+				<div class="jumbotron">
+					
+					<a href="http://localhost:8080/siab/raca/newRaca.xhtml">
+						<button type="button" class="btn btn-default btn-lg">
+							<span class="glyphicon glyphicon-plus"></span> Cadastrar Raça
+						</button>
+					</a>
+					
+					<a href="http://localhost:8080/siab/raca/searchRaca.xhtml">
+						<button type="button" class="btn btn-default btn-lg">
+							<span class="glyphicon glyphicon-search"></span> Procurar Raça
+						</button>
+					</a>
+					
+				</div>
+			</div>
 		</div>
   	</ui:define>
 

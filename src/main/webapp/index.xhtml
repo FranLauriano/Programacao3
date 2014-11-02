@@ -3,7 +3,7 @@
 <html 	xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:h="http://java.sun.com/jsf/html"
 		xmlns:f="http://xmlns.jcp.org/jsf/core"
-		xmlns:osms="http://java.sun.com/jsf/composite/osms"
+		xmlns:siab="http://java.sun.com/jsf/composite/siab"
 		xmlns:ui="http://java.sun.com/jsf/facelets"
 		xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
@@ -26,7 +26,7 @@
 
 	<div class="row navbar navbar-fixed-top">
 		<div class="col-md-11">
-		<img src="image/logo.png"/>	
+		<img src="./image/logo.png"/>	
 		<form class="navbar-form navbar-right" role="form" style="padding-top: 25px">
 			<div class="form-group">
 				<input type="text" placeholder="Matricula" class="form-control"/>
@@ -42,26 +42,17 @@
 	<div class="page-header" style="padding-top: 31px"></div>
 
 
-	<div class="container col-sm-10 col-sm-offset-1">
-		<div class="masthead">
-		<ul class="nav nav-justified">
-			<li class="active"><a href="#">Agente de Saúde</a></li>
-			<li><a href="#">Família</a></li>
-			<li><a href="#">Pessoa</a></li>
-			<li><a href="#">Endereço</a></li>
-			<li><a href="#">Doença/Condição</a></li>
-			<li><a href="#">Escolaridade</a></li>
-			<li><a href="#">Raça</a></li>
-			<li><a href="#">Vinculo Empregatício</a></li>
-		</ul>
-		</div>
+	<div class="container col-sm-12">
+		<ui:insert name="painel"></ui:insert>
 	</div>
 
 
 	
-	<div class="container col-sm-12">
-		<ui:insert name="mensagem"></ui:insert>
-		<ui:insert name="content"></ui:insert>
+	<div class="container col-sm-10 col-sm-offset-1">
+		<p>
+			<ui:insert name="content"></ui:insert>
+			<ui:insert name="mensagem"></ui:insert>
+		</p>
 	</div>
 </body>
 </html>
