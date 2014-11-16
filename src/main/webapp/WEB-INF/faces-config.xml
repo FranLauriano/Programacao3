@@ -5,127 +5,127 @@
 	version="2.2">
 
 	<application>
-		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>   	
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>updateRaca</from-outcome>
 			<to-view-id>/raca/updateRaca.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>deleteRaca</from-outcome>
 			<to-view-id>/raca/deleteRaca.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>searchRaca</from-outcome>
 			<to-view-id>/raca/searchRaca.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>updateVinculo</from-outcome>
 			<to-view-id>/vinculo/updateVinculo.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>deleteVinculo</from-outcome>
 			<to-view-id>/vinculo/deleteVinculo.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>searchVinculo</from-outcome>
 			<to-view-id>/vinculo/searchVinculo.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
-		<navigation-rule>
+
+	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>updateDoenca</from-outcome>
 			<to-view-id>/doenca/updateDoenca.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>deleteDoenca</from-outcome>
 			<to-view-id>/doenca/deleteDoenca.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>searchDoenca</from-outcome>
 			<to-view-id>/doenca/searchDoenca.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
-		<navigation-rule>
+
+	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>updateAcs</from-outcome>
 			<to-view-id>/acs/updateAcs.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>deleteAcs</from-outcome>
 			<to-view-id>/acs/deleteAcs.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>searchAcs</from-outcome>
 			<to-view-id>/acs/searchAcs.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
-			<navigation-rule>
+
+	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>updateEndereco</from-outcome>
 			<to-view-id>/endereco/updateEndereco.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>deleteEndereco</from-outcome>
 			<to-view-id>/endereco/deleteEndereco.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>searchEndereco</from-outcome>
 			<to-view-id>/endereco/searchEndereco.xhtml</to-view-id>
-		</navigation-case>		
+		</navigation-case>
 	</navigation-rule>
-	
+
 </faces-config>

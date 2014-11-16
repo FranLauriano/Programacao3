@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<composite:interface>
+	<composite:attribute name="options"></composite:attribute>
+	<composite:facet name="buttons"></composite:facet>
+</composite:interface>
+
+<composite:implementation>
+
+	<h:form id="form">
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Matricula</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="matricula" styleClass="form-control"
+						value="#{cc.attrs.agente.matricula}"
+						disabled="#{cc.attrs.disabled}" p:placeholder="Matricula"></h:inputText>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Nome</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="nome" styleClass="form-control"
+						value="#{cc.attrs.agente.nome}" disabled="#{cc.attrs.disabled}"
+						p:placeholder="Nome do Agente"></h:inputText>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Microarea</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="microarea" styleClass="form-control"
+						value="#{cc.attrs.agente.microarea}"
+						disabled="#{cc.attrs.disabled}" p:placeholder="Microarea"></h:inputText>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Area</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="area" styleClass="form-control"
+						value="#{cc.attrs.agente.area}" disabled="#{cc.attrs.disabled}"
+						p:placeholder="Area"></h:inputText>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Microregiao</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="microregiao" styleClass="form-control"
+						value="#{cc.attrs.agente.microregiao}"
+						disabled="#{cc.attrs.disabled}"  p:placeholder="Microregiao"></h:inputText>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="col-sm-1 control-label">
+				<p>
+					<div class="btn-toolbar">
+						<composite:renderFacet name="buttons"></composite:renderFacet>
+					</div>
+				</p>
+			</div>
+		</div>
+
+	</h:form>
+</composite:implementation>
+
+</html>

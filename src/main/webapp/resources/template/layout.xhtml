@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:siab="http://java.sun.com/jsf/composite/siab"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link href="/siab/lib/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/siab/lib/dist/css/justified-nav.css" rel="stylesheet" />
+	<link href="/siab/lib/dist/css/style.css" rel="stylesheet" />
+
+	<script src="/siab/lib/jquery.min.js"></script>
+	<script src="/siab/lib/dist/js/bootstrap.min.js"></script>
+	<script>
+		function addClassByClick(button) {
+			$(button).addClass("active");
+			console.log("teste");
+		}
+	</script>
+
+	<title><ui:insert name="title"></ui:insert></title>
+</h:head>
+
+<div class="navbar navbar-default">
+	<a href="/siab/index.xhtml"><div id="image"></div></a>
+
+</div>
+
+<div class="container col-sm-12">
+	<div class="masthead">
+		<ul class="nav nav-justified">
+			<li><a href="http://localhost:8080/siab/acs/startAcs.xhtml"
+				click="addClassByClick(this)">ACS</a></li>
+			<li><a href="#">Família</a></li>
+			<li><a href="#">Pessoa</a></li>
+			<li><a
+				href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
+			<li><a
+				href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença/Condição</a></li>
+			<li><a href="#">Escolaridade</a></li>
+			<li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
+			<li><a href="#">Vinculo</a></li>
+		</ul>
+	</div>
+
+	<ui:insert name="painel"></ui:insert>
+</div>
+
+
+
+<div class="container col-sm-10 col-sm-offset-1">
+	<p>
+		<ui:insert name="content"></ui:insert>
+		<ui:insert name="mensagem"></ui:insert>
+	</p>
+</div>
+</html>

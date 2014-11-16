@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<composite:interface>
+	<composite:attribute name="options"></composite:attribute>
+	<composite:facet name="buttons"></composite:facet>
+</composite:interface>
+
+<composite:implementation>
+
+	<h:form id="form">
+
+		<div class="container">
+			<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Sigla</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="rua" styleClass="form-control"
+						value="#{cc.attrs.options.rua}" disabled="#{cc.attrs.disabled}"
+						p:placeholder="Rua"></h:inputText>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Bairro</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="bairro" styleClass="form-control"
+						value="#{cc.attrs.options.bairro}" p:placeholder="Bairro"></h:inputText>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Municipio</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="municipio" styleClass="form-control"
+						value="#{cc.attrs.options.municipio}" p:placeholder="Municipio"></h:inputText>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">UF</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="uf" styleClass="form-control"
+						value="#{cc.attrs.options.uf}" p:placeholder="UF"></h:inputText>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">CEP</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="cep" styleClass="form-control"
+						value="#{cc.attrs.options.cep}" p:placeholder="CEP"></h:inputText>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Agente</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="agente" styleClass="form-control"
+						value="#{cc.attrs.options.agente}" p:placeholder="Agente"></h:inputText>
+				</div>
+			</div>
+		</div>
+		</div>
+
+		<div class="container">
+			<div class="col-sm-1 control-label">
+				<p>
+					<div class="btn-toolbar">
+						<composite:renderFacet name="buttons"></composite:renderFacet>
+					</div>
+				</p>
+			</div>
+		</div>
+
+	</h:form>
+</composite:implementation>
+
+</html>

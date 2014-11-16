@@ -7,60 +7,73 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/index.xhtml">
-	<ui:define name="title">Procurar Raça</ui:define>
+	<ui:define name="title">Procurar Acs</ui:define>
 
 	<ui:define name="mensagem">
 		<h:messages />
 	</ui:define>
 
+
 	<ui:define name="content">
 
 		<ol class="breadcrumb">
 			<li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-			<li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
-			<li class="active">Procurar Raça</li>
+			<li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">Acs</a></li>
+			<li class="active">Procurar Acs</li>
 		</ol>
 
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<center>
-					<h3>Procurar Raça</h3>
+					<h3>Procurar Acs</h3>
 				</center>
 			</div>
 
-			<siab:procuraRaca id="options" options="#{searchRaca.options}">
+			<siab:procuraAcs id="options" agente="#{searchAcs.options}">
 				<f:facet name="buttons">
 					<h:commandButton class="btn btn-primary" value="Procurar"
-						action="#{searchRaca.search}" ajax="false" />
+						action="#{searchAcs.search}" ajax="false" />
 				</f:facet>
-			</siab:procuraRaca>
+			</siab:procuraAcs>
 		</div>
 
 		<h:form>
 			<h:dataTable
 				styleClass="table table-bordered table-condensed table-hover"
-				value="#{searchRaca.result}" var="raca"
+				value="#{searchAcs.result}" var="agente"
 				columnClasses="col-sm-6, col-sm-6"
-				rendered="#{searchRaca.result.isEmpty() == false}">
+				rendered="#{searchAcs.result.isEmpty() == false}">
 				<h:column>
-					<f:facet name="header">Código</f:facet>
-						#{raca.codigo}
+					<f:facet name="header">Matricula</f:facet>
+						#{agente.matricula}
 					</h:column>
 				<h:column>
 					<f:facet name="header">Nome</f:facet>
-						#{raca.nome}
+						#{agente.nome}
+					</h:column>
+				<h:column>
+					<f:facet name="header">Microarea</f:facet>
+						#{agente.microarea}
+					</h:column>
+				<h:column>
+					<f:facet name="header">Area</f:facet>
+						#{agente.area}
+					</h:column>
+				<h:column>
+					<f:facet name="header">Microregiao</f:facet>
+						#{agente.microregiao}
 					</h:column>
 				<h:column>
 					<h:commandLink
 						class="btn btn-primary glyphicon glyphicon-pencil close"
-						action="#{searchRaca.update(raca)}" title="Update">
+						action="#{searchAcs.update(agente)}" title="Update">
 					</h:commandLink>
 				</h:column>
 				<h:column>
 					<h:commandLink
 						class="btn btn-danger glyphicon glyphicon-trash close"
-						onclick="return confirm('Deseja excluir #{raca.nome}?')"
-						action="#{searchRaca.confirmDeletion(raca)}" title="Delete">
+						onclick="return confirm('Deseja excluir #{agente.nome}?')"
+						action="#{searchAcs.confirmDeletion(agente)}" title="Delete">
 					</h:commandLink>
 				</h:column>
 			</h:dataTable>

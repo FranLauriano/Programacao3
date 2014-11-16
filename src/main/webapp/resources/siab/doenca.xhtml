@@ -4,10 +4,14 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
+
 <composite:interface>
-	<composite:attribute name="options"></composite:attribute>
+	<composite:attribute name="doenca"></composite:attribute>
+	<composite:attribute name="disabled" default="false"></composite:attribute>
 	<composite:facet name="buttons"></composite:facet>
+	<composite:facet name="voltar"></composite:facet>
 </composite:interface>
 
 <composite:implementation>
@@ -16,12 +20,12 @@
 		<div class="container">
 			<div class="form-group">
 				<p>
-					<label class="col-sm-1 control-label">Código</label>
+					<label class="col-sm-1 control-label">Sigla</label>
 				</p>
 				<div class="col-sm-10">
-					<h:inputText id="codigo" styleClass="form-control"
-						value="#{cc.attrs.options.codigo}" disabled="#{cc.attrs.disabled}"
-						p:placeholder="Código"></h:inputText>
+					<h:inputText id="sigla" styleClass="form-control"
+						value="#{cc.attrs.doenca.sigla}" disabled="#{cc.attrs.disabled}"
+						p:placeholder="Sigla"></h:inputText>
 				</div>
 			</div>
 		</div>
@@ -33,23 +37,24 @@
 				</p>
 				<div class="col-sm-10">
 					<h:inputText id="nome" styleClass="form-control"
-						value="#{cc.attrs.options.nome}" disabled="#{cc.attrs.disabled}"
-						p:placeholder="Nome da Raça"></h:inputText>
+						value="#{cc.attrs.doenca.nome}" p:placeholder="Nome da Doença"></h:inputText>
 				</div>
 			</div>
 		</div>
 
 		<div class="container">
 			<div class="col-sm-1 control-label">
-				<p>
-					<div class="btn-toolbar">
+				<div class="btn-toolbar">
+					<p>
 						<composite:renderFacet name="buttons"></composite:renderFacet>
-					</div>
-				</p>
+						<composite:renderFacet name="voltar"></composite:renderFacet>
+					</p>
+				</div>
 			</div>
 		</div>
 
-	</h:form>
-</composite:implementation>
 
+	</h:form>
+
+</composite:implementation>
 </html>

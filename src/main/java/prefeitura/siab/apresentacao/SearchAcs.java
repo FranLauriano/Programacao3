@@ -103,7 +103,7 @@ public class SearchAcs {
 	}
 
 	
-	public String confirmDeletion() throws BusinessException{
+	public String confirmDeletion(Acs acs) throws BusinessException{
 		controller.deleteAcs(acs);;
 		this.acsDeletada = true;
 		reset();

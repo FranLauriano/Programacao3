@@ -4,35 +4,37 @@
 	  xmlns:siab="http://java.sun.com/jsf/composite/siab"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/index.xhtml">  
-  	<ui:define name="title">Nova Raça</ui:define>
+  	<ui:define name="title">Alterar Acs</ui:define>
 
   	<ui:define name="mensagem">
   		<h:messages/>
   	</ui:define>
   	
-
+  	
   	<ui:define name="content">
   	
   	<ol class="breadcrumb">
 	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-	  <li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
-	  <li class="active">Cadastrar Raça</li>
+	  <li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">Acs</a></li>
+	  <li><a href="http://localhost:8080/siab/acs/searchAcs.xhtml">Procurar Acs</a></li>
+	  <li class="active">Alterar Acs</li>
 	</ol>
   	
   	
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<center><h3>Cadastrar Nova Raça</h3></center>
+				<center><h3><strong>Alterar Raça</strong></h3></center>
 			</div>
 			
-			<siab:raca id="raca" raca="#{newRaca.raca}">
+			<siab:acs id="acs" agente="#{searchAcs.acs}" disabled="true">
 				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newRaca.saveRaca}"/>
+					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchAcs.confirmUpdate}"/>
 				</f:facet>
-			</siab:raca>
+			</siab:acs>
 		</div>
   	</ui:define>
 

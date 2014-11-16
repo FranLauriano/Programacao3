@@ -26,6 +26,6 @@
 		<property name="driverClass" value="org.postgresql.Driver"/>
 		<property name="jdbcUrl" value="jdbc:postgresql://localhost:5432/siab"/>
    		<property name="username" value="postgres"/>
-   		<property name="password" value="@ibm200glM"/>
+   		<property name="password" value="12345"/>
 	</bean>
 </beans>

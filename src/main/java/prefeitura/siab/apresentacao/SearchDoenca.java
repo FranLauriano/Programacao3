@@ -102,7 +102,7 @@ public class SearchDoenca {
 	}
 
 	
-	public String confirmDeletion() throws BusinessException{
+	public String confirmDeletion(Doenca doenca) throws BusinessException{
 		controller.deleteDoenca(doenca);
 		this.doencaDeletada = true;
 		reset();
