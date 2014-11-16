@@ -11,18 +11,13 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<link href="/siab/lib/dist/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="/siab/lib/dist/css/justified-nav.css" rel="stylesheet" />
-	<link href="/siab/lib/dist/css/style.css" rel="stylesheet" />
+	<link href="/siab/lib/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/siab/lib/css/justified-nav.css" rel="stylesheet" />
+	<link href="/siab/lib/css/style.css" rel="stylesheet" />
 
-	<script src="/siab/lib/jquery.min.js"></script>
-	<script src="/siab/lib/dist/js/bootstrap.min.js"></script>
-	<script>
-		function addClassByClick(button) {
-			$(button).addClass("active");
-			console.log("teste");
-		}
-	</script>
+	<script src="/siab//lib/js/jquery.min.js"></script>
+	<script src="/siab/lib/js/bootstrap.min.js"></script>
+	<script src="/siab/lib/js/style.js"></script>
 
 	<title><ui:insert name="title"></ui:insert></title>
 </h:head>
@@ -35,17 +30,16 @@
 <div class="container col-sm-12">
 	<div class="masthead">
 		<ul class="nav nav-justified">
-			<li><a href="http://localhost:8080/siab/acs/startAcs.xhtml"
-				click="addClassByClick(this)">ACS</a></li>
-			<li><a href="#">Família</a></li>
-			<li><a href="#">Pessoa</a></li>
-			<li><a
+			<li id="activeSelect1"><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
+			<li id="activeSelect2"><a href="#">Família</a></li>
+			<li id="activeSelect3"><a href="#">Pessoa</a></li>
+			<li id="activeSelect4"><a
 				href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
-			<li><a
+			<li id="activeSelect5"><a
 				href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença/Condição</a></li>
-			<li><a href="http://localhost:8080/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
-			<li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
-			<li><a href="http://localhost:8080/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
+			<li id="activeSelect6"><a href="http://localhost:8080/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
+			<li id="activeSelect7"><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
+			<li id="activeSelect8"><a href="http://localhost:8080/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
 		</ul>
 	</div>
 

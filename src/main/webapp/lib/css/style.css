@@ -11,5 +11,5 @@ body{
 #image {
 	height: 100%;
 	width: 500px;
-	background-image: url("/siab/image/logo.png");
+	background-image: url("/siab/lib/image/logo.png");
 }
