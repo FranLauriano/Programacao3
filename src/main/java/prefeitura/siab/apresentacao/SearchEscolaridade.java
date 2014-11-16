@@ -105,8 +105,12 @@ public class SearchEscolaridade {
 	
 	public String confirmDeletion(Escolaridade escolaridade) throws BusinessException{
 		controller.deleteEscolaridade(escolaridade);
-		this.escolaridadeDeletada = true;
-		reset();
+		options = new EscolaridadeSearchOptions();	
+		for(int i = 0; i < result.size(); i++){
+			if(result.get(i).equals(escolaridade)){
+				result.remove(i);
+			}
+		}
 		FacesMessage message = new FacesMessage();
 		message.setSummary("A Escolaridade foi Deletada!");
 		message.setSeverity(FacesMessage.SEVERITY_INFO);

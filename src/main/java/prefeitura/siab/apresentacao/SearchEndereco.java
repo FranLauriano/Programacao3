@@ -128,8 +128,12 @@ public class SearchEndereco {
 	
 	public String confirmDeletion(Endereco endereco) throws BusinessException{
 		controller.deleteEndereco(endereco);
-		this.enderecoDeletada = true;
-		reset();
+		options = new EnderecoSearchOptions();	
+		for(int i = 0; i < result.size(); i++){
+			if(result.get(i).equals(endereco)){
+				result.remove(i);
+			}
+		}
 		FacesMessage message = new FacesMessage();
 		message.setSummary("O Endereço foi Deletado!");
 		message.setSeverity(FacesMessage.SEVERITY_INFO);

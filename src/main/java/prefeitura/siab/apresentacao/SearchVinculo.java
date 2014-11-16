@@ -112,8 +112,12 @@ public class SearchVinculo {
 	
 	public String confirmDeletion(VinculoEmpregaticio vinculo) throws BusinessException{
 		controller.deleteVinculo(vinculo);
-		this.vinculoDeletada = true;
-		reset();
+		options = new VinculoSearchOptions();	
+		for(int i = 0; i < result.size(); i++){
+			if(result.get(i).equals(vinculo)){
+				result.remove(i);
+			}
+		}
 		FacesMessage message = new FacesMessage();
 		message.setSummary("O Vinculo foi Deletada!");
 		message.setSeverity(FacesMessage.SEVERITY_INFO);

@@ -104,8 +104,12 @@ public class SearchDoenca {
 	
 	public String confirmDeletion(Doenca doenca) throws BusinessException{
 		controller.deleteDoenca(doenca);
-		this.doencaDeletada = true;
-		reset();
+		options = new DoencaSearchOptions();	
+		for(int i = 0; i < result.size(); i++){
+			if(result.get(i).equals(doenca)){
+				result.remove(i);
+			}
+		}
 		FacesMessage message = new FacesMessage();
 		message.setSummary("A Doença foi Deletada!");
 		message.setSeverity(FacesMessage.SEVERITY_INFO);

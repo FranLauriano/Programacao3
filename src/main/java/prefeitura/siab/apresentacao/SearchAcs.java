@@ -105,8 +105,12 @@ public class SearchAcs {
 	
 	public String confirmDeletion(Acs acs) throws BusinessException{
 		controller.deleteAcs(acs);;
-		this.acsDeletada = true;
-		reset();
+		options = new AcsSearchOptions();	
+		for(int i = 0; i < result.size(); i++){
+			if(result.get(i).equals(acs)){
+				result.remove(i);
+			}
+		}
 		FacesMessage message = new FacesMessage();
 		message.setSummary("ACS foi Deletado!");
 		message.setSeverity(FacesMessage.SEVERITY_INFO);

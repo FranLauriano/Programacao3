@@ -133,7 +133,7 @@
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>updateEscolaridade</from-outcome>
-			<to-view-id>/endereco/updateEscolaruadade.xhtml</to-view-id>
+			<to-view-id>/escolaridade/updateEscolaridade.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -141,7 +141,7 @@
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>deleteEscolaridade</from-outcome>
-			<to-view-id>/endereco/deleteEscolaridade.xhtml</to-view-id>
+			<to-view-id>/escolaridade/deleteEscolaridade.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
@@ -149,7 +149,7 @@
 		<from-view-id>*</from-view-id>
 		<navigation-case>
 			<from-outcome>searchEscolaridade</from-outcome>
-			<to-view-id>/endereco/searchEscolaridade.xhtml</to-view-id>
+			<to-view-id>/escolaridade/searchEscolaridade.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 
