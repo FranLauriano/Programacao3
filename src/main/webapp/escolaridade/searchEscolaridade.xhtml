@@ -7,7 +7,7 @@
 	  xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/index.xhtml">  
-  	<ui:define name="title">Procurar ACS</ui:define>
+  	<ui:define name="title">Nova Escolaridade</ui:define>
 
   	<ui:define name="mensagem">
   		<h:messages/>
@@ -16,12 +16,12 @@
   	<ui:define name="painel">
   		<div class="masthead">
 			<ul class="nav nav-justified">
-				<li class="active"><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
+				<li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
 				<li><a href="http://localhost:8080/siab/familia/startFamilia.xhtml">Família</a></li>
 				<li><a href="http://localhost:8080/siab/pessoa/startPessoa.xhtml">Pessoa</a></li>
 				<li><a href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
 				<li><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença/Condição</a></li>
-				<li><a href="http://localhost:8080/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
+				<li class="active"><a href="http://localhost:8080/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
 				<li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
 				<li><a href="http://localhost:8080/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
 			</ul>
@@ -32,50 +32,39 @@
   	
   	<ol class="breadcrumb">
 	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-	  <li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
-	  <li class="active">Procurar ACS</li>
+	  <li><a href="http://localhost:8080/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
+	  <li class="active">Procurar Escolaridade</li>
 	</ol>
   	
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<center><h3>Procurar ACS</h3></center>
+				<center><h3>Procurar Escolaridade</h3></center>
 			</div>
 			
-			<siab:procuraAcs id="options" options="#{searchAcs.options}">
+			<siab:procuraEscolaridade id="options" options="#{searchEscolaridade.options}">
 				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchAcs.search}" ajax="false"/>
+					<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchEscolaridade.search}" ajax="false"/>
 				</f:facet>
-			</siab:procuraAcs>
+			</siab:procuraEscolaridade>
 		</div>
 		
 		<h:form>
-			<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{searchAcs.result}" var="acs" rendered="#{searchAcs.result.isEmpty() == false}">
+			<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{searchEscolaridade.result}" var="escolaridade"
+							 columnClasses="col-sm-6, col-sm-6" rendered="#{searchEscolaridade.result.isEmpty() == false}">
 					<h:column>
-						<f:facet name="header">Matricula</f:facet>
-						#{acs.matricula}
+						<f:facet name="header">Código</f:facet>
+						#{escolaridade.codigo}
 					</h:column>
 					<h:column>
 						<f:facet name="header">Nome</f:facet>
-						#{acs.nome}
+						#{escolaridade.nome}
 					</h:column>
 					<h:column>
-						<f:facet name="header">Micro-Área</f:facet>
-						#{acs.microarea}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Área</f:facet>
-						#{acs.area}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Micro-Região</f:facet>
-						#{acs.microregiao}
-					</h:column>
-					<h:column>
-						<h:commandLink class="btn btn-primary glyphicon glyphicon-pencil close" action="#{searchAcs.update(acs)}" title="Update">
+						<h:commandLink class="btn btn-primary glyphicon glyphicon-pencil close" action="#{searchEscolaridade.update(escolaridade)}" title="Update">
 						</h:commandLink>							
 					</h:column>
 					<h:column>
-						<h:commandLink class="btn btn-danger glyphicon glyphicon-trash close" onclick="return confirm('Deseja excluir #{acs.nome}?')" action="#{searchAcs.confirmDeletion(acs)}" title="Delete">
+						<h:commandLink class="btn btn-danger glyphicon glyphicon-trash close" onclick="return confirm('Deseja excluir #{escolaridade.nome}?')" action="#{searchEscolaridade.confirmDeletion(escolaridade)}" title="Delete">
 						</h:commandLink>
 					</h:column>
 				</h:dataTable>

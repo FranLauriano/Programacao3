@@ -7,7 +7,7 @@
 	  xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/index.xhtml">  
-  	<ui:define name="title">Nova Doença/Condição</ui:define>
+  	<ui:define name="title">ACS</ui:define>
 
   	<ui:define name="mensagem">
   		<h:messages/>
@@ -16,11 +16,11 @@
   	<ui:define name="painel">
   		<div class="masthead">
 			<ul class="nav nav-justified">
-				<li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
+				<li class="active"><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
 				<li><a href="http://localhost:8080/siab/familia/startFamilia.xhtml">Família</a></li>
 				<li><a href="http://localhost:8080/siab/pessoa/startPessoa.xhtml">Pessoa</a></li>
 				<li><a href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
-				<li class="active"><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença/Condição</a></li>
+				<li><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença/Condição</a></li>
 				<li><a href="http://localhost:8080/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
 				<li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
 				<li><a href="http://localhost:8080/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
@@ -32,21 +32,33 @@
   	
   	<ol class="breadcrumb">
 	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-	  <li><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doenca/Condição</a></li>
-	  <li class="active">Cadastrar Doença/Condição</li>
+	  <li class="active">ACS</li>
 	</ol>
   	
   	
+  	
+  
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<center><h3>Cadastrar Doença/Condição</h3></center>
+				<center><h3>O que deseja fazer?</h3></center>
 			</div>
-			
-			<siab:doenca id="doenca" raca="#{newDoenca.doenca}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newDoenca.saveDoenca}"/>
-				</f:facet>
-			</siab:doenca>
+			<div class="container">
+				<div class="jumbotron">
+					
+					<a href="http://localhost:8080/siab/acs/newAcs.xhtml">
+						<button type="button" class="btn btn-default btn-lg">
+							<span class="glyphicon glyphicon-plus"></span> Cadastrar ACS
+						</button>
+					</a>
+					
+					<a href="http://localhost:8080/siab/acs/searchAcs.xhtml">
+						<button type="button" class="btn btn-default btn-lg">
+							<span class="glyphicon glyphicon-search"></span> Procurar ACS
+						</button>
+					</a>
+					
+				</div>
+			</div>
 		</div>
   	</ui:define>
 

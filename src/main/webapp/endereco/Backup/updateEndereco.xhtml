@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Novo Endereço</title>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+	<p:messages />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				Cadastrar Endereço
+			</f:facet>
+
+			<p:outputLabel 	value="Rua" for="rua" />
+			<p:inputText 	id="rua" required="true" label="Rua"
+							value="#{searchEndereco.endereco.rua}" />
+			
+			<p:outputLabel 	value="Bairro" for="bairro" />
+			<p:inputText 	id="bairro" required="true" label="Bairro"
+							value="#{searchEndereco.endereco.bairro}" />
+							
+			<p:outputLabel 	value="Municipio" for="municipio" />
+			<p:inputText 	id="municipio" required="true" label="Municipio"
+							value="#{searchEndereco.endereco.municipio}" />
+			
+			<p:outputLabel 	value="UF" for="uf" />
+			<p:inputText 	id="uf" required="true" label="UF"
+							value="#{searchEndereco.endereco.uf}" />
+							
+			<p:outputLabel 	value="CEP" for="cep" />
+			<p:inputText 	id="cep" required="true" label="CEP"
+							value="#{searchEndereco.endereco.cep}" />
+	
+			<p:outputLabel 	value="ACS" for="acs" />
+			<p:selectOneMenu id="acs" label="ACS" value="#{newEndereco.acsMatricula}">
+				<f:selectItem itemLabel="Selecione um ACS" itemValue="#{null}" />
+				<f:selectItems value="#{searchEndereco.agentes}" var="agente" itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
+			</p:selectOneMenu>
+				
+			<f:facet name="footer">
+				<p:commandButton value="Salvar" action="#{searchEndereco.confirmUpdate}" ajax="false" />
+				<p:button value="Voltar" outcome="searchEndereco" ajax="false" />
+			</f:facet>
+		</p:panelGrid>
+	</h:form>
+
+</h:body>
+</html>

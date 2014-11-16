@@ -1,47 +1,54 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Nova Raça</title>
-</h:head>
+	  xmlns:siab="http://java.sun.com/jsf/composite/siab"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core">
 
-<h:body>
-	<h:form id="form">
-	<p:messages />
-		<p:panelGrid columns="2">
-			<f:facet name="header">
-				Cadastrar ACS
-			</f:facet>
+<ui:composition template="/index.xhtml">  
+  	<ui:define name="title">Novo ACS</ui:define>
 
-			<p:outputLabel 	value="Matricula" for="matricula" />
-			<p:inputText 	id="matricula" required="true" label="Matricula"
-							value="#{newAcs.agente.matricula}" />
+  	<ui:define name="mensagem">
+  		<h:messages/>
+  	</ui:define>
+  	
+  	<ui:define name="painel">
+  		<div class="masthead">
+			<ul class="nav nav-justified">
+				<li class="active"><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
+				<li><a href="http://localhost:8080/siab/familia/startFamilia.xhtml">Família</a></li>
+				<li><a href="http://localhost:8080/siab/pessoa/startPessoa.xhtml">Pessoa</a></li>
+				<li><a href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
+				<li><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença/Condição</a></li>
+				<li><a href="http://localhost:8080/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
+				<li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
+				<li><a href="http://localhost:8080/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
+			</ul>
+		</div>
+  	</ui:define>
 
-			<p:outputLabel 	value="Nome" for="nome" />
-			<p:inputText 	id="nome" required="true" label="Nome"
-							value="#{newAcs.agente.nome}" />
+  	<ui:define name="content">
+  	
+  	<ol class="breadcrumb">
+	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
+	  <li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
+	  <li class="active">Cadastrar ACS</li>
+	</ol>
+  	
+  	
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<center><h3>Cadastrar ACS</h3></center>
+			</div>
 			
-			<p:outputLabel 	value="MicroRegiao" for="mregiao" />
-			<p:inputText 	id="mregiao" required="true" label="MicroRegiao"
-							value="#{newAcs.agente.microregiao}" />
-							
-			<p:outputLabel 	value="Area" for="area" />
-			<p:inputText 	id="area" required="true" label="Area"
-							value="#{newAcs.agente.area}" />
-			
-			<p:outputLabel 	value="Microarea" for="micro" />
-			<p:inputText 	id="micro" required="true" label="Microarea"
-							value="#{newAcs.agente.microarea}" />
-				
-			<f:facet name="footer">
-				<p:commandButton value="Cadastrar" action="#{newAcs.saveAcs}" ajax="false" />
-			</f:facet>
-		</p:panelGrid>
-	</h:form>
+			<siab:acs id="acs" raca="#{newAcs.agente}">
+				<f:facet name="buttons">
+					<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newAcs.saveAcs}"/>
+				</f:facet>
+			</siab:acs>
+		</div>
+  	</ui:define>
 
-</h:body>
+</ui:composition>	
 </html>

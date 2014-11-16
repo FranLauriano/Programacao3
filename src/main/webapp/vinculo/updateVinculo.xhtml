@@ -1,36 +1,56 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Update Vinculo</title>
-</h:head>
+	  xmlns:siab="http://java.sun.com/jsf/composite/siab"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:f="http://java.sun.com/jsf/core">
 
-<h:body>
-	<h:form id="form">
-	<p:messages />
-		<p:panelGrid columns="2">
-			<f:facet name="header">
-				Update Vinculo
-			</f:facet>
+<ui:composition template="/index.xhtml">  
+  	<ui:define name="title">Novo Vinculo Empregatício</ui:define>
 
-			<p:outputLabel value="Codigo" for="codigo" />
-			<p:inputText id="codigo" required="true" label="Codigo"
-				value="#{searchVinculo.vinculo.codigo}" disabled="true"/>
+  	<ui:define name="mensagem">
+  		<h:messages/>
+  	</ui:define>
+  	
+  	<ui:define name="painel">
+  		<div class="masthead">
+			<ul class="nav nav-justified">
+				<li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
+				<li><a href="http://localhost:8080/siab/familia/startFamilia.xhtml">Família</a></li>
+				<li><a href="http://localhost:8080/siab/pessoa/startPessoa.xhtml">Pessoa</a></li>
+				<li><a href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
+				<li><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença/Condição</a></li>
+				<li><a href="http://localhost:8080/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
+				<li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
+				<li class="active"><a href="http://localhost:8080/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
+			</ul>
+		</div>
+  	</ui:define>
 
-			<p:outputLabel value="Nome" for="nome" />
-			<p:inputText id="nome" required="true" label="Nome"
-				value="#{searchVinculo.vinculo.nome}" />
-				
-			<f:facet name="footer">
-				<p:commandButton value="Salvar" action="#{searchVinculo.confirmUpdate}" ajax="false" />
-				<p:button value="Voltar" outcome="searchVinculo" ajax="false" />
-			</f:facet>
-		</p:panelGrid>
-	</h:form>
+  	<ui:define name="content">
+  	
+  	<ol class="breadcrumb">
+	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
+	  <li><a href="http://localhost:8080/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
+	  <li><a href="http://localhost:8080/siab/vinculo/searchVinculo.xhtml">Procurar Vínculo</a></li>
+	  <li class="active">Alterar Vínculo</li>
+	</ol>
+  	
+  	
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<center><h3><strong>Alterar Vínculo</strong></h3></center>
+			</div>
+			
+			<siab:vinculo id="vinculo" raca="#{searchVinculo.vinculo}" disabled="true">
+				<f:facet name="buttons">
+					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchVinculo.confirmUpdate}"/>
+				</f:facet>
+			</siab:vinculo>
+		</div>
+  	</ui:define>
 
-</h:body>
+</ui:composition>	
 </html>

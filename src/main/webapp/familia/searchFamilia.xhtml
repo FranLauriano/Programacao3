@@ -7,7 +7,7 @@
 	  xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/index.xhtml">  
-  	<ui:define name="title">Procurar ACS</ui:define>
+  	<ui:define name="title">Procurar Família</ui:define>
 
   	<ui:define name="mensagem">
   		<h:messages/>
@@ -16,8 +16,8 @@
   	<ui:define name="painel">
   		<div class="masthead">
 			<ul class="nav nav-justified">
-				<li class="active"><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
-				<li><a href="http://localhost:8080/siab/familia/startFamilia.xhtml">Família</a></li>
+				<li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
+				<li class="active"><a href="http://localhost:8080/siab/familia/startFamilia.xhtml">Família</a></li>
 				<li><a href="http://localhost:8080/siab/pessoa/startPessoa.xhtml">Pessoa</a></li>
 				<li><a href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
 				<li><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença/Condição</a></li>
@@ -32,50 +32,42 @@
   	
   	<ol class="breadcrumb">
 	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-	  <li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
-	  <li class="active">Procurar ACS</li>
+	  <li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">Família</a></li>
+	  <li class="active">Procurar Família</li>
 	</ol>
   	
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<center><h3>Procurar ACS</h3></center>
+				<center><h3>Procurar Família</h3></center>
 			</div>
 			
-			<siab:procuraAcs id="options" options="#{searchAcs.options}">
+			<siab:procuraFamilia id="options" options="#{searchFamilia.options}">
 				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchAcs.search}" ajax="false"/>
+					<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchFamilia.search}" ajax="false"/>
 				</f:facet>
-			</siab:procuraAcs>
+			</siab:procuraFamilia>
 		</div>
 		
 		<h:form>
-			<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{searchAcs.result}" var="acs" rendered="#{searchAcs.result.isEmpty() == false}">
+			<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{searchFamilia.result}" var="familia" rendered="#{searchFamilia.result.isEmpty() == false}">
 					<h:column>
-						<f:facet name="header">Matricula</f:facet>
-						#{acs.matricula}
+						<f:facet name="header">Código</f:facet>
+						#{familia.codigo}
 					</h:column>
 					<h:column>
-						<f:facet name="header">Nome</f:facet>
-						#{acs.nome}
+						<f:facet name="header">ACS</f:facet>
+						#{familia.agente.nome}
 					</h:column>
 					<h:column>
-						<f:facet name="header">Micro-Área</f:facet>
-						#{acs.microarea}
+						<f:facet name="header">Nome da Rua</f:facet>
+						#{familia.rua.rua}
 					</h:column>
 					<h:column>
-						<f:facet name="header">Área</f:facet>
-						#{acs.area}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Micro-Região</f:facet>
-						#{acs.microregiao}
-					</h:column>
-					<h:column>
-						<h:commandLink class="btn btn-primary glyphicon glyphicon-pencil close" action="#{searchAcs.update(acs)}" title="Update">
+						<h:commandLink class="btn btn-primary glyphicon glyphicon-pencil close" action="#{searchFamilia.update(familia)}" title="Update">
 						</h:commandLink>							
 					</h:column>
 					<h:column>
-						<h:commandLink class="btn btn-danger glyphicon glyphicon-trash close" onclick="return confirm('Deseja excluir #{acs.nome}?')" action="#{searchAcs.confirmDeletion(acs)}" title="Delete">
+						<h:commandLink class="btn btn-danger glyphicon glyphicon-trash close" onclick="return confirm('Deseja excluir #{acs.nome}?')" action="#{searchFamilia.confirmDeletion(familia)}" title="Delete">
 						</h:commandLink>
 					</h:column>
 				</h:dataTable>

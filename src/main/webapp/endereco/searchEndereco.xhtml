@@ -1,97 +1,86 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Procurar Endereço</title>
-</h:head>
+	  xmlns:siab="http://java.sun.com/jsf/composite/siab"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core">
 
-<h:body>
-	<h:form id="form">
-	<p:messages />
-		<p:panelGrid columns="2">
-			<f:facet name="header">
-				Procurar Endereço
-			</f:facet>
+<ui:composition template="/index.xhtml">  
+  	<ui:define name="title">Procurar Endereço</ui:define>
 
-			<p:outputLabel 	value="Rua" for="rua" />
-			<p:inputText 	id="rua" label="Rua"
-							value="#{searchEndereco.options.rua}" />
+  	<ui:define name="mensagem">
+  		<h:messages/>
+  	</ui:define>
+  	
+  	<ui:define name="painel">
+  		<div class="masthead">
+			<ul class="nav nav-justified">
+				<li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
+				<li><a href="http://localhost:8080/siab/familia/startFamilia.xhtml">Família</a></li>
+				<li><a href="http://localhost:8080/siab/pessoa/startPessoa.xhtml">Pessoa</a></li>
+				<li class="active"><a href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
+				<li><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença/Condição</a></li>
+				<li><a href="http://localhost:8080/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
+				<li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
+				<li><a href="http://localhost:8080/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
+			</ul>
+		</div>
+  	</ui:define>
+
+  	<ui:define name="content">
+  	
+  	<ol class="breadcrumb">
+	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
+	  <li><a href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
+	  <li class="active">Procurar Endereço</li>
+	</ol>
+  	
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<center><h3>Procurar Endereço</h3></center>
+			</div>
 			
-			<p:outputLabel 	value="Bairro" for="bairro" />
-			<p:inputText 	id="bairro" label="Bairro"
-							value="#{searchEndereco.options.bairro}" />
-							
-			<p:outputLabel 	value="Municipio" for="municipio" />
-			<p:inputText 	id="municipio" label="Municipio"
-							value="#{searchEndereco.options.municipio}" />
-			
-			<p:outputLabel 	value="UF" for="uf" />
-			<p:inputText 	id="uf" label="UF"
-							value="#{searchEndereco.options.uf}" />
-							
-			<p:outputLabel 	value="CEP" for="cep" />
-			<p:inputText 	id="cep" label="CEP"
-							value="#{searchEndereco.options.cep}" />
-			
-			<p:outputLabel 	value="ACS" for="acs" />
-			<p:inputText 	id="acs" label="ACS"
-							value="#{searchEndereco.options.agente.nome}" />
-				
-			<f:facet name="footer">
-				<p:commandButton value="Procurar" action="#{searchEndereco.search}" ajax="false" />
-			</f:facet>
-		</p:panelGrid>
+			<siab:procuraEndereco id="options" options="#{searchEndereco.options}">
+				<f:facet name="buttons">
+					<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchEndereco.search}" ajax="false"/>
+				</f:facet>
+			</siab:procuraEndereco>
+		</div>
 		
-		<p:dataTable value="#{searchEndereco.result}" var="endereco" rendered="#{searchEndereco.result.isEmpty() == false}">
-			<p:column>
-				<f:facet name="header">
-					CEP
-				</f:facet>
-				#{endereco.cep}
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					Rua
-				</f:facet>
-				#{endereco.rua}
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					Bairro
-				</f:facet>
-				#{endereco.bairro}
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					Municipio
-				</f:facet>
-				#{endereco.municipio}
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					UF
-				</f:facet>
-				#{endereco.uf}
-			</p:column>
-			<p:column>
-				<f:facet name="header">
-					Agente de Saúde
-				</f:facet>
-				#{endereco.agente.nome}
-			</p:column>
-			<p:column>
-				<p:commandButton 	value="Update" action="#{searchEndereco.update(endereco)}" ajax="false"/>
-			</p:column>
-			<p:column>
-				<p:commandButton	value="Deletar"	action="#{searchEndereco.delete(endereco)}" ajax="false"/>
-			</p:column>
-		
-		</p:dataTable>
-	</h:form>
+		<h:form>
+			<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{searchEndereco.result}" var="endereco" rendered="#{searchEndereco.result.isEmpty() == false}">
+					<h:column>
+						<f:facet name="header">CEP</f:facet>
+						#{endereco.cep}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Nome da Rua</f:facet>
+						#{endereco.rua}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Bairro</f:facet>
+						#{endereco.bairro}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Cidade</f:facet>
+						#{endereco.municipio}
+					</h:column>
+					<h:column>
+						<f:facet name="header">ACS</f:facet>
+						#{endereco.agente.nome}
+					</h:column>
+					<h:column>
+						<h:commandLink class="btn btn-primary glyphicon glyphicon-pencil close" action="#{searchEndereco.update(endereco)}" title="Update">
+						</h:commandLink>							
+					</h:column>
+					<h:column>
+						<h:commandLink class="btn btn-danger glyphicon glyphicon-trash close" onclick="return confirm('Deseja excluir #{endereco.rua}?')" action="#{searchEndereco.confirmDeletion(endereco)}" title="Delete">
+						</h:commandLink>
+					</h:column>
+				</h:dataTable>
+			</h:form>
+  	</ui:define>
 
-</h:body>
+</ui:composition>	
 </html>

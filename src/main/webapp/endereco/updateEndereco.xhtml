@@ -1,54 +1,56 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<title>Novo Endereço</title>
-</h:head>
+	  xmlns:siab="http://java.sun.com/jsf/composite/siab"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:f="http://java.sun.com/jsf/core">
 
-<h:body>
-	<h:form id="form">
-	<p:messages />
-		<p:panelGrid columns="2">
-			<f:facet name="header">
-				Cadastrar Endereço
-			</f:facet>
+<ui:composition template="/index.xhtml">  
+  	<ui:define name="title">Alterar Endereço</ui:define>
 
-			<p:outputLabel 	value="Rua" for="rua" />
-			<p:inputText 	id="rua" required="true" label="Rua"
-							value="#{searchEndereco.endereco.rua}" />
+  	<ui:define name="mensagem">
+  		<h:messages/>
+  	</ui:define>
+  	
+  	<ui:define name="painel">
+  		<div class="masthead">
+			<ul class="nav nav-justified">
+				<li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">ACS</a></li>
+				<li><a href="http://localhost:8080/siab/familia/startFamilia.xhtml">Família</a></li>
+				<li><a href="http://localhost:8080/siab/pessoa/startPessoa.xhtml">Pessoa</a></li>
+				<li class="active"><a href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
+				<li><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença/Condição</a></li>
+				<li><a href="http://localhost:8080/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
+				<li><a href="http://localhost:8080/siab/raca/startRaca.xhtml">Raça</a></li>
+				<li><a href="http://localhost:8080/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
+			</ul>
+		</div>
+  	</ui:define>
+
+  	<ui:define name="content">
+  	
+  	<ol class="breadcrumb">
+	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
+	  <li><a href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
+	  <li><a href="http://localhost:8080/siab/endereco/searchEndereco.xhtml">Procurar Endereço</a></li>
+	  <li class="active">Alterar Endereço</li>
+	</ol>
+  	
+  	
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<center><h3><strong>Alterar Endereço</strong></h3></center>
+			</div>
 			
-			<p:outputLabel 	value="Bairro" for="bairro" />
-			<p:inputText 	id="bairro" required="true" label="Bairro"
-							value="#{searchEndereco.endereco.bairro}" />
-							
-			<p:outputLabel 	value="Municipio" for="municipio" />
-			<p:inputText 	id="municipio" required="true" label="Municipio"
-							value="#{searchEndereco.endereco.municipio}" />
-			
-			<p:outputLabel 	value="UF" for="uf" />
-			<p:inputText 	id="uf" required="true" label="UF"
-							value="#{searchEndereco.endereco.uf}" />
-							
-			<p:outputLabel 	value="CEP" for="cep" />
-			<p:inputText 	id="cep" required="true" label="CEP"
-							value="#{searchEndereco.endereco.cep}" />
-	
-			<p:outputLabel 	value="ACS" for="acs" />
-			<p:selectOneMenu id="acs" label="ACS" value="#{newEndereco.acsMatricula}">
-				<f:selectItem itemLabel="Selecione um ACS" itemValue="#{null}" />
-				<f:selectItems value="#{searchEndereco.agentes}" var="agente" itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
-			</p:selectOneMenu>
-				
-			<f:facet name="footer">
-				<p:commandButton value="Salvar" action="#{searchEndereco.confirmUpdate}" ajax="false" />
-				<p:button value="Voltar" outcome="searchEndereco" ajax="false" />
-			</f:facet>
-		</p:panelGrid>
-	</h:form>
+			<siab:endereco id="endereco" raca="#{searchEndereco.endereco}" disabled="true">
+				<f:facet name="buttons">
+					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchEndereco.confirmUpdate}"/>
+				</f:facet>
+			</siab:endereco>
+		</div>
+  	</ui:define>
 
-</h:body>
+</ui:composition>	
 </html>
