@@ -126,7 +126,7 @@ public class SearchEndereco {
 	}
 
 	
-	public String confirmDeletion() throws BusinessException{
+	public String confirmDeletion(Endereco endereco) throws BusinessException{
 		controller.deleteEndereco(endereco);
 		this.enderecoDeletada = true;
 		reset();

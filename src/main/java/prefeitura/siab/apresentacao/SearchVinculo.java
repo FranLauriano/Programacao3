@@ -110,7 +110,7 @@ public class SearchVinculo {
 	}
 
 	
-	public String confirmDeletion() throws BusinessException{
+	public String confirmDeletion(VinculoEmpregaticio vinculo) throws BusinessException{
 		controller.deleteVinculo(vinculo);
 		this.vinculoDeletada = true;
 		reset();

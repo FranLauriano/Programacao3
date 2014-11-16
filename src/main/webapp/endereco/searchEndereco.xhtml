@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:siab="http://java.sun.com/jsf/composite/siab"
@@ -7,7 +7,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/index.xhtml">
-	<ui:define name="title">Procurar DoenÃ§a</ui:define>
+	<ui:define name="title">Procurar Endereço</ui:define>
 
 	<ui:define name="mensagem">
 		<h:messages />
@@ -17,52 +17,64 @@
 	<ui:define name="content">
 
 		<ol class="breadcrumb">
-			<li><a href="http://localhost:8080/siab/index.xhtml">InÃ­cio</a></li>
-			<li><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">DoenÃ§a</a></li>
-			<li class="active">Procurar DoenÃ§a</li>
+			<li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
+			<li><a
+				href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
+			<li class="active">Procurar Endereço</li>
 		</ol>
 
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<center>
-					<h3>Procurar DoenÃ§a</h3>
+					<h3>Procurar Endereço</h3>
 				</center>
 			</div>
 
-			<siab:procuraDoenca id="options" options="#{searchDoenca.options}">
+			<siab:procuraEndereco id="options" options="#{searchEndereco.options}">
 				<f:facet name="buttons">
 					<h:commandButton class="btn btn-primary" value="Procurar"
-						action="#{searchDoenca.search}" ajax="false" />
+						action="#{searchEndereco.search}" ajax="false" />
 				</f:facet>
-			</siab:procuraDoenca>
+			</siab:procuraEndereco>
 		</div>
 
 		<h:form>
 			<h:dataTable
 				styleClass="table table-bordered table-condensed table-hover"
-				value="#{searchDoenca.result}" var="doenca"
-				columnClasses="col-sm-6, col-sm-6"
-				rendered="#{searchDoenca.result.isEmpty() == false}">
+				value="#{searchEndereco.result}" var="endereco"
+				rendered="#{searchEndereco.result.isEmpty() == false}">
 				<h:column>
-					<f:facet name="header">Sigla</f:facet>
-						#{doenca.sigla}
+					<f:facet name="header">CEP</f:facet>
+						#{endereco.cep}
 					</h:column>
 				<h:column>
-					<f:facet name="header">Nome</f:facet>
-						#{doenca.nome}
+					<f:facet name="header">Nome da Rua</f:facet>
+						#{endereco.rua}
 					</h:column>
-				
+				<h:column>
+					<f:facet name="header">Bairro</f:facet>
+						#{endereco.bairro}
+					</h:column>
+				<h:column>
+					<f:facet name="header">Cidade</f:facet>
+						#{endereco.municipio}
+					</h:column>
+				<h:column>
+					<f:facet name="header">ACS</f:facet>
+						#{endereco.agente.nome}
+					</h:column>
 				<h:column>
 					<h:commandLink
 						class="btn btn-primary glyphicon glyphicon-pencil close"
-						action="#{searchDoenca.update(doenca)}" title="Update">
+						action="#{searchEndereco.update(endereco)}" title="Update">
 					</h:commandLink>
 				</h:column>
 				<h:column>
 					<h:commandLink
 						class="btn btn-danger glyphicon glyphicon-trash close"
-						onclick="return confirm('Deseja excluir #{doenca.nome}?')"
-						action="#{searchDoenca.confirmDeletion(doenca)}" title="Delete">
+						onclick="return confirm('Deseja excluir #{endereco.rua}?')"
+						action="#{searchEndereco.confirmDeletion(endereco)}"
+						title="Delete">
 					</h:commandLink>
 				</h:column>
 			</h:dataTable>

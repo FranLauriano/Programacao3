@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	  xmlns:siab="http://java.sun.com/jsf/composite/siab"
-	  xmlns:h="http://java.sun.com/jsf/html"
-	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
-	  xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:siab="http://java.sun.com/jsf/composite/siab"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/index.xhtml">  
-  	<ui:define name="title">Alterar Doença</ui:define>
+<ui:composition template="/index.xhtml">
+	<ui:define name="title">Alterar Endereço</ui:define>
 
-  	<ui:define name="mensagem">
-  		<h:messages/>
-  	</ui:define>
-  	
-  	
-  	<ui:define name="content">
-  	
-  	<ol class="breadcrumb">
-	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-	  <li><a href="http://localhost:8080/siab/doenca/startDoenca.xhtml">Doença</a></li>
-	  <li><a href="http://localhost:8080/siab/doenca/searchDoenca.xhtml">Procurar Doença</a></li>
-	  <li class="active">Alterar Doença</li>
-	</ol>
-  	
-  	
+	<ui:define name="mensagem">
+		<h:messages />
+	</ui:define>
+
+
+	<ui:define name="content">
+
+		<ol class="breadcrumb">
+			<li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
+			<li><a
+				href="http://localhost:8080/siab/endereco/startEndereco.xhtml">Endereço</a></li>
+			<li><a
+				href="http://localhost:8080/siab/endereco/searchEndereco.xhtml">Procurar
+					Endereço</a></li>
+			<li class="active">Alterar Endereço</li>
+		</ol>
+
+
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<center><h3><strong>Alterar Doença</strong></h3></center>
+				<center>
+					<h3>
+						<strong>Alterar Endereço</strong>
+					</h3>
+				</center>
 			</div>
-			
-			<siab:doenca id="doenca" doenca="#{searchDoenca.doenca}" disabled="true">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchDoenca.confirmUpdate}"/>
-				</f:facet>
-			</siab:doenca>
-		</div>
-  	</ui:define>
 
-</ui:composition>	
+			<siab:endereco id="ndereco" ndereco="#{searchEndereco.endereco}"
+				disabled="true">
+				<f:facet name="buttons">
+					<h:commandButton class="btn btn-primary" value="Salvar"
+						action="#{searchEndereco.confirmUpdate}" />
+				</f:facet>
+			</siab:endereco>
+		</div>
+	</ui:define>
+
+</ui:composition>
 </html>
