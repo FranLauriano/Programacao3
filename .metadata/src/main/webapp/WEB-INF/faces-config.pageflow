@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf14052984489560" configfile="/Programacao3/src/main/webapp/WEB-INF/faces-config.xml">
-  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="2866" id="pf14158560700580" referenceLink="//@navigationRule.14/@fromViewId|" outlinks="pf14158560700581 pf14158560700582 pf14158560700583 pf14158560700584 pf14158560700585 pf14158560700586 pf14158560700587 pf14158560700588 pf14158560700589 pf141585607005810 pf141585607005811 pf141585607005812 pf141585607005813 pf141585607005814 pf141585607005815" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="2866" id="pf14158560700580" referenceLink="//@navigationRule.17/@fromViewId|" outlinks="pf14158560700581 pf14158560700582 pf14158560700583 pf14158560700584 pf14158560700585 pf14158560700586 pf14158560700587 pf14158560700588 pf14158560700589 pf141585607005810 pf141585607005811 pf141585607005812 pf14161535689700 pf14161535689701 pf14161535689702 pf14161535689703 pf14161535689704 pf14161535689705" path="*"/>
   <nodes xsi:type="pageflow:PFPage" name="raca/updateRaca.xhtml" x="338" y="178" id="pf141585607005816" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf14158560700581" path="/raca/updateRaca.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="raca/deleteRaca.xhtml" x="338" y="562" id="pf141585607005817" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" inlinks="pf14158560700582" path="/raca/deleteRaca.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="raca/searchRaca.xhtml" x="338" y="946" id="pf141585607005818" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf14158560700583" path="/raca/searchRaca.xhtml"/>
@@ -13,9 +13,12 @@
   <nodes xsi:type="pageflow:PFPage" name="acs/updateAcs.xhtml" x="338" y="3634" id="pf141585607005825" referenceLink="//@navigationRule.9/@navigationCase.0/@toViewId|" inlinks="pf141585607005810" path="/acs/updateAcs.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="acs/deleteAcs.xhtml" x="338" y="4018" id="pf141585607005826" referenceLink="//@navigationRule.10/@navigationCase.0/@toViewId|" inlinks="pf141585607005811" path="/acs/deleteAcs.xhtml"/>
   <nodes xsi:type="pageflow:PFPage" name="acs/searchAcs.xhtml" x="338" y="4402" id="pf141585607005827" referenceLink="//@navigationRule.11/@navigationCase.0/@toViewId|" inlinks="pf141585607005812" path="/acs/searchAcs.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="endereco/updateEndereco.xhtml" x="338" y="4786" id="pf141585607005828" referenceLink="//@navigationRule.12/@navigationCase.0/@toViewId|" inlinks="pf141585607005813" path="/endereco/updateEndereco.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="endereco/deleteEndereco.xhtml" x="338" y="5170" id="pf141585607005829" referenceLink="//@navigationRule.13/@navigationCase.0/@toViewId|" inlinks="pf141585607005814" path="/endereco/deleteEndereco.xhtml"/>
-  <nodes xsi:type="pageflow:PFPage" name="endereco/searchEndereco.xhtml" x="338" y="5554" id="pf141585607005830" referenceLink="//@navigationRule.14/@navigationCase.0/@toViewId|" inlinks="pf141585607005815" path="/endereco/searchEndereco.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="endereco/updateEndereco.xhtml" id="pf14161535689706" referenceLink="//@navigationRule.15/@navigationCase.0/@toViewId|" inlinks="pf14161535689700" path="/endereco/updateEndereco.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="endereco/deleteEndereco.xhtml" id="pf14161535689707" referenceLink="//@navigationRule.16/@navigationCase.0/@toViewId|" inlinks="pf14161535689701" path="/endereco/deleteEndereco.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="endereco/searchEndereco.xhtml" id="pf14161535689708" referenceLink="//@navigationRule.17/@navigationCase.0/@toViewId|" inlinks="pf14161535689702" path="/endereco/searchEndereco.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="endereco/updateEscolaruadade.xhtml" id="pf14161535689709" referenceLink="//@navigationRule.15/@navigationCase.0/@toViewId|" inlinks="pf14161535689703" path="/endereco/updateEscolaruadade.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="endereco/deleteEscolaridade.xhtml" id="pf141615356897010" referenceLink="//@navigationRule.16/@navigationCase.0/@toViewId|" inlinks="pf14161535689704" path="/endereco/deleteEscolaridade.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="endereco/searchEscolaridade.xhtml" id="pf141615356897111" referenceLink="//@navigationRule.17/@navigationCase.0/@toViewId|" inlinks="pf14161535689705" path="/endereco/searchEscolaridade.xhtml"/>
   <links id="pf14158560700581" target="pf141585607005816" source="pf14158560700580" outcome="updateRaca"/>
   <links id="pf14158560700582" target="pf141585607005817" source="pf14158560700580" outcome="deleteRaca"/>
   <links id="pf14158560700583" target="pf141585607005818" source="pf14158560700580" outcome="searchRaca"/>
@@ -28,7 +31,10 @@
   <links id="pf141585607005810" target="pf141585607005825" source="pf14158560700580" outcome="updateAcs"/>
   <links id="pf141585607005811" target="pf141585607005826" source="pf14158560700580" outcome="deleteAcs"/>
   <links id="pf141585607005812" target="pf141585607005827" source="pf14158560700580" outcome="searchAcs"/>
-  <links id="pf141585607005813" target="pf141585607005828" source="pf14158560700580" outcome="updateEndereco"/>
-  <links id="pf141585607005814" target="pf141585607005829" source="pf14158560700580" outcome="deleteEndereco"/>
-  <links id="pf141585607005815" target="pf141585607005830" source="pf14158560700580" outcome="searchEndereco"/>
+  <links id="pf14161535689700" target="pf14161535689706" source="pf14158560700580" outcome="updateEndereco"/>
+  <links id="pf14161535689701" target="pf14161535689707" source="pf14158560700580" outcome="deleteEndereco"/>
+  <links id="pf14161535689702" target="pf14161535689708" source="pf14158560700580" outcome="searchEndereco"/>
+  <links id="pf14161535689703" target="pf14161535689709" source="pf14158560700580" outcome="updateEscolaridade"/>
+  <links id="pf14161535689704" target="pf141615356897010" source="pf14158560700580" outcome="deleteEscolaridade"/>
+  <links id="pf14161535689705" target="pf141615356897111" source="pf14158560700580" outcome="searchEscolaridade"/>
 </pageflow:Pageflow>
