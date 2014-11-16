@@ -26,6 +26,12 @@ public class RacaController {
 				throw new BusinessException("Esse Nome já foi Cadastrado, favor modificar. ");
 			}
 			throw new BusinessException("Impossível salvar essa Raça!");
+		}else if(raca.getCodigo() == 0 && raca.getNome().length() == 0){
+			throw new BusinessException("Favor inserir um Código e um Nome Válido");
+		}else if(raca.getCodigo() == 0){
+			throw new BusinessException("Favor inserir um Código Válido");
+		}else if(raca.getNome().length() == 0){
+			throw new BusinessException("Favor inserir um Nome Válido");
 		}
 		dao.insert(raca);
 		return null;

@@ -27,6 +27,12 @@ public class EscolaridadeController {
 				throw new BusinessException("Esse Nome já foi Cadastrado, favor modificar. ");
 			}
 			throw new BusinessException("Impossível cadastrar essa Escolaridade!");
+		}else if(escolaridade.getCodigo() == 0 && escolaridade.getNome().length() == 0){
+			throw new BusinessException("Favor inserir um Código e um Nome Válido");
+		}else if(escolaridade.getCodigo() == 0){
+			throw new BusinessException("Favor inserir um Código Válido");
+		}else if(escolaridade.getNome().length() == 0){
+			throw new BusinessException("Favor inserir um Nome Válido");
 		}
 		dao.insert(escolaridade);
 

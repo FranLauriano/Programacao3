@@ -26,6 +26,12 @@ public class VinculoController {
 				throw new BusinessException("Esse Nome já foi Cadastrado, favor modificar. ");
 			}
 			throw new BusinessException("Impossível salvar esse Vinculo!");
+		}else if(vinculo.getCodigo() == 0 && vinculo.getNome().length() == 0){
+			throw new BusinessException("Favor inserir um Código e um Nome Válido");
+		}else if(vinculo.getCodigo() == 0){
+			throw new BusinessException("Favor inserir um Código Válido");
+		}else if(vinculo.getNome().length() == 0){
+			throw new BusinessException("Favor inserir um Nome Válido");
 		}
 		dao.insert(vinculo);
 	}
