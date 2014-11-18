@@ -21,6 +21,7 @@ public class Familia {
 	private Acs agente;
 	private Endereco rua;
 	private List<Pessoa> pessoas;
+	private Integer numero;
 	
 	//PROPRIEDADES
 	@Id
@@ -56,5 +57,13 @@ public class Familia {
 	}
 	public void setPessoas(List<Pessoa> pessoas) {
 		this.pessoas = pessoas;
+	}
+	
+	@Column(name="FAM_NUMERO")
+	public Integer getNumero() {
+		return numero;
+	}
+	public void setNumero(Integer numero) {
+		this.numero = numero;
 	}
 }

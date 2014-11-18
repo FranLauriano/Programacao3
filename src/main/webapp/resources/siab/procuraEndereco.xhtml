@@ -4,7 +4,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:composite="http://java.sun.com/jsf/composite"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
 <composite:interface>
 	<composite:attribute name="options"></composite:attribute>
 	<composite:facet name="buttons"></composite:facet>
@@ -22,7 +23,7 @@
 				</p>
 				<div class="col-sm-10">
 					<h:inputText id="rua" styleClass="form-control"
-						value="#{cc.attrs.options.rua}" disabled="#{cc.attrs.disabled}"
+						value="#{cc.attrs.options.options.rua}" disabled="#{cc.attrs.disabled}"
 						p:placeholder="Rua"></h:inputText>
 				</div>
 			</div>
@@ -35,7 +36,7 @@
 				</p>
 				<div class="col-sm-10">
 					<h:inputText id="bairro" styleClass="form-control"
-						value="#{cc.attrs.options.bairro}" p:placeholder="Bairro"></h:inputText>
+						value="#{cc.attrs.options.options.bairro}" p:placeholder="Bairro"></h:inputText>
 				</div>
 			</div>
 		</div>
@@ -47,7 +48,7 @@
 				</p>
 				<div class="col-sm-10">
 					<h:inputText id="municipio" styleClass="form-control"
-						value="#{cc.attrs.options.municipio}" p:placeholder="Municipio"></h:inputText>
+						value="#{cc.attrs.options.options.municipio}" p:placeholder="Municipio"></h:inputText>
 				</div>
 			</div>
 		</div>
@@ -59,7 +60,7 @@
 				</p>
 				<div class="col-sm-10">
 					<h:inputText id="uf" styleClass="form-control"
-						value="#{cc.attrs.options.uf}" p:placeholder="UF"></h:inputText>
+						value="#{cc.attrs.options.options.uf}" p:placeholder="UF"></h:inputText>
 				</div>
 			</div>
 		</div>
@@ -71,7 +72,7 @@
 				</p>
 				<div class="col-sm-10">
 					<h:inputText id="cep" styleClass="form-control"
-						value="#{cc.attrs.options.cep}" p:placeholder="CEP"></h:inputText>
+						value="#{cc.attrs.options.options.cep}" p:placeholder="CEP"></h:inputText>
 				</div>
 			</div>
 		</div>
@@ -82,8 +83,10 @@
 					<label class="col-sm-1 control-label">Agente</label>
 				</p>
 				<div class="col-sm-10">
-					<h:inputText id="agente" styleClass="form-control"
-						value="#{cc.attrs.options.agente}" p:placeholder="Agente"></h:inputText>
+					<h:selectOneMenu styleClass="form-control"	value="#{cc.attrs.options.acsMatricula}">
+						<f:selectItem itemLabel="Selecione um ACS" itemValue="#{null}" />
+						<f:selectItems value="#{newEndereco.agentes}" var="agente"	itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
+					</h:selectOneMenu>
 				</div>
 			</div>
 		</div>

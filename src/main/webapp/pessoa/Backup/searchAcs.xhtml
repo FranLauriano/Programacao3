@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Procurar ACS</title>
+</h:head>
+
+<h:body>
+	<h:form id="form">
+	<p:messages />
+		<p:panelGrid columns="2">
+			<f:facet name="header">
+				Procurar ACS
+			</f:facet>
+
+			<p:outputLabel 	value="Matricula" for="matricula" />
+			<p:inputText 	id="matricula" label="Matricula"
+							value="#{searchAcs.options.matricula}" />
+
+			<p:outputLabel 	value="Nome" for="nome" />
+			<p:inputText 	id="nome" label="Nome"
+							value="#{searchAcs.options.nome}" />
+			
+			<p:outputLabel 	value="MicroRegiao" for="mregiao" />
+			<p:inputText 	id="mregiao" label="MicroRegiao"
+							value="#{searchAcs.options.microregiao}" />
+							
+			<p:outputLabel 	value="Area" for="area" />
+			<p:inputText 	id="area" label="Area"
+							value="#{searchAcs.options.area}" />
+			
+			<p:outputLabel 	value="Microarea" for="micro" />
+			<p:inputText 	id="micro" label="Microarea"
+							value="#{searchAcs.options.microarea}" />
+				
+			<f:facet name="footer">
+				<p:commandButton value="Procurar" action="#{searchAcs.search}" ajax="false" />
+			</f:facet>
+		</p:panelGrid>
+		
+		<p:dataTable value="#{searchAcs.result}" var="acs" rendered="#{searchAcs.result.isEmpty() == false}">
+			<p:column>
+				<f:facet name="header">
+					Matricula
+				</f:facet>
+				#{acs.matricula}
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					Nome
+				</f:facet>
+				#{acs.nome}
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					Micro-Região
+				</f:facet>
+				#{acs.microregiao}
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					Área
+				</f:facet>
+				#{acs.area}
+			</p:column>
+			<p:column>
+				<f:facet name="header">
+					Micro-Área
+				</f:facet>
+				#{acs.microarea}
+			</p:column>
+			<p:column>
+				<p:commandButton 	value="Update" action="#{searchAcs.update(acs)}" ajax="false"/>
+			</p:column>
+			<p:column>
+				<p:commandButton	value="Deletar"	action="#{searchAcs.delete(acs)}" ajax="false"/>
+			</p:column>
+		
+		</p:dataTable>
+	</h:form>
+
+</h:body>
+</html>

@@ -147,4 +147,25 @@ public class SearchEndereco {
 		return "searchEndereco";
 	}
 	
+	public void setAcsMatricula(Integer matricula){
+		if(matricula == 0 || matricula == null){
+			options.setAgente(null);
+		}else{
+			for(Acs agente: agentes){
+				if(agente.getMatricula().equals(matricula)){
+					options.setAgente(agente);
+					break;
+				}
+			}
+		}
+	}
+	
+	public Integer getAcsMatricula(){
+		if(options.getAgente() == null){
+			return null;			
+		}else{
+			return options.getAgente().getMatricula();
+		}
+	}
+	
 }

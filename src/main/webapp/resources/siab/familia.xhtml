@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<composite:interface>
+	<composite:attribute name="familia"></composite:attribute>
+	<composite:attribute name="classe"></composite:attribute>
+	<composite:facet name="buttons"></composite:facet>
+	<composite:facet name="voltar"></composite:facet>
+</composite:interface>
+
+<composite:implementation>
+
+	<h:form id="form">
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Código</label>
+				</p>
+				<div class="col-sm-10">
+					<h:inputText id="codigo" styleClass="form-control"
+						value="#{cc.attrs.familia.codigo}" p:placeholder="Código"></h:inputText>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Agente</label>
+				</p>
+				<div class="col-sm-10">
+					<h:selectOneMenu styleClass="form-control"	value="#{cc.attrs.classe.acsMatricula}">
+						<f:selectItem itemLabel="Selecione um ACS" itemValue="#{null}" />
+						<f:selectItems value="#{cc.attrs.classe.agentes}" var="agente"	itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
+						<f:ajax process="@this" render="form" />
+					</h:selectOneMenu>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="form-group">
+				<p>
+					<label class="col-sm-1 control-label">Endereço</label>
+				</p>
+				<div class="col-sm-5">
+					<h:selectOneMenu styleClass="form-control"	value="#{cc.attrs.classe.enderecoFamilia}">
+						<f:selectItem itemLabel="Selecione um Endereço" itemValue="#{null}" />
+						<f:selectItems value="#{cc.attrs.classe.endereco}" var="endereco"	itemLabel="#{endereco.rua}" itemValue="#{endereco.cep}"></f:selectItems>
+						<f:ajax process="@this" render="form" />
+					</h:selectOneMenu>
+					
+				</div>
+				<div class="col-sm-5">
+						<label class="col-sm-2 control-label">Número</label>
+
+					<div class="col-sm-5">
+						<h:inputText id="numero" styleClass="form-control" p:placeholder="Número"></h:inputText>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<button class="btn btn-primary" data-toggle="modal"
+				data-target="#myModal" onclick="return false;">Adicionar Pessoa</button>
+				
+		<br/>
+		<br/>
+		<br/>
+
+		<div class="container">
+			<div class="col-sm-1 control-label">
+				<div class="btn-toolbar">
+					<p>
+						<composite:renderFacet name="buttons"></composite:renderFacet>
+						<composite:renderFacet name="voltar"></composite:renderFacet>
+					</p>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">Adicionar um Pessoa</h4>
+					</div>
+					<div class="modal-body" style="max-height: 300px; overflow: auto">
+						aoksoakska
+						soaks
+						aoks
+						aosk
+						aoska
+						oska
+						oska
+						óska
+						o´sk
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="return false;">TEste</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</h:form>
+
+</composite:implementation>
+</html>

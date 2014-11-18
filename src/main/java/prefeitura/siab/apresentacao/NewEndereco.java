@@ -69,11 +69,9 @@ public class NewEndereco {
 	}
 	
 	public void setAcsMatricula(Integer matricula){
-		System.out.println("Chegou aqui");
 		if(matricula == 0 || matricula == null){
 			endereco.setAgente(null);
 		}else{
-			System.out.println("Chegou no FOR");
 			for(Acs agente: agentes){
 				if(agente.getMatricula().equals(matricula)){
 					endereco.setAgente(agente);
