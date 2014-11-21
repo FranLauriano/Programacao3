@@ -27,7 +27,7 @@
 				<center><h3>Cadastrar Pessoa</h3></center>
 			</div>
 			
-			<siab:pessoa id="acs" raca="#{newPessoa.pessoa}">
+			<siab:pessoa id="pessoa" pessoa="#{newPessoa.pessoa}" classe="#{newPessoa}">
 				<f:facet name="buttons">
 					<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newPessoa.savePessoa}"/>
 				</f:facet>

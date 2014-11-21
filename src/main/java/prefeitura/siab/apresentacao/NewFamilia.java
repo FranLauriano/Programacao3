@@ -146,4 +146,8 @@ public class NewFamilia {
 			return familia.getRua().getCep();
 		}
 	}
+	
+	public void teste(){
+		System.out.println("Testando!!!!!");
+	}
 }

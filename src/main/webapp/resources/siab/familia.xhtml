@@ -90,7 +90,7 @@
 		
 
 		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -109,7 +109,8 @@
 						oska
 						óska
 						o´sk
-						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="return false;">TEste</button>
+						<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newFamilia.teste}"/>
+						<button type="button" class="btn btn-default" >TEste</button>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
