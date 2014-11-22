@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -14,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity
@@ -21,7 +22,7 @@ import javax.persistence.Table;
 public class Pessoa {
 
 	//ATRIBUTOS
-	private Integer codigo;
+	private Integer sus;
 	private String nome;
 	private Date dtnascimento;
 	private Integer idade;
@@ -38,13 +39,12 @@ public class Pessoa {
 	
 	//PROPRIEDADES
 	@Id
-	@GeneratedValue
-	@Column(name="PES_CODIGO")
-	public Integer getCodigo() {
-		return codigo;
+	@Column(name="PES_SUS")
+	public Integer getSus() {
+		return sus;
 	}
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	public void setSus(Integer sus) {
+		this.sus = sus;
 	}
 	
 	@Column(name="PES_NOME")
@@ -55,6 +55,7 @@ public class Pessoa {
 		this.nome = nome;
 	}
 	
+	@Temporal(TemporalType.DATE)
 	@Column(name="PES_NASCIMENTO")
 	public Date getDtnascimento() {
 		return dtnascimento;

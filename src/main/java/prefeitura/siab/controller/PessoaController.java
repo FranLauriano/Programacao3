@@ -16,12 +16,12 @@ public class PessoaController {
 	
 	@Transactional
 	public String salvarPessoa(Pessoa pessoa) throws BusinessException{
-		Pessoa auxiliar = dao.searchPessoa(pessoa);
+		Pessoa auxiliar = dao.searchPessoaSus(pessoa.getSus());
 		if(auxiliar != null){
-			if(auxiliar.getCodigo().equals(pessoa.getCodigo()) && auxiliar.getNome().equals(pessoa.getNome())){
+			if(auxiliar.getSus().equals(pessoa.getSus()) && auxiliar.getNome().equals(pessoa.getNome())){
 				throw new BusinessException("Essa Pessoa já está cadastrada!!!");
-			}else if(auxiliar.getCodigo().equals(pessoa.getCodigo())){
-				throw new BusinessException("Esse Código já foi Cadastrado, favor modificar.");
+			}else if(auxiliar.getSus().equals(pessoa.getSus())){
+				throw new BusinessException("Esse SUS já foi Cadastrado, favor modificar.");
 			}else if(auxiliar.getNome().equals(pessoa.getNome())){
 				throw new BusinessException("Esse Nome já foi Cadastrado, favor modificar. ");
 			}
@@ -37,11 +37,11 @@ public class PessoaController {
 
 	@Transactional
 	public void updatePessoa(Pessoa pessoa) throws BusinessException {
-		Pessoa pessoaAux = dao.searchPessoaName(pessoa.getNome());
+		Pessoa pessoaAux = dao.searchPessoaSus(pessoa.getSus());
 		if(pessoaAux == null){
 			dao.updatePessoa(pessoa);
 		}else{
-			if(pessoa.getCodigo() == pessoaAux.getCodigo() && pessoa.getNome().equals(pessoaAux.getNome())){
+			if(pessoa.getSus() == pessoaAux.getSus() && pessoa.getNome().equals(pessoaAux.getNome())){
 				dao.updatePessoa(pessoa);
 			}else{
 				throw new BusinessException("Já existe uma Pessoa com o nome: "+ pessoa.getNome());
@@ -51,7 +51,7 @@ public class PessoaController {
 
 	@Transactional
 	public void deletePessoa(Pessoa pessoa) throws BusinessException{
-		Pessoa pessoaAux = dao.searchPessoaName(pessoa.getNome());
+		Pessoa pessoaAux = dao.searchPessoaSus(pessoa.getSus());
 		if(pessoaAux != null){
 			dao.delete(pessoa);
 		}else{

@@ -99,21 +99,162 @@
 							aria-hidden="true">×</button>
 						<h4 class="modal-title" id="myModalLabel">Adicionar um Pessoa</h4>
 					</div>
-					<div class="modal-body" style="max-height: 300px; overflow: auto">
-						aoksoakska
-						soaks
-						aoks
-						aosk
-						aoska
-						oska
-						oska
-						óska
-						o´sk
-						<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newFamilia.teste}"/>
-						<button type="button" class="btn btn-default" >TEste</button>
+					<div class="modal-body">
+						
+					<h:form id="form">
+						<table class="table table-hover">
+					      <tbody>
+					        <tr>
+					          	<td>
+									<label>SUS</label>
+								</td>
+					          	<td>
+					          		<h:inputText id="sus" styleClass="form-control"
+										value="#{newPessoa.pessoa.sus}"
+										p:placeholder="Número do Cartão SUS"></h:inputText>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Nome</label>
+								</td>
+					          	<td>
+									<h:inputText id="nome" styleClass="form-control"
+										value="#{newPessoa.pessoa.nome}"
+										p:placeholder="Nome"></h:inputText>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Data de Nascimento</label>
+								</td>
+					          	<td>
+									<h:inputText 		id="data" 
+														styleClass="form-control" 
+														value="#{newPessoa.pessoa.dtnascimento}"
+														p:placeholder="dd/mm/yyyy">
+									<f:convertDateTime timeZone="GMT-3" locale="pt_BR" pattern="dd/MM/yyyy" type="date" />
+									</h:inputText>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Idade</label>
+								</td>
+					          	<td>
+									<h:inputText id="idade" styleClass="form-control"
+										value="#{newPessoa.pessoa.idade}" p:placeholder="Idade"></h:inputText>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Sexo</label>
+								</td>
+					          	<td>
+									<h:selectOneRadio id="sexo" value="#{newPessoa.pessoa.sexo}" layout="pageDirection">
+									   <f:selectItem itemValue='m' itemLabel="Masculino" />
+									   <f:selectItem itemValue='f' itemLabel="Feminino" />   			
+									</h:selectOneRadio>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Raça</label>
+								</td>
+					          	<td>
+									<h:selectOneMenu id="raca" styleClass="form-control"	value="#{newPessoa.racaPessoa}">
+										<f:selectItem itemLabel="Selecione a Raça" itemValue="#{null}" />
+										<f:selectItems value="#{newPessoa.racas}" var="raca"	itemLabel="#{raca.nome}" itemValue="#{raca.codigo}"></f:selectItems>
+										<f:ajax process="@this" render="raca" />
+									</h:selectOneMenu>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Frequenta a Escola?</label>
+								</td>
+					          	<td>
+									<h:selectOneRadio id="fescola" value="#{newPessoa.pessoa.frequentaescola}" layout="pageDirection">
+									   <f:selectItem itemValue="#{true}" itemLabel="Sim" />
+									   <f:selectItem itemValue="#{false}" itemLabel="Não" />
+									   <f:ajax process="@this" render="fescola" />	   			
+									</h:selectOneRadio>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Escolaridade</label>
+								</td>
+					          	<td>
+									<h:selectOneMenu id="escolaridade" styleClass="form-control"	value="#{newPessoa.escolaridadePessoa}">
+										<f:selectItem itemLabel="Selecione a Escolaridade" itemValue="#{null}" />
+										<f:selectItems value="#{newPessoa.escolaridades}" var="escolaridade"	itemLabel="#{escolaridade.nome}" itemValue="#{escolaridade.codigo}"></f:selectItems>
+										<f:ajax process="@this" render="escolaridade" />
+									</h:selectOneMenu>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Vínculo Empregatício</label>
+								</td>
+					          	<td>
+									<h:selectOneMenu id="vinculo" styleClass="form-control"	value="#{newPessoa.vinculoPessoa}">
+										<f:selectItem itemLabel="Selecione o Vínculo Empregatício" itemValue="#{null}" />
+										<f:selectItems value="#{newPessoa.vinculos}" var="vinculo"	itemLabel="#{vinculo.nome}" itemValue="#{vinculo.codigo}"></f:selectItems>
+										<f:ajax process="@this" render="vinculo" />
+									</h:selectOneMenu>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Nome da Mãe</label>
+								</td>
+					          	<td>
+									<h:inputText id="mae" styleClass="form-control"
+										value="#{newPessoa.pessoa.mae}"
+										p:placeholder="Nome da mãe"></h:inputText>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Parentesco</label>
+								</td>
+					          	<td>
+									<h:inputText id="parentesco" styleClass="form-control"
+										value="#{newPessoa.pessoa.parentesco}"
+										p:placeholder="O que você é do chefe da Família?"></h:inputText>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Recebe Bolsa-Escola?</label>
+								</td>
+					          	<td>
+									<h:selectOneRadio id="bolsaEsc" value="#{newPessoa.pessoa.bolsaescola}" layout="pageDirection">
+									   <f:selectItem itemValue="#{true}" itemLabel="Sim" />
+									   <f:selectItem itemValue="#{false}" itemLabel="Não" />
+									   <f:ajax process="@this" render="bolsaEsc" />	   			
+									</h:selectOneRadio>
+								</td>
+					        </tr>
+					        <tr>
+					          	<td>
+									<label>Doenças</label>
+								</td>
+					          	<td>
+									<h:selectManyCheckbox value="#{newPessoa.doencasPessoa}" layout="pageDirection">
+										<f:selectItems value="#{newPessoa.doencas}" var="doenca" itemLabel="#{doenca.nome}" itemValue="#{doenca.sigla}"></f:selectItems>
+									</h:selectManyCheckbox>
+								</td>
+					        </tr>
+					      </tbody>
+					    </table>
+
+					</h:form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+						<h:commandButton class="btn btn-primary" value="Adicionar" action="#{newPessoa.savePessoa}"/>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>
 			</div>

@@ -22,7 +22,7 @@ public class Endereco {
 	private Acs agente;
 
 	//PROPRIEDADES
-	@Id
+	
 	@Column(name="END_RUA")
 	public String getRua() {
 		return rua;
@@ -62,7 +62,7 @@ public class Endereco {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	
+	@Id
 	@Column(name="END_CEP")
 	public Integer getCep() {
 		return cep;

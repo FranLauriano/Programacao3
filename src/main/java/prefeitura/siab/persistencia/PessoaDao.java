@@ -24,15 +24,15 @@ public class PessoaDao {
 	}
 
 	public void delete(Pessoa pessoa) {
-		Pessoa pessoaAux = manager.find(Pessoa.class, pessoa.getCodigo());
+		Pessoa pessoaAux = manager.find(Pessoa.class, pessoa.getSus());
 		manager.remove(pessoaAux);
 	}
 
 	public Pessoa searchPessoa(Pessoa pessoa) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
 
-		if (pessoa.getCodigo() != 0) {
-			predicate.append(" and pessoa.codigo = :pessoaCodigo");
+		if (pessoa.getSus() != null && pessoa.getSus() != 0) {
+			predicate.append(" and pessoa.sus = :pessoaSus");
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {
 			predicate.append(" and upper(pessoa.nome) like :pessoaNome");
@@ -61,6 +61,7 @@ public class PessoaDao {
 		if (pessoa.getParentesco() != null && pessoa.getParentesco().length() > 1) {
 			predicate.append(" and upper(pessoa.parentesco) like :pessoaParentesco");
 		}
+		/*
 		if (pessoa.getSituacao() != null && pessoa.getSituacao().size() > 0) {
 			String operadorAnd = (pessoa.getSituacao().size() > 1) ? " and" : "";
 			predicate.append(" and (");
@@ -71,6 +72,7 @@ public class PessoaDao {
 			}
 			predicate.append(" )");
 		}
+		*/
 		if (pessoa.getFamilia() != null && pessoa.getFamilia().getCodigo() != 0) {
 			predicate.append(" and pessoa.familia.codigo = :pessoaFamiliaCodigo");
 		}
@@ -79,8 +81,8 @@ public class PessoaDao {
 		String jpql = "Select pessoa from Pessoa pessoa where " + predicate;
 		TypedQuery<Pessoa> query = manager.createQuery(jpql, Pessoa.class);
 
-		if (pessoa.getCodigo() != 0) {
-			query.setParameter("pessoaCodigo", pessoa.getCodigo());
+		if (pessoa.getSus() != null && pessoa.getSus() != 0) {
+			query.setParameter("pessoaSus", pessoa.getSus());
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {
 			query.setParameter("pessoaNome", pessoa.getNome().toUpperCase());
@@ -109,11 +111,13 @@ public class PessoaDao {
 		if (pessoa.getParentesco() != null && pessoa.getParentesco().length() > 1) {
 			query.setParameter("pessoaParentesco", pessoa.getParentesco().toUpperCase());
 		}
+		/*
 		if (pessoa.getSituacao() != null && pessoa.getSituacao().size() > 0) {
 			for (int i = 0; i < pessoa.getSituacao().size(); i++) {
 				query.setParameter("pessoaSituacaoSigla" + i, pessoa.getSituacao().get(i).getSigla().toUpperCase());
 			}
 		}
+		*/
 		if (pessoa.getFamilia() != null && pessoa.getFamilia().getCodigo() != 0) {
 			query.setParameter("pessoaFamiliaCodigo", pessoa.getFamilia().getCodigo());
 		}
@@ -129,8 +133,8 @@ public class PessoaDao {
 	public List<Pessoa> searchListPessoa(Pessoa pessoa) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
 		
-		if (pessoa.getCodigo() != 0) {
-			predicate.append(" and pessoa.codigo = :pessoaCodigo");
+		if (pessoa.getSus() != null && pessoa.getSus() != 0) {
+			predicate.append(" and pessoa.sus = :pessoaSus");
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {
 			predicate.append(" and upper(pessoa.nome) like :pessoaNome");
@@ -177,8 +181,8 @@ public class PessoaDao {
 		String jpql = "Select pessoa from Pessoa pessoa where " + predicate;
 		TypedQuery<Pessoa> query = manager.createQuery(jpql, Pessoa.class);
 
-		if (pessoa.getCodigo() != 0) {
-			query.setParameter("pessoaCodigo", pessoa.getCodigo());
+		if (pessoa.getSus() != 0 && pessoa.getSus() != 0) {
+			query.setParameter("pessoaSus", pessoa.getSus());
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {
 			query.setParameter("pessoaNome", pessoa.getNome().toUpperCase());
@@ -221,9 +225,9 @@ public class PessoaDao {
 		
 	}
 
-	public Pessoa searchPessoaName(String nomePessoa) {
-		TypedQuery<Pessoa> query = manager.createQuery("Select pessoa from Pessoa pessoa where upper(pessoa.nome) like :pessoaNome", Pessoa.class);
-		query.setParameter("pessoaNome", nomePessoa.toUpperCase());
+	public Pessoa searchPessoaSus(Integer sus) {
+		TypedQuery<Pessoa> query = manager.createQuery("Select pessoa from Pessoa pessoa where pessoa.sus = :pessoaSus", Pessoa.class);
+		query.setParameter("pessoaSus", sus);
 		List<Pessoa> result = query.getResultList();
 		
 		if(result.isEmpty()){
