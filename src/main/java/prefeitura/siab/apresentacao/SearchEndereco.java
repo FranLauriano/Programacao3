@@ -86,7 +86,14 @@ public class SearchEndereco {
 	}
 	
 	public String update(Endereco endereco){
-		this.endereco = endereco;
+		Endereco aux = new Endereco();
+		aux.setAgente(endereco.getAgente());
+		aux.setBairro(endereco.getBairro());
+		aux.setCep(endereco.getCep());
+		aux.setMunicipio(endereco.getMunicipio());
+		aux.setRua(endereco.getRua());
+		aux.setUf(endereco.getUf());
+		this.endereco = aux;
 		return "updateEndereco";
 	}
 	

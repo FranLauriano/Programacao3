@@ -26,7 +26,7 @@
 				<center><h3>Procurar Pessoa</h3></center>
 			</div>
 			
-			<siab:procuraPessoa id="pessoa" options="#{searchPessoa.pessoa}">
+			<siab:procuraPessoa id="pessoa" options="#{searchPessoa.options}" classe="#{searchPessoa}">
 				<f:facet name="buttons">
 					<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchPessoa.search}" ajax="false"/>
 				</f:facet>
@@ -35,6 +35,10 @@
 		
 		<h:form>
 			<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{searchPessoa.result}" var="pessoa" rendered="#{searchPessoa.result.isEmpty() == false}">
+					<h:column>
+						<f:facet name="header">Família</f:facet>
+						#{pessoa.familia.codigo}
+					</h:column>
 					<h:column>
 						<f:facet name="header">Nome</f:facet>
 						#{pessoa.nome}
@@ -46,6 +50,10 @@
 					<h:column>
 						<f:facet name="header">Idade</f:facet>
 						#{pessoa.idade}
+					</h:column>
+					<h:column>
+						<f:facet name="header">Nome da Mãe</f:facet>
+						#{pessoa.mae}
 					</h:column>
 					<h:column>
 						<f:facet name="header">Sexo</f:facet>
@@ -68,13 +76,11 @@
 						#{pessoa.vinculo.nome}
 					</h:column>
 					<h:column>
-						<f:facet name="header">Nome da Mãe</f:facet>
-						#{pessoa.mae}
+						<f:facet name="header">ACS</f:facet>
+						#{pessoa.familia.agente.nome}
 					</h:column>
-					<h:column>
-						<f:facet name="header">Família</f:facet>
-						#{pessoa.familia.codigo}
-					</h:column>
+					
+					
 					<h:column>
 						<h:commandLink class="btn btn-primary glyphicon glyphicon-pencil close" action="#{searchPessoa.update(pessoa)}" title="Update">
 						</h:commandLink>							

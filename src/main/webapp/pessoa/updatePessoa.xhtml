@@ -29,7 +29,7 @@
 				<center><h3><strong>Alterar Pessoa</strong></h3></center>
 			</div>
 			
-			<siab:pessoa id="pessoa" raca="#{searchPessoa.pessoa}" disabled="true">
+			<siab:pessoa id="pessoa" pessoa="#{searchPessoa.pessoa}" classe="#{seachPessoa}">
 				<f:facet name="buttons">
 					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchPessoa.confirmUpdate}"/>
 				</f:facet>

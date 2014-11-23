@@ -95,4 +95,16 @@ public class EnderecoDao {
 		}
 	}
 	
+	public Endereco searchEnderecoCep(Integer cep) {
+		TypedQuery<Endereco> query = manager.createQuery("Select endereco from Endereco endereco where endereco.cep = :enderecoCep", Endereco.class);
+		query.setParameter("enderecoCep", cep);
+		List<Endereco> result = query.getResultList();
+		
+		if(result.isEmpty()){
+			return null;
+		}else{
+			return result.get(0);
+		}
+	}
+	
 }
