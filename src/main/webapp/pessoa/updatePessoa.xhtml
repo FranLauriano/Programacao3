@@ -29,11 +29,11 @@
 				<center><h3><strong>Alterar Pessoa</strong></h3></center>
 			</div>
 			
-			<siab:pessoa id="pessoa" pessoa="#{searchPessoa.pessoa}" classe="#{seachPessoa}">
+			<siab:alteraPessoa id="pessoa" form="#{searchPessoa.form}">
 				<f:facet name="buttons">
 					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchPessoa.confirmUpdate}"/>
 				</f:facet>
-			</siab:pessoa>
+			</siab:alteraPessoa>
 		</div>
   	</ui:define>
 

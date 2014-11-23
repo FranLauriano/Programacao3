@@ -44,7 +44,7 @@ public class PessoaController {
 		if(pessoaAux == null){
 			dao.updatePessoa(pessoa);
 		}else{
-			if(pessoa.getSus() == pessoaAux.getSus() && pessoa.getNome().equals(pessoaAux.getNome())){
+			if(pessoa.getSus().equals(pessoaAux.getSus())){
 				dao.updatePessoa(pessoa);
 			}else{
 				throw new BusinessException("Já existe uma Pessoa com o nome: "+ pessoa.getNome());

@@ -32,18 +32,6 @@ public class EnderecoController {
 	@Transactional
 	public void updateEndereco(Endereco endereco) throws BusinessException {
 		dao.updateEndereco(endereco);
-		/*
-		Endereco enderecoAux = dao.searchEnderecoCep(endereco.getCep());
-		if(enderecoAux == null){
-			
-		}else{
-			if(endereco.getCep() == (enderecoAux.getCep())){
-				dao.updateEndereco(endereco);
-			}else{
-				throw new BusinessException("Já existe uma rua com o nome: "+ endereco.getRua());
-			}
-		}
-		*/
 	}
 	
 	@Transactional

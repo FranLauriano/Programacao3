@@ -24,7 +24,7 @@ public class EnderecoDao {
 	}
 
 	public void delete(Endereco endereco) {
-		Endereco enderecoAux = manager.find(Endereco.class, endereco.getRua());
+		Endereco enderecoAux = manager.find(Endereco.class, endereco.getCep());
 		manager.remove(enderecoAux);
 	}
 
@@ -59,8 +59,10 @@ public class EnderecoDao {
 				predicate.append(" and endereco.cep = :enderecoCep");
 			}
 		}
-		if(endereco.getAgente() != null && (endereco.getAgente().getMatricula() != null || endereco.getAgente().getMatricula() != 0)){
-			predicate.append(" and endereco.agente.matricula = :matriculaAcs");
+		if(endereco.getAgente() != null){
+			if (endereco.getAgente().getMatricula() != null && endereco.getAgente().getMatricula() != 0){
+				predicate.append(" and endereco.agente.matricula = :matriculaAcs");
+			}
 		}
 		String jpql = "Select endereco from Endereco endereco where " + predicate;
 		TypedQuery<Endereco> query = manager.createQuery(jpql, Endereco.class);
@@ -75,8 +77,10 @@ public class EnderecoDao {
 				query.setParameter("enderecoCep", endereco.getCep());
 			}
 		}
-		if(endereco.getAgente() != null && (endereco.getAgente().getMatricula() != null || endereco.getAgente().getMatricula() != 0)){
-			query.setParameter("matriculaAcs", endereco.getAgente().getMatricula());
+		if(endereco.getAgente() != null){
+			if (endereco.getAgente().getMatricula() != null && endereco.getAgente().getMatricula() != 0){
+				query.setParameter("matriculaAcs", endereco.getAgente().getMatricula());
+			}
 		}
 		List<Endereco> result = query.getResultList();
 		System.out.println(result);

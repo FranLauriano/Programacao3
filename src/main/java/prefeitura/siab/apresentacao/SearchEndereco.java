@@ -26,7 +26,7 @@ public class SearchEndereco {
 	private @Autowired EnderecoController controller;
 	private Endereco endereco;
 	private List<Endereco> result;
-	private boolean enderecoDeletada;
+	private boolean enderecoAlterado;
 	private EnderecoSearchOptions options;
 	private List<Acs> agentes;
 
@@ -45,11 +45,11 @@ public class SearchEndereco {
 		this.result = result;
 	}
 	
-	public boolean isEnderecoDeletada() {
-		return enderecoDeletada;
+	public boolean getEnderecoAlterado() {
+		return enderecoAlterado;
 	}
-	public void setEnderecoDeletada(boolean enderecoDeletada) {
-		this.enderecoDeletada = enderecoDeletada;
+	public void setEnderecoAlterado(boolean enderecoDeletada) {
+		this.enderecoAlterado = enderecoDeletada;
 	}
 
 	public EnderecoSearchOptions getOptions() {
@@ -68,6 +68,8 @@ public class SearchEndereco {
 	
 	//CONSTRUTOR
 	public SearchEndereco() {
+		endereco = new Endereco();
+		endereco.setAgente(new Acs());
 		reset();
 	}
 	
@@ -94,6 +96,7 @@ public class SearchEndereco {
 		aux.setRua(endereco.getRua());
 		aux.setUf(endereco.getUf());
 		this.endereco = aux;
+		enderecoAlterado = true;
 		return "updateEndereco";
 	}
 	
@@ -114,6 +117,7 @@ public class SearchEndereco {
 		try{
 			controller.updateEndereco(endereco);
 			reset();
+			//enderecoAlterado = false;
 			message.setSummary("Endereço atualizado com Sucesso!");
 			message.setSeverity(FacesMessage.SEVERITY_INFO);
 		}catch(BusinessException e){
@@ -126,12 +130,13 @@ public class SearchEndereco {
 		return null;
 	}
 	
+	/*
 	public String delete(Endereco endereco){
 		this.endereco = endereco;
 		this.enderecoDeletada = false;
 		return "deleteEndereco";
 	}
-
+	 */
 	
 	public String confirmDeletion(Endereco endereco) throws BusinessException{
 		controller.deleteEndereco(endereco);
@@ -157,10 +162,12 @@ public class SearchEndereco {
 	public void setAcsMatricula(Integer matricula){
 		if(matricula == 0 || matricula == null){
 			options.setAgente(null);
+			endereco.setAgente(null);
 		}else{
 			for(Acs agente: agentes){
 				if(agente.getMatricula().equals(matricula)){
 					options.setAgente(agente);
+					endereco.setAgente(agente);
 					break;
 				}
 			}
@@ -168,11 +175,20 @@ public class SearchEndereco {
 	}
 	
 	public Integer getAcsMatricula(){
-		if(options.getAgente() == null){
-			return null;			
+		if(enderecoAlterado){
+			if(endereco.getAgente() == null){
+				return null;			
+			}else{
+				return endereco.getAgente().getMatricula();
+			}
 		}else{
-			return options.getAgente().getMatricula();
+			if(options.getAgente() == null){
+				return null;			
+			}else{
+				return options.getAgente().getMatricula();
+			}
 		}
+		
 	}
 	
 }

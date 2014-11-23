@@ -20,7 +20,6 @@ import prefeitura.siab.controller.FamiliaController;
 import prefeitura.siab.controller.PessoaController;
 import prefeitura.siab.controller.RacaController;
 import prefeitura.siab.controller.VinculoController;
-import prefeitura.siab.tabela.Acs;
 import prefeitura.siab.tabela.Doenca;
 import prefeitura.siab.tabela.Escolaridade;
 import prefeitura.siab.tabela.Familia;
@@ -52,9 +51,16 @@ public class SearchPessoa {
 	//DOENÇAS
 	private DoencaController controllerDoenca;
 	private List<Doenca> doencas;
+	private PessoaForm form;
 	
 	//PROPRIEDADES
 	
+	public PessoaForm getForm() {
+		return form;
+	}
+	public void setForm(PessoaForm form) {
+		this.form = form;
+	}
 	public List<Pessoa> getResult() {
 		return result;
 	}
@@ -108,9 +114,8 @@ public class SearchPessoa {
 	public SearchPessoa() {
 		result = null;
 		reset();
-		
-		pessoa = new Pessoa();
-		
+		form = new PessoaForm();
+			
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ApplicationContext applicationContext = FacesContextUtils.getWebApplicationContext(facesContext);
 		
@@ -130,6 +135,7 @@ public class SearchPessoa {
 	//MÉTODOS
 	
 	public void reset(){
+		
 		options = new PessoaSearchOptions();
 		options.setFamilia(new Familia());
 		options.setEscolaridade(new Escolaridade());
@@ -137,6 +143,14 @@ public class SearchPessoa {
 		options.setVinculo(new VinculoEmpregaticio());
 		List<Doenca> situacao = new ArrayList<>();
 		options.setDoencas(situacao);
+		
+		pessoa = new Pessoa();
+		pessoa.setFamilia(new Familia());
+		pessoa.setEscolaridade(new Escolaridade());
+		pessoa.setRaca(new Raca());
+		pessoa.setVinculo(new VinculoEmpregaticio());
+		List<Doenca> situacao1 = new ArrayList<>();
+		pessoa.setSituacao(situacao1);
 	}
 	public String search(){
 		result = controller.searchListPessoa(options);
@@ -147,10 +161,12 @@ public class SearchPessoa {
 		public void setFamiliaPessoa(Integer codigo){
 			if(codigo == null || codigo == 0){
 				options.getFamilia().setCodigo(codigo);
+				pessoa.getFamilia().setCodigo(codigo);
 			}else{
 				for(Familia familia: familias){
 					if(familia.getCodigo().equals(codigo)){
 						options.setFamilia(familia);
+						pessoa.setFamilia(familia);
 						familias = controllerFamilia.searchFamilia(new Familia());
 						break;
 					}
@@ -272,6 +288,7 @@ public class SearchPessoa {
 		pessoaAux.setSus(pessoa.getSus());
 		pessoaAux.setVinculo(pessoa.getVinculo());
 		this.pessoa = pessoaAux;
+		form.setPessoa(pessoaAux);
 		return "updatePessoa";
 	}
 	

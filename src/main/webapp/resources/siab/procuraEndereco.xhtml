@@ -83,9 +83,10 @@
 					<label class="col-sm-1 control-label">Agente</label>
 				</p>
 				<div class="col-sm-10">
-					<h:selectOneMenu styleClass="form-control"	value="#{cc.attrs.options.acsMatricula}">
+					<h:selectOneMenu id="acs" styleClass="form-control"	value="#{cc.attrs.options.acsMatricula}">
 						<f:selectItem itemLabel="Selecione um ACS" itemValue="#{null}" />
-						<f:selectItems value="#{newEndereco.agentes}" var="agente"	itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
+						<f:selectItems value="#{cc.attrs.options.agentes}" var="agente"	itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
+						<f:ajax process="@this" render="acs" />	
 					</h:selectOneMenu>
 				</div>
 			</div>
