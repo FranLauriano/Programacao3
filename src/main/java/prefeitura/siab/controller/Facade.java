@@ -1,28 +1,38 @@
 package prefeitura.siab.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import javax.faces.context.FacesContext;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.jsf.FacesContextUtils;
 
-@Component
 public class Facade {
 
 	//CONTROLADORES
-	private @Autowired AcsController acsController;
-	private @Autowired DoencaController doencaController;
-	private @Autowired EnderecoController enderecoController;
-	private @Autowired EscolaridadeController escolaridadeController;
-	private @Autowired FamiliaController familiaController;
-//	private @Autowired PessoaController pessoaController;
-	private @Autowired RacaController racaController;
-	private @Autowired VinculoController vinculoController;
+	public AcsController acsController;
+	public DoencaController doencaController;
+	public EnderecoController enderecoController;
+	public EscolaridadeController escolaridadeController;
+	public FamiliaController familiaController;
+	public PessoaController pessoaController;
+	public RacaController racaController;
+	public VinculoController vinculoController;
 	
 	//INSTANCIA
 	private Facade instance;
 
 	//CONSTRUTOR
 	private Facade(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ApplicationContext applicationContext = FacesContextUtils.getWebApplicationContext(facesContext);
 		
+		acsController = applicationContext.getBean(AcsController.class);
+		doencaController = applicationContext.getBean(DoencaController.class);
+		enderecoController = applicationContext.getBean(EnderecoController.class);
+		escolaridadeController = applicationContext.getBean(EscolaridadeController.class);
+		familiaController = applicationContext.getBean(FamiliaController.class);
+		pessoaController = applicationContext.getBean(PessoaController.class);
+		racaController = applicationContext.getBean(RacaController.class);
+		vinculoController = applicationContext.getBean(VinculoController.class);
 	}
 	
 	//RECUPERAR INSTANCIA DO FACADE

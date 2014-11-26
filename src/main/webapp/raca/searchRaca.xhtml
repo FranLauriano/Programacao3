@@ -1,69 +1,55 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:siab="http://java.sun.com/jsf/composite/siab"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core">
+		xmlns:siab="http://java.sun.com/jsf/composite/siab"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">
+<ui:composition template="/template.xhtml">
 	<ui:define name="title">Procurar Raça</ui:define>
 
 	<ui:define name="mensagem">
-		<h:messages />
+		<h:messages/>
 	</ui:define>
 
 	<ui:define name="content">
 
-		<ol class="breadcrumb">
-			<li><a href="/siab/index.xhtml">Início</a></li>
-			<li><a href="/siab/raca/startRaca.xhtml">Raça</a></li>
-			<li class="active">Procurar Raça</li>
-		</ol>
-
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center>
-					<h3>Procurar Raça</h3>
-				</center>
-			</div>
-
-			<siab:procuraRaca id="options" options="#{searchRaca.options}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Procurar"
-						action="#{searchRaca.search}" ajax="false" />
-				</f:facet>
-			</siab:procuraRaca>
-		</div>
+		<siab:procuraRaca id="options" options="#{searchRaca.options}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchRaca.search}" ajax="false" />
+			</f:facet>
+		</siab:procuraRaca>
 
 		<h:form>
-			<h:dataTable
-				styleClass="table table-bordered table-condensed table-hover"
-				value="#{searchRaca.result}" var="raca"
-				columnClasses="col-sm-6, col-sm-6"
-				rendered="#{searchRaca.result.isEmpty() == false}">
-				<h:column>
-					<f:facet name="header">Código</f:facet>
-						#{raca.codigo}
-					</h:column>
-				<h:column>
-					<f:facet name="header">Nome</f:facet>
-						#{raca.nome}
-					</h:column>
-				<h:column>
-					<h:commandLink
-						class="btn btn-primary glyphicon glyphicon-pencil close"
-						action="#{searchRaca.update(raca)}" title="Update">
-					</h:commandLink>
-				</h:column>
-				<h:column>
-					<h:commandLink
-						class="btn btn-danger glyphicon glyphicon-trash close"
-						onclick="return confirm('Deseja excluir #{raca.nome}?')"
-						action="#{searchRaca.confirmDeletion(raca)}" title="Delete">
-					</h:commandLink>
-				</h:column>
-			</h:dataTable>
+			<div class="box">
+				<div class="box-content box-nomargin">
+					<div class="tab-content">
+						<div class="tab-pane active">
+							<h:dataTable 	class="table table-striped dataTable table-bordered" 
+											value="#{searchRaca.result}" 
+											var="raca" 
+											columnClasses="col-sm-5, col-sm-5" 
+											rendered="#{searchRaca.result.isEmpty() == false}">
+								<h:column>
+									<f:facet name="header">Código</f:facet>
+										#{raca.codigo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Nome</f:facet>
+										#{raca.nome}
+								</h:column>
+								<h:column>
+									<h:commandButton class="btn btn-primary" value="Alterar" title="Update" action="#{searchRaca.update(raca)}"/>
+								</h:column>
+								<h:column>
+									<h:commandButton class="btn btn-danger" value="Deletar" title="Delete" action="#{searchRaca.confirmDeletion(raca)}" onclick="return confirm('Deseja excluir #{raca.nome}?')"/>
+								</h:column>
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
 		</h:form>
 	</ui:define>
 

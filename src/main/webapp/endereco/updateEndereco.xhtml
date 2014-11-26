@@ -7,44 +7,20 @@
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">
+<ui:composition template="/template.xhtml">
 	<ui:define name="title">Alterar Endereço</ui:define>
 
 	<ui:define name="mensagem">
-		<h:messages />
+		<h:messages/>
 	</ui:define>
 
 
 	<ui:define name="content">
-
-		<ol class="breadcrumb">
-			<li><a href="/siab/index.xhtml">Início</a></li>
-			<li><a
-				href="/siab/endereco/startEndereco.xhtml">Endereço</a></li>
-			<li><a
-				href="/siab/endereco/searchEndereco.xhtml">Procurar
-					Endereço</a></li>
-			<li class="active">Alterar Endereço</li>
-		</ol>
-
-
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center>
-					<h3>
-						<strong>Alterar Endereço</strong>
-					</h3>
-				</center>
-			</div>
-
-			<siab:endereco id="endereco" endereco="#{searchEndereco}"
-				disabled="true">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Salvar"
-						action="#{searchEndereco.confirmUpdate}" />
-				</f:facet>
-			</siab:endereco>
-		</div>
+		<siab:endereco id="endereco" endereco="#{searchEndereco}" disabled="true">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Salvar"	action="#{searchEndereco.confirmUpdate}" />
+			</f:facet>
+		</siab:endereco>
 	</ui:define>
 
 </ui:composition>

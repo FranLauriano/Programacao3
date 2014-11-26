@@ -7,7 +7,7 @@
 	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">  
+<ui:composition template="/template.xhtml">  
   	<ui:define name="title">Alterar Raça</ui:define>
 
   	<ui:define name="mensagem">
@@ -16,26 +16,11 @@
   	
 
   	<ui:define name="content">
-  	
-  	<ol class="breadcrumb">
-	  <li><a href="/siab/index.xhtml">Início</a></li>
-	  <li><a href="/siab/raca/startRaca.xhtml">Raça</a></li>
-	  <li><a href="/siab/raca/searchRaca.xhtml">Procurar Raça</a></li>
-	  <li class="active">Alterar Raça</li>
-	</ol>
-  	
-  	
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center><h3><strong>Alterar Raça</strong></h3></center>
-			</div>
-			
-			<siab:raca id="raca" raca="#{searchRaca.raca}" disabled="true">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchRaca.confirmUpdate}"/>
-				</f:facet>
-			</siab:raca>
-		</div>
+		<siab:raca id="raca" raca="#{searchRaca.raca}" disabled="true">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchRaca.confirmUpdate}"/>
+			</f:facet>
+		</siab:raca>
   	</ui:define>
 
 </ui:composition>	

@@ -6,34 +6,19 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">  
+<ui:composition template="/template.xhtml">  
   	<ui:define name="title">Nova Raça</ui:define>
 
   	<ui:define name="mensagem">
   		<h:messages/>
   	</ui:define>
   	
-
   	<ui:define name="content">
-  	
-  	<ol class="breadcrumb">
-	  <li><a href="/siab/index.xhtml">Início</a></li>
-	  <li><a href="/siab/raca/startRaca.xhtml">Raça</a></li>
-	  <li class="active">Cadastrar Raça</li>
-	</ol>
-  	
-  	
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center><h3>Cadastrar Nova Raça</h3></center>
-			</div>
-			
-			<siab:raca id="raca" raca="#{newRaca.raca}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newRaca.saveRaca}"/>
-				</f:facet>
-			</siab:raca>
-		</div>
+		<siab:raca id="raca" raca="#{newRaca.raca}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newRaca.saveRaca}"/>
+			</f:facet>
+		</siab:raca>
   	</ui:define>
 
 </ui:composition>	

@@ -7,44 +7,20 @@
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">
+<ui:composition template="/template.xhtml">
 	<ui:define name="title">Alterar Vinculo</ui:define>
 
 	<ui:define name="mensagem">
-		<h:messages />
+		<h:messages/>
 	</ui:define>
 
 
 	<ui:define name="content">
-
-		<ol class="breadcrumb">
-			<li><a href="/siab/index.xhtml">Início</a></li>
-			<li><a
-				href="/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
-			<li><a
-				href="/siab/vinculo/searchVinculo.xhtml">Procurar
-					Vinculo</a></li>
-			<li class="active">Alterar Vinculo</li>
-		</ol>
-
-
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center>
-					<h3>
-						<strong>Alterar Vinculo</strong>
-					</h3>
-				</center>
-			</div>
-
-			<siab:vinculo id="vinculo" vinculo="#{searchVinculo.vinculo}"
-				disabled="true">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Salvar"
-						action="#{searchVinculo.confirmUpdate}" />
-				</f:facet>
-			</siab:vinculo>
-		</div>
+		<siab:vinculo id="vinculo" vinculo="#{searchVinculo.vinculo}" disabled="true">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Salvar"	action="#{searchVinculo.confirmUpdate}" />
+			</f:facet>
+		</siab:vinculo>
 	</ui:define>
 
 </ui:composition>

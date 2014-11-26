@@ -6,7 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">
+<ui:composition template="/template.xhtml">
 	<ui:define name="title">Procurar Endereço</ui:define>
 
 	<ui:define name="mensagem">
@@ -15,70 +15,55 @@
 
 
 	<ui:define name="content">
-
-		<ol class="breadcrumb">
-			<li><a href="/siab/index.xhtml">Início</a></li>
-			<li><a
-				href="/siab/endereco/startEndereco.xhtml">Endereço</a></li>
-			<li class="active">Procurar Endereço</li>
-		</ol>
-
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center>
-					<h3>Procurar Endereço</h3>
-				</center>
-			</div>
-
-			<siab:procuraEndereco id="options" options="#{searchEndereco}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Procurar"
-						action="#{searchEndereco.search}" ajax="false" />
-				</f:facet>
-			</siab:procuraEndereco>
-		</div>
+		<siab:procuraEndereco id="options" options="#{searchEndereco}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchEndereco.search}" ajax="false" />
+			</f:facet>
+		</siab:procuraEndereco>
 
 		<h:form>
-			<h:dataTable
-				styleClass="table table-bordered table-condensed table-hover"
-				value="#{searchEndereco.result}" var="endereco"
-				rendered="#{searchEndereco.result.isEmpty() == false}">
-				<h:column>
-					<f:facet name="header">CEP</f:facet>
-						#{endereco.cep}
-					</h:column>
-				<h:column>
-					<f:facet name="header">Nome da Rua</f:facet>
-						#{endereco.rua}
-					</h:column>
-				<h:column>
-					<f:facet name="header">Bairro</f:facet>
-						#{endereco.bairro}
-					</h:column>
-				<h:column>
-					<f:facet name="header">Cidade</f:facet>
-						#{endereco.municipio}
-					</h:column>
-				<h:column>
-					<f:facet name="header">ACS</f:facet>
-						#{endereco.agente.nome}
-					</h:column>
-				<h:column>
-					<h:commandLink
-						class="btn btn-primary glyphicon glyphicon-pencil close"
-						action="#{searchEndereco.update(endereco)}" title="Update">
-					</h:commandLink>
-				</h:column>
-				<h:column>
-					<h:commandLink
-						class="btn btn-danger glyphicon glyphicon-trash close"
-						onclick="return confirm('Deseja excluir #{endereco.rua}?')"
-						action="#{searchEndereco.confirmDeletion(endereco)}"
-						title="Delete">
-					</h:commandLink>
-				</h:column>
-			</h:dataTable>
+			<div class="box">
+				<div class="box-content box-nomargin">
+					<div class="tab-content">
+						<div class="tab-pane active">
+							<h:dataTable 	class="table table-striped dataTable table-bordered" 
+											value="#{searchEndereco.result}" 
+											var="endereco"
+											columnClasses="col-sm-5, col-sm-5" 
+											rendered="#{searchEndereco.result.isEmpty() == false}">
+								<h:column>
+									<f:facet name="header">CEP</f:facet>
+										#{endereco.cep}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Nome da Rua</f:facet>
+										#{endereco.rua}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Bairro</f:facet>
+										#{endereco.bairro}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Cidade</f:facet>
+										#{endereco.municipio}
+								</h:column>
+								<h:column>
+									<f:facet name="header">ACS</f:facet>
+										#{endereco.agente.nome}
+								</h:column>
+								<h:column>
+									<h:commandButton class="btn btn-primary" value="Alterar" action="#{searchEndereco.update(endereco)}" title="Update"/>
+								</h:column>
+								<h:column>
+									<h:commandButton class="btn btn-danger" value="Deletar" onclick="return confirm('Deseja excluir #{endereco.rua}?')"	action="#{searchEndereco.confirmDeletion(endereco)}" title="Delete"/>
+								</h:column>
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
 		</h:form>
+
 	</ui:define>
 
 </ui:composition>

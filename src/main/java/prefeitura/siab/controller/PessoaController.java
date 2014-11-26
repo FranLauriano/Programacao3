@@ -38,6 +38,10 @@ public class PessoaController {
 		return dao.searchListPessoa(pessoa);
 	}
 
+	public Pessoa searchPessoaSus(Integer sus) {
+		return dao.searchPessoaSus(sus);
+	}
+	
 	@Transactional
 	public void updatePessoa(Pessoa pessoa) throws BusinessException {
 		Pessoa pessoaAux = dao.searchPessoaSus(pessoa.getSus());

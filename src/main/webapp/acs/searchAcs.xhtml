@@ -6,78 +6,64 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">
+<ui:composition template="/template.xhtml">
 	<ui:define name="title">Procurar Acs</ui:define>
 
 	<ui:define name="mensagem">
-		<h:messages />
+		<h:messages/>
 	</ui:define>
 
 
 	<ui:define name="content">
-
-		<ol class="breadcrumb">
-			<li><a href="/siab/index.xhtml">Início</a></li>
-			<li><a href="/siab/acs/startAcs.xhtml">Acs</a></li>
-			<li class="active">Procurar Acs</li>
-		</ol>
-
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center>
-					<h3>Procurar Acs</h3>
-				</center>
-			</div>
-
-			<siab:procuraAcs id="options" agente="#{searchAcs.options}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Procurar"
-						action="#{searchAcs.search}" ajax="false" />
-				</f:facet>
-			</siab:procuraAcs>
-		</div>
+		<siab:procuraAcs id="options" agente="#{searchAcs.options}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchAcs.search}" ajax="false" />
+			</f:facet>
+		</siab:procuraAcs>
 
 		<h:form>
-			<h:dataTable
-				styleClass="table table-bordered table-condensed table-hover"
-				value="#{searchAcs.result}" var="agente"
-				columnClasses="col-sm-6, col-sm-6"
-				rendered="#{searchAcs.result.isEmpty() == false}">
-				<h:column>
-					<f:facet name="header">Matricula</f:facet>
-						#{agente.matricula}
-					</h:column>
-				<h:column>
-					<f:facet name="header">Nome</f:facet>
-						#{agente.nome}
-					</h:column>
-				<h:column>
-					<f:facet name="header">Microarea</f:facet>
-						#{agente.microarea}
-					</h:column>
-				<h:column>
-					<f:facet name="header">Area</f:facet>
-						#{agente.area}
-					</h:column>
-				<h:column>
-					<f:facet name="header">Microregiao</f:facet>
-						#{agente.microregiao}
-					</h:column>
-				<h:column>
-					<h:commandLink
-						class="btn btn-primary glyphicon glyphicon-pencil close"
-						action="#{searchAcs.update(agente)}" title="Update">
-					</h:commandLink>
-				</h:column>
-				<h:column>
-					<h:commandLink
-						class="btn btn-danger glyphicon glyphicon-trash close"
-						onclick="return confirm('Deseja excluir #{agente.nome}?')"
-						action="#{searchAcs.confirmDeletion(agente)}" title="Delete">
-					</h:commandLink>
-				</h:column>
-			</h:dataTable>
+			<div class="box">
+				<div class="box-content box-nomargin">
+					<div class="tab-content">
+						<div class="tab-pane active">
+							<h:dataTable 	class="table table-striped dataTable table-bordered" 
+											value="#{searchAcs.result}" 
+											var="agente"
+											columnClasses="col-sm-5, col-sm-5" 
+											rendered="#{searchAcs.result.isEmpty() == false}">
+								<h:column>
+									<f:facet name="header">Matricula</f:facet>
+										#{agente.matricula}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Nome</f:facet>
+										#{agente.nome}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Micro-Área</f:facet>
+										#{agente.microarea}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Area</f:facet>
+										#{agente.area}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Micro-Região</f:facet>
+										#{agente.microregiao}
+								</h:column>
+								<h:column>
+									<h:commandButton class="btn btn-primary" value="Alterar" action="#{searchAcs.update(agente)}" title="Update"/>
+								</h:column>
+								<h:column>
+									<h:commandButton class="btn btn-danger" value="Deletar" onclick="return confirm('Deseja excluir #{agente.nome}?')" action="#{searchAcs.confirmDeletion(agente)}" title="Delete"/>
+								</h:column>
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
 		</h:form>
+	
 	</ui:define>
 
 </ui:composition>

@@ -16,44 +16,29 @@
 
 <composite:implementation>
 
-	<h:form id="form">
-		<div class="container">
-			<div class="form-group">
-				<p>
-					<label class="col-sm-1 control-label">Código</label>
-				</p>
-				<div class="col-sm-10">
-					<h:inputText id="vinculo" styleClass="form-control"
-						value="#{cc.attrs.vinculo.codigo}" disabled="#{cc.attrs.disabled}"
-						p:placeholder="Vínculo"></h:inputText>
-				</div>
+	<h:form id="form" class="form-horizontal">
+	
+		<div class="control-group">	    
+		    <label class="control-label">Código</label>
+		    <div class="controls">
+		    	<h:inputText id="vinculo" styleClass="form-control"	value="#{cc.attrs.vinculo.codigo}" disabled="#{cc.attrs.disabled}" p:placeholder="Código"></h:inputText>
+		    </div>
+	  	</div> 	
+  
+	  	<div class="control-group">	  			
+		    <label class="control-label">Nome</label>
+		    <div class="controls">
+		    	<h:inputText id="nome" styleClass="form-control" value="#{cc.attrs.vinculo.nome}" p:placeholder="Nome do Vínculo"></h:inputText>
+		    </div>
+	  	</div>
+
+	  	<div class="control-group">	 
+			<div class="controls">
+				<composite:renderFacet name="buttons"></composite:renderFacet>
+				<composite:renderFacet name="voltar"></composite:renderFacet>
 			</div>
 		</div>
-
-		<div class="container">
-			<div class="form-group">
-				<p>
-					<label class="col-sm-1 control-label">Nome</label>
-				</p>
-				<div class="col-sm-10">
-					<h:inputText id="nome" styleClass="form-control"
-						value="#{cc.attrs.vinculo.nome}" p:placeholder="Nome"></h:inputText>
-				</div>
-			</div>
-		</div>
-
-		<div class="container">
-			<div class="col-sm-1 control-label">
-				<div class="btn-toolbar">
-					<p>
-						<composite:renderFacet name="buttons"></composite:renderFacet>
-						<composite:renderFacet name="voltar"></composite:renderFacet>
-					</p>
-				</div>
-			</div>
-		</div>
-
-
+			
 	</h:form>
 
 </composite:implementation>

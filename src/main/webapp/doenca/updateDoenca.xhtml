@@ -7,7 +7,7 @@
 	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">  
+<ui:composition template="/template.xhtml">  
   	<ui:define name="title">Alterar Doença</ui:define>
 
   	<ui:define name="mensagem">
@@ -16,26 +16,11 @@
   	
   	
   	<ui:define name="content">
-  	
-  	<ol class="breadcrumb">
-	  <li><a href="/siab/index.xhtml">Início</a></li>
-	  <li><a href="/siab/doenca/startDoenca.xhtml">Doença</a></li>
-	  <li><a href="/siab/doenca/searchDoenca.xhtml">Procurar Doença</a></li>
-	  <li class="active">Alterar Doença</li>
-	</ol>
-  	
-  	
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center><h3><strong>Alterar Doença</strong></h3></center>
-			</div>
-			
-			<siab:doenca id="doenca" doenca="#{searchDoenca.doenca}" disabled="true">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchDoenca.confirmUpdate}"/>
-				</f:facet>
-			</siab:doenca>
-		</div>
+		<siab:doenca id="doenca" doenca="#{searchDoenca.doenca}" disabled="true">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchDoenca.confirmUpdate}"/>
+			</f:facet>
+		</siab:doenca>
   	</ui:define>
 
 </ui:composition>	

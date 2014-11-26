@@ -6,7 +6,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">
+<ui:composition template="/template.xhtml">
 	<ui:define name="title">Procurar Doença</ui:define>
 
 	<ui:define name="mensagem">
@@ -16,57 +16,43 @@
 
 	<ui:define name="content">
 
-		<ol class="breadcrumb">
-			<li><a href="/siab/index.xhtml">Início</a></li>
-			<li><a href="/siab/doenca/startDoenca.xhtml">Doença</a></li>
-			<li class="active">Procurar Doença</li>
-		</ol>
-
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center>
-					<h3>Procurar Doença</h3>
-				</center>
-			</div>
-
-			<siab:procuraDoenca id="options" options="#{searchDoenca.options}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Procurar"
-						action="#{searchDoenca.search}" ajax="false" />
-				</f:facet>
-			</siab:procuraDoenca>
-		</div>
+		<siab:procuraDoenca id="options" options="#{searchDoenca.options}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchDoenca.search}" ajax="false" />
+			</f:facet>
+		</siab:procuraDoenca>
 
 		<h:form>
-			<h:dataTable
-				styleClass="table table-bordered table-condensed table-hover"
-				value="#{searchDoenca.result}" var="doenca"
-				columnClasses="col-sm-6, col-sm-6"
-				rendered="#{searchDoenca.result.isEmpty() == false}">
-				<h:column>
-					<f:facet name="header">Sigla</f:facet>
-						#{doenca.sigla}
-					</h:column>
-				<h:column>
-					<f:facet name="header">Nome</f:facet>
-						#{doenca.nome}
-					</h:column>
-				
-				<h:column>
-					<h:commandLink
-						class="btn btn-primary glyphicon glyphicon-pencil close"
-						action="#{searchDoenca.update(doenca)}" title="Update">
-					</h:commandLink>
-				</h:column>
-				<h:column>
-					<h:commandLink
-						class="btn btn-danger glyphicon glyphicon-trash close"
-						onclick="return confirm('Deseja excluir #{doenca.nome}?')"
-						action="#{searchDoenca.confirmDeletion(doenca)}" title="Delete">
-					</h:commandLink>
-				</h:column>
-			</h:dataTable>
+		<div class="box">
+			<div class="box-content box-nomargin">
+				<div class="tab-content">
+					<div class="tab-pane active">
+						<h:dataTable 	class="table table-striped dataTable table-bordered" 
+										value="#{searchDoenca.result}" 
+										var="doenca"
+										columnClasses="col-sm-5, col-sm-5" 
+										rendered="#{searchDoenca.result.isEmpty() == false}">
+							<h:column>
+								<f:facet name="header">Sigla</f:facet>
+									#{doenca.sigla}
+							</h:column>
+							<h:column>
+								<f:facet name="header">Nome</f:facet>
+									#{doenca.nome}
+							</h:column>
+							<h:column>
+								<h:commandButton class="btn btn-primary" value="Alterar" action="#{searchDoenca.update(doenca)}" title="Update"/>
+							</h:column>
+							<h:column>
+								<h:commandButton class="btn btn-danger" value="Deletar" title="Delete" onclick="return confirm('Deseja excluir #{doenca.nome}?')" action="#{searchDoenca.confirmDeletion(doenca)}"/>
+							</h:column>
+						</h:dataTable>
+					</div>
+				</div>
+			</div>
+			</div>
 		</h:form>
+
 	</ui:define>
 
 </ui:composition>

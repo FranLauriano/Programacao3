@@ -6,8 +6,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">
-	<ui:define name="title">Nova Vinculo</ui:define>
+<ui:composition template="/template.xhtml">
+	
+	<ui:define name="title">Novo Vinculo Empregatício</ui:define>
 
 	<ui:define name="mensagem">
 		<h:messages />
@@ -15,29 +16,12 @@
 
 
 	<ui:define name="content">
-
-		<ol class="breadcrumb">
-			<li><a href="/siab/index.xhtml">Início</a></li>
-			<li><a
-				href="/siab/vinculo/startVinculo.xhtml">Vinculo</a></li>
-			<li class="active">Cadastrar Vinculo</li>
-		</ol>
-
-
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center>
-					<h3>Cadastrar Novo Vinculo</h3>
-				</center>
-			</div>
-
-			<siab:vinculo id="vinculo" vinculo="#{newVinculo.vinculo}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Cadastrar"
-						action="#{newVinculo.saveVinculo}" />
-				</f:facet>
-			</siab:vinculo>
-		</div>
+		<siab:vinculo id="vinculo" vinculo="#{newVinculo.vinculo}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Cadastrar"
+					action="#{newVinculo.saveVinculo}" />
+			</f:facet>
+		</siab:vinculo>
 	</ui:define>
 
 </ui:composition>

@@ -6,36 +6,19 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">
-	<ui:define name="title">Novo Acs</ui:define>
+<ui:composition template="/template.xhtml">
+	<ui:define name="title">Novo ACS</ui:define>
 
 	<ui:define name="mensagem">
-		<h:messages />
+		<h:messages/>
 	</ui:define>
 
 	<ui:define name="content">
-
-		<ol class="breadcrumb">
-			<li><a href="/siab/index.xhtml">Início</a></li>
-			<li><a href="/siab/acs/startAcs.xhtml">Acs</a></li>
-			<li class="active">Cadastrar Acs</li>
-		</ol>
-
-
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center>
-					<h3>Cadastrar Novo Acs</h3>
-				</center>
-			</div>
-
-			<siab:acs id="acs" agente="#{newAcs.agente}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Cadastrar"
-						action="#{newAcs.saveAcs}" />
-				</f:facet>
-			</siab:acs>
-		</div>
+		<siab:acs id="acs" agente="#{newAcs.agente}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newAcs.saveAcs}" />
+			</f:facet>
+		</siab:acs>
 	</ui:define>
 
 </ui:composition>

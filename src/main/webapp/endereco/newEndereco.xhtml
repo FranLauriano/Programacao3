@@ -6,36 +6,19 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">
+<ui:composition template="/template.xhtml">
 	<ui:define name="title">Novo Endereço</ui:define>
 
 	<ui:define name="mensagem">
-		<h:messages />
+		<h:messages/>
 	</ui:define>
 
 	<ui:define name="content">
-
-		<ol class="breadcrumb">
-			<li><a href="/siab/index.xhtml">Início</a></li>
-			<li><a href="/siab/endereco/startEndereco.xhtml">Endereço</a></li>
-			<li class="active">Cadastrar Endereço</li>
-		</ol>
-
-
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center>
-					<h3>Cadastrar Novo Endereço</h3>
-				</center>
-			</div>
-
-			<siab:endereco id="endereco" endereco="#{newEndereco}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Cadastrar"
-						action="#{newEndereco.saveEndereco}" />
-				</f:facet>
-			</siab:endereco>
-		</div>
+		<siab:endereco id="endereco" endereco="#{newEndereco}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newEndereco.saveEndereco}" />
+			</f:facet>
+		</siab:endereco>
 	</ui:define>
 
 </ui:composition>

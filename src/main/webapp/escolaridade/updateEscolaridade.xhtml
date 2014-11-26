@@ -7,44 +7,20 @@
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/resources/template/layout.xhtml">
+<ui:composition template="/template.xhtml">
 	<ui:define name="title">Alterar Escolaridade</ui:define>
 
 	<ui:define name="mensagem">
-		<h:messages />
+		<h:messages/>
 	</ui:define>
 
 
 	<ui:define name="content">
-
-		<ol class="breadcrumb">
-			<li><a href="/siab/index.xhtml">Início</a></li>
-			<li><a
-				href="/siab/escolaridade/startEscolaridade.xhtml">Escolaridade</a></li>
-			<li><a
-				href="/siab/escolaridade/searchEscolaridade.xhtml">Procurar
-					Escolaridade</a></li>
-			<li class="active">Alterar Escolaridade</li>
-		</ol>
-
-
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center>
-					<h3>
-						<strong>Alterar Doença</strong>
-					</h3>
-				</center>
-			</div>
-
-			<siab:escolaridade id="escolaridade"
-				escolaridade="#{searchEscolaridade.escolaridade}" disabled="true">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Salvar"
-						action="#{searchEscolaridade.confirmUpdate}" />
-				</f:facet>
-			</siab:escolaridade>
-		</div>
+		<siab:escolaridade id="escolaridade" escolaridade="#{searchEscolaridade.escolaridade}" disabled="true">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchEscolaridade.confirmUpdate}" />
+			</f:facet>
+		</siab:escolaridade>
 	</ui:define>
 
 </ui:composition>
