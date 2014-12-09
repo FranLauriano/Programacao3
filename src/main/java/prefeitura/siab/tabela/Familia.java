@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -51,7 +52,7 @@ public class Familia {
 		this.rua = rua;
 	}
 	
-	@OneToMany(mappedBy="familia", cascade=CascadeType.REMOVE)
+	@OneToMany(mappedBy="familia", fetch=FetchType.EAGER, cascade=CascadeType.REMOVE)
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}

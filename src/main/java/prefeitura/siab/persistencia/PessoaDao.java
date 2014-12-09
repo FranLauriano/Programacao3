@@ -300,7 +300,7 @@ public class PessoaDao {
 		System.out.println(jpql);
 		TypedQuery<Pessoa> query = manager.createQuery(jpql, Pessoa.class);
 
-		if (pessoa.getSus() != 0 && pessoa.getSus() != 0) {
+		if (pessoa.getSus() != null && pessoa.getSus() != 0) {
 			query.setParameter("pessoaSus", pessoa.getSus());
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {

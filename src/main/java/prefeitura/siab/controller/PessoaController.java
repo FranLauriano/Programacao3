@@ -28,7 +28,7 @@ public class PessoaController {
 			}else if(auxiliar.getNome().equals(pessoa.getNome())){
 				throw new BusinessException("Esse Nome já foi Cadastrado, favor modificar. ");
 			}
-			throw new BusinessException("Impossível salvar essa Raça!");
+			throw new BusinessException("Impossível salvar essa Pessoa!");
 		}
 		dao.insert(pessoa);
 		return null;
@@ -68,7 +68,7 @@ public class PessoaController {
 
 	public List<Pessoa> searchListPessoa(PessoaSearchOptions options) {
 		
-		if(options.getDoencas().size() != 0){
+		if(options.getDoencas() != null && options.getDoencas().size() != 0){
 			List<Pessoa> resultado = new ArrayList<>();
 			List<Pessoa> resultDao = dao.searchListOptionsPessoa(options);
 			boolean achou = false;

@@ -6,7 +6,7 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/index.xhtml">  
+<ui:composition template="/template.xhtml">  
   	<ui:define name="title">Procurar Família</ui:define>
 
   	<ui:define name="mensagem">
@@ -14,49 +14,46 @@
   	</ui:define>
 
   	<ui:define name="content">
-  	
-  	<ol class="breadcrumb">
-	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-	  <li><a href="http://localhost:8080/siab/acs/startAcs.xhtml">Família</a></li>
-	  <li class="active">Procurar Família</li>
-	</ol>
-  	
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center><h3>Procurar Família</h3></center>
-			</div>
-			
-			<siab:procuraFamilia id="options" options="#{searchFamilia.options}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchFamilia.search}" ajax="false"/>
-				</f:facet>
-			</siab:procuraFamilia>
-		</div>
-		
+		<siab:procuraFamilia id="options" options="#{searchFamilia.options}" classe="#{searchFamilia}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchFamilia.search}" ajax="false"/>
+			</f:facet>
+		</siab:procuraFamilia>
+
 		<h:form>
-			<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{searchFamilia.result}" var="familia" rendered="#{searchFamilia.result.isEmpty() == false}">
-					<h:column>
-						<f:facet name="header">Código</f:facet>
-						#{familia.codigo}
-					</h:column>
-					<h:column>
-						<f:facet name="header">ACS</f:facet>
-						#{familia.agente.nome}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Nome da Rua</f:facet>
-						#{familia.rua.rua}
-					</h:column>
-					<h:column>
-						<h:commandLink class="btn btn-primary glyphicon glyphicon-pencil close" action="#{searchFamilia.update(familia)}" title="Update">
-						</h:commandLink>							
-					</h:column>
-					<h:column>
-						<h:commandLink class="btn btn-danger glyphicon glyphicon-trash close" onclick="return confirm('Deseja excluir #{acs.nome}?')" action="#{searchFamilia.confirmDeletion(familia)}" title="Delete">
-						</h:commandLink>
-					</h:column>
-				</h:dataTable>
-			</h:form>
+			<div class="box">
+				<div class="box-content box-nomargin">
+					<div class="tab-content">
+						<div class="tab-pane active">
+							<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{searchFamilia.result}" var="familia" rendered="#{searchFamilia.result.isEmpty() == false}">
+								<h:column>
+									<f:facet name="header">Código</f:facet>
+									#{familia.codigo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">ACS</f:facet>
+									#{familia.agente.nome}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Nome da Rua</f:facet>
+									#{familia.rua.rua}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Número da Casa</f:facet>
+									#{familia.numero}
+								</h:column>
+								<h:column>
+									<h:commandButton class="btn btn-primary" value="Alterar"  title="Alterar" action="#{searchFamilia.update(familia)}"/>							
+								</h:column>
+								<h:column>
+									<h:commandButton class="btn btn-danger" value="Deletar" title="Deletar" onclick="return confirm('Deseja excluir #{familia.codigo}?')" action="#{searchFamilia.confirmDeletion(familia)}"/>
+								</h:column>
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
   	</ui:define>
 
 </ui:composition>	

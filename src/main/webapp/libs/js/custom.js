@@ -455,7 +455,7 @@ $(document).ready(function() {
 	}
 	// - masked inputs
 	if($('.mask_date').length > 0){
-		$(".mask_date").inputmask("9999/99/99");	
+		$(".mask_date").inputmask("99/99/9999");	
 	}
 	if($('.mask_phone').length > 0){
 		$(".mask_phone").inputmask("(999) 999-9999");

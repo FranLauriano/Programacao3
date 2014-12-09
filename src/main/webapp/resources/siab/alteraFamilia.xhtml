@@ -8,8 +8,7 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <composite:interface>
-	<composite:attribute name="familia"></composite:attribute>
-	<composite:attribute name="classe"></composite:attribute>
+	<composite:attribute name="form"></composite:attribute>
 	<composite:facet name="buttons"></composite:facet>
 	<composite:facet name="voltar"></composite:facet>
 </composite:interface>
@@ -21,16 +20,16 @@
 		<div class="control-group">	    
 		    <label class="control-label">Código</label>
 		    <div class="controls">
-		    	<h:inputText id="codigo" styleClass="form-control" value="#{cc.attrs.familia.codigo}" p:placeholder="Código da Família"></h:inputText>
+		    	<h:inputText id="codigo" styleClass="form-control" value="#{cc.attrs.form.familia.codigo}" p:placeholder="Código da Família"></h:inputText>
 		    </div>
 	  	</div> 
 	  	
 	  	<div class="control-group">	    
 		    <label class="control-label">Agente</label>
 		    <div class="controls">
-		    	<h:selectOneMenu id="acs" styleClass="form-control"	value="#{cc.attrs.classe.acsMatricula}">
+		    	<h:selectOneMenu id="acs" styleClass="form-control"	value="#{cc.attrs.form.acsMatricula}">
 					<f:selectItem itemLabel="Selecione um ACS" itemValue="#{null}" />
-					<f:selectItems value="#{cc.attrs.classe.agentes}" var="agente"	itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
+					<f:selectItems value="#{cc.attrs.form.agentes}" var="agente" itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
 					<f:ajax process="@this" render="endereco" />
 				</h:selectOneMenu>
 		    </div>
@@ -39,10 +38,9 @@
 	  	<div class="control-group">	    
 		    <label class="control-label">Endereço</label>
 		    <div class="controls">
-		    	<h:selectOneMenu id="endereco" styleClass="form-control"	value="#{cc.attrs.classe.enderecoFamilia}">
+		    	<h:selectOneMenu id="endereco" styleClass="form-control"	value="#{cc.attrs.form.enderecoFamilia}">
 					<f:selectItem itemLabel="Selecione um Endereço" itemValue="#{null}" />
-					<f:selectItems value="#{cc.attrs.classe.endereco}" var="endereco"	itemLabel="#{endereco.rua}" itemValue="#{endereco.cep}"></f:selectItems>
-					<f:ajax process="@this" render="acs" />
+					<f:selectItems value="#{cc.attrs.form.enderecos}" var="endereco"	itemLabel="#{endereco.rua}" itemValue="#{endereco.cep}"></f:selectItems>
 				</h:selectOneMenu>
 		    </div>
 	  	</div> 
@@ -50,7 +48,7 @@
 	  	<div class="control-group">	    
 		    <label class="control-label">Número</label>
 		    <div class="controls">
-		    	<h:inputText id="numero" styleClass="form-control" value="#{cc.attrs.familia.numero}" p:placeholder="Número da Casa"></h:inputText>
+		    	<h:inputText id="numero" styleClass="form-control" value="#{cc.attrs.form.familia.numero}" p:placeholder="Número da Casa"></h:inputText>
 		    </div>
 	  	</div> 
 	  	
@@ -62,13 +60,12 @@
 			</div>
 		</div>
 
-				
 
 		<div class="box">
 			<div class="box-content box-nomargin">
 				<div class="tab-content">
 					<div class="tab-pane active">
-						<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{cc.attrs.familia.pessoas}" var="pessoa" rendered="#{cc.attrs.familia.pessoas.isEmpty() == false}">
+						<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{cc.attrs.form.pessoas}" var="pessoa" rendered="#{cc.attrs.form.pessoas.isEmpty() == false}">
 							<h:column>
 								<f:facet name="header">SUS</f:facet>
 								#{pessoa.sus}
@@ -110,7 +107,7 @@
 								#{pessoa.vinculo.nome}
 							</h:column>
 							<h:column>
-								<h:commandButton class="btn btn-danger" value="Remover" title="Remover" onclick="return confirm('Deseja excluir #{pessoa.nome}?')" action="#{cc.attrs.classe.removeList(pessoa)}"/>
+								<h:commandButton class="btn btn-danger" value="Remover" title="Remover" onclick="return confirm('Deseja excluir #{pessoa.nome}?')" action="#{cc.attrs.form.removeList(pessoa)}"/>
 							</h:column>
 						</h:dataTable>
 					</div>
@@ -136,21 +133,21 @@
 						<div class="control-group">	  			
 						    <label class="control-label">SUS</label>
 						    <div class="controls">
-						    	<h:inputText id="sus" styleClass="form-control"	value="#{cc.attrs.classe.aux.sus}" p:placeholder="Número do Cartão SUS"></h:inputText>
+						    	<h:inputText id="sus" styleClass="form-control"	value="#{cc.attrs.form.aux.sus}" p:placeholder="Número do Cartão SUS"></h:inputText>
 						    </div>
 					  	</div>
 					  	
 					  	<div class="control-group">	  			
 						    <label class="control-label">Nome</label>
 						    <div class="controls">
-						    	<h:inputText id="nome" styleClass="form-control" value="#{cc.attrs.classe.aux.nome}" p:placeholder="Nome"></h:inputText>
+						    	<h:inputText id="nome" styleClass="form-control" value="#{cc.attrs.form.aux.nome}" p:placeholder="Nome"></h:inputText>
 						    </div>
 					  	</div>
 					  	
 					  	<div class="control-group">	  			
 						    <label class="control-label">Nome da Mãe</label>
 						    <div class="controls">
-						    	<h:inputText id="mae" styleClass="form-control" value="#{cc.attrs.classe.aux.mae}" disabled="#{cc.attrs.disabled}" p:placeholder="Nome da mãe"></h:inputText>
+						    	<h:inputText id="mae" styleClass="form-control" value="#{cc.attrs.form.aux.mae}" p:placeholder="Nome da mãe"></h:inputText>
 						    </div>
 					  	</div>
 					  	
@@ -159,7 +156,7 @@
 						    <div class="controls">
 								<h:inputText 		id="data" 
 													styleClass="form-control" 
-													value="#{cc.attrs.classe.aux.dtnascimento}"
+													value="#{cc.attrs.form.aux.dtnascimento}"
 													p:placeholder="dd/mm/yyyy">
 									<f:convertDateTime timeZone="GMT-3" locale="pt_BR" pattern="dd/MM/yyyy" type="date" />
 								</h:inputText>
@@ -169,14 +166,14 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Idade</label>
 						    <div class="controls">
-						    	<h:inputText id="idade" styleClass="form-control" value="#{cc.attrs.classe.aux.idade}" p:placeholder="Idade"></h:inputText>
+						    	<h:inputText id="idade" styleClass="form-control" value="#{cc.attrs.form.aux.idade}" p:placeholder="Idade"></h:inputText>
 						    </div>
 					  	</div>
 					  	
 					  	<div class="control-group">	  			
 						    <label class="control-label">Sexo</label>
 						    <div class="controls">
-						    	<h:selectOneRadio id="sexo" value="#{cc.attrs.classe.aux.sexo}">
+						    	<h:selectOneRadio id="sexo" value="#{cc.attrs.form.aux.sexo}">
 								   <f:selectItem itemValue='m' itemLabel="Masculino" />
 								   <f:selectItem itemValue='f' itemLabel="Feminino" />   			
 								</h:selectOneRadio>
@@ -186,9 +183,9 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Raça</label>
 						    <div class="controls">
-						    	<h:selectOneMenu id="raca" styleClass="form-control"	value="#{cc.attrs.classe.racaPessoa}">
+						    	<h:selectOneMenu id="raca" styleClass="form-control"	value="#{cc.attrs.form.racaPessoa}">
 									<f:selectItem itemLabel="Selecione a Raça" itemValue="#{null}" />
-									<f:selectItems value="#{cc.attrs.classe.racas}" var="raca"	itemLabel="#{raca.nome}" itemValue="#{raca.codigo}"></f:selectItems>
+									<f:selectItems value="#{cc.attrs.form.racas}" var="raca"	itemLabel="#{raca.nome}" itemValue="#{raca.codigo}"></f:selectItems>
 									<f:ajax process="@this" render="raca" />
 								</h:selectOneMenu>
 						    </div>
@@ -197,7 +194,7 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Frequenta a Escola?</label>
 						    <div class="controls">
-						    	<h:selectOneRadio id="fescola" value="#{cc.attrs.classe.aux.frequentaescola}">
+						    	<h:selectOneRadio id="fescola" value="#{cc.attrs.form.aux.frequentaescola}">
 								   <f:selectItem itemValue="#{true}" itemLabel="Sim" />
 								   <f:selectItem itemValue="#{false}" itemLabel="Não" />
 								   <f:ajax process="@this" render="fescola" />	   			
@@ -208,9 +205,9 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Escolaridade</label>
 						    <div class="controls">
-						    	<h:selectOneMenu id="escolaridade" styleClass="form-control"	value="#{cc.attrs.classe.escolaridadePessoa}">
+						    	<h:selectOneMenu id="escolaridade" styleClass="form-control"	value="#{cc.attrs.form.escolaridadePessoa}">
 									<f:selectItem itemLabel="Selecione a Escolaridade" itemValue="#{null}" />
-									<f:selectItems value="#{cc.attrs.classe.escolaridades}" var="escolaridade"	itemLabel="#{escolaridade.nome}" itemValue="#{escolaridade.codigo}"></f:selectItems>
+									<f:selectItems value="#{cc.attrs.form.escolaridades}" var="escolaridade"	itemLabel="#{escolaridade.nome}" itemValue="#{escolaridade.codigo}"></f:selectItems>
 									<f:ajax process="@this" render="escolaridade" />
 								</h:selectOneMenu>
 						    </div>
@@ -219,9 +216,9 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Vínculo Empregatício</label>
 						    <div class="controls">
-						    	<h:selectOneMenu id="vinculo" styleClass="form-control"	value="#{cc.attrs.classe.vinculoPessoa}">
+						    	<h:selectOneMenu id="vinculo" styleClass="form-control"	value="#{cc.attrs.form.vinculoPessoa}">
 									<f:selectItem itemLabel="Selecione o Vínculo Empregatício" itemValue="#{null}" />
-									<f:selectItems value="#{cc.attrs.classe.vinculos}" var="vinculo"	itemLabel="#{vinculo.nome}" itemValue="#{vinculo.codigo}"></f:selectItems>
+									<f:selectItems value="#{cc.attrs.form.vinculos}" var="vinculo"	itemLabel="#{vinculo.nome}" itemValue="#{vinculo.codigo}"></f:selectItems>
 									<f:ajax process="@this" render="vinculo" />
 								</h:selectOneMenu>
 						    </div>
@@ -230,14 +227,14 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Parentesco</label>
 						    <div class="controls">
-						    	<h:inputText id="parentesco" styleClass="form-control" value="#{cc.attrs.classe.aux.parentesco}" p:placeholder="O que você é do chefe da Família?"></h:inputText>
+						    	<h:inputText id="parentesco" styleClass="form-control" value="#{cc.attrs.form.aux.parentesco}" p:placeholder="O que você é do chefe da Família?"></h:inputText>
 						    </div>
 					  	</div>
 					  	
 					  	<div class="control-group">	  			
 						    <label class="control-label">Bolsa-Escola</label>
 						    <div class="controls">
-						    	<h:selectOneRadio id="bolsaEsc" value="#{cc.attrs.classe.aux.bolsaescola}">
+						    	<h:selectOneRadio id="bolsaEsc" value="#{cc.attrs.form.aux.bolsaescola}">
 								   <f:selectItem itemValue="#{true}" itemLabel="Sim" />
 								   <f:selectItem itemValue="#{false}" itemLabel="Não" />
 								   <f:ajax process="@this" render="bolsaEsc" />	   			
@@ -248,15 +245,15 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Doenças</label>	
 						    <div class="controls">
-						    	<h:selectManyMenu value="#{cc.attrs.classe.doencasPessoa}" id="doencas" class='cho span12' multiple="true">
-									<f:selectItems value="#{cc.attrs.classe.doencas}" var="doenca" itemLabel="#{doenca.nome}" itemValue="#{doenca.sigla}"></f:selectItems>
+						    	<h:selectManyMenu value="#{cc.attrs.form.doencasPessoa}" id="doencas" class='cho span12' multiple="true">
+									<f:selectItems value="#{cc.attrs.form.doencas}" var="doenca" itemLabel="#{doenca.nome}" itemValue="#{doenca.sigla}"></f:selectItems>
 								</h:selectManyMenu>
 						    </div>
 					  	</div>
 					</h:form>
 					</div>
 					<div class="modal-footer">
-						<h:commandButton class="btn btn-primary" value="Adicionar" action="#{cc.attrs.classe.addList()}"/>
+						<h:commandButton class="btn btn-primary" value="Adicionar" action="#{cc.attrs.form.addPessoa()}"/>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
 					</div>
 				</div>

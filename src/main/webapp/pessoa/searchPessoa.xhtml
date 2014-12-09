@@ -6,7 +6,7 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/index.xhtml">  
+<ui:composition template="/template.xhtml">  
   	<ui:define name="title">Procurar Pessoa</ui:define>
 
   	<ui:define name="mensagem">
@@ -14,83 +14,78 @@
   	</ui:define>
 
   	<ui:define name="content">
-  	
-  	<ol class="breadcrumb">
-	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-	  <li><a href="http://localhost:8080/siab/pessoa/startPessoa.xhtml">Pessoa</a></li>
-	  <li class="active">Procurar Pessoa</li>
-	</ol>
-  	
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center><h3>Procurar Pessoa</h3></center>
-			</div>
-			
-			<siab:procuraPessoa id="pessoa" options="#{searchPessoa.options}" classe="#{searchPessoa}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchPessoa.search}" ajax="false"/>
-				</f:facet>
-			</siab:procuraPessoa>
-		</div>
-		
+		<siab:procuraPessoa id="pessoa" options="#{searchPessoa.options}" classe="#{searchPessoa}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchPessoa.search}" ajax="false"/>
+			</f:facet>
+		</siab:procuraPessoa>
+
 		<h:form>
-			<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{searchPessoa.result}" var="pessoa" rendered="#{searchPessoa.result.isEmpty() == false}">
-					<h:column>
-						<f:facet name="header">Família</f:facet>
-						#{pessoa.familia.codigo}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Nome</f:facet>
-						#{pessoa.nome}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Data de Nascimento</f:facet>
-						#{pessoa.dtnascimento}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Idade</f:facet>
-						#{pessoa.idade}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Nome da Mãe</f:facet>
-						#{pessoa.mae}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Sexo</f:facet>
-						#{pessoa.sexo}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Raça</f:facet>
-						#{pessoa.raca.nome}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Frequenta a Escola?</f:facet>
-						#{pessoa.frequentaescola}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Escolaridade</f:facet>
-						#{pessoa.escolaridade.nome}
-					</h:column>
-					<h:column>
-						<f:facet name="header">Vínculo Empregatício</f:facet>
-						#{pessoa.vinculo.nome}
-					</h:column>
-					<h:column>
-						<f:facet name="header">ACS</f:facet>
-						#{pessoa.familia.agente.nome}
-					</h:column>
-					
-					
-					<h:column>
-						<h:commandLink class="btn btn-primary glyphicon glyphicon-pencil close" action="#{searchPessoa.update(pessoa)}" title="Update">
-						</h:commandLink>							
-					</h:column>
-					<h:column>
-						<h:commandLink class="btn btn-danger glyphicon glyphicon-trash close" onclick="return confirm('Deseja excluir #{pessoa.nome}?')" action="#{searchPessoa.confirmDeletion(pessoa)}" title="Delete">
-						</h:commandLink>
-					</h:column>
-				</h:dataTable>
-			</h:form>
+			<div class="box">
+				<div class="box-content box-nomargin">
+					<div class="tab-content">
+						<div class="tab-pane active">
+							<h:dataTable 	class="table table-striped dataTable table-bordered" 
+											value="#{searchPessoa.result}" 
+											var="pessoa" 
+											rendered="#{searchPessoa.result.isEmpty() == false}">
+								<h:column>
+									<f:facet name="header">Família</f:facet>
+									#{pessoa.familia.codigo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Nome</f:facet>
+									#{pessoa.nome}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Data de Nascimento</f:facet>
+									#{pessoa.dtnascimento}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Idade</f:facet>
+									#{pessoa.idade}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Nome da Mãe</f:facet>
+									#{pessoa.mae}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Sexo</f:facet>
+									#{pessoa.sexo}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Raça</f:facet>
+									#{pessoa.raca.nome}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Frequenta a Escola?</f:facet>
+									#{pessoa.frequentaescola}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Escolaridade</f:facet>
+									#{pessoa.escolaridade.nome}
+								</h:column>
+								<h:column>
+									<f:facet name="header">Vínculo Empregatício</f:facet>
+									#{pessoa.vinculo.nome}
+								</h:column>
+								<h:column>
+									<f:facet name="header">ACS</f:facet>
+									#{pessoa.familia.agente.nome}
+								</h:column>
+								<h:column>
+									<h:commandButton class="btn btn-primary" value="Alterar" action="#{searchPessoa.update(pessoa)}" title="Update"/>
+								</h:column>
+								<h:column>
+									<h:commandButton class="btn btn-danger" value="Deletar" onclick="return confirm('Deseja excluir #{pessoa.nome}?')" action="#{searchPessoa.confirmDeletion(pessoa)}" title="Delete"/>
+								</h:column>
+							</h:dataTable>
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		
   	</ui:define>
 
 </ui:composition>	

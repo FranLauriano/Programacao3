@@ -911,7 +911,7 @@ textarea {
 }
 
 label {
-  display: block;
+  padding-right: 15px;
   margin-bottom: 5px;
 }
 

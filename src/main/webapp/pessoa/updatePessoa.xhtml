@@ -7,7 +7,7 @@
 	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/index.xhtml">  
+<ui:composition template="/template.xhtml">  
   	<ui:define name="title">Alterar Pessoa</ui:define>
 
   	<ui:define name="mensagem">
@@ -15,26 +15,11 @@
   	</ui:define>
 
   	<ui:define name="content">
-  	
-  	<ol class="breadcrumb">
-	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-	  <li><a href="http://localhost:8080/siab/pessoa/startPessoa.xhtml">Pessoa</a></li>
-	  <li><a href="http://localhost:8080/siab/pessoa/searchPessoa.xhtml">Procurar Pessoa</a></li>
-	  <li class="active">Alterar Pessoa</li>
-	</ol>
-  	
-  	
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center><h3><strong>Alterar Pessoa</strong></h3></center>
-			</div>
-			
-			<siab:alteraPessoa id="pessoa" form="#{searchPessoa.form}">
-				<f:facet name="buttons">
-					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchPessoa.confirmUpdate}"/>
-				</f:facet>
-			</siab:alteraPessoa>
-		</div>
+		<siab:alteraPessoa id="pessoa" form="#{searchPessoa.form}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchPessoa.confirmUpdate}"/>
+			</f:facet>
+		</siab:alteraPessoa>
   	</ui:define>
 
 </ui:composition>	

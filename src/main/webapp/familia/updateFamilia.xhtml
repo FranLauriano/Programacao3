@@ -4,10 +4,9 @@
 	  xmlns:siab="http://java.sun.com/jsf/composite/siab"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
-<ui:composition template="/index.xhtml">  
+<ui:composition template="/template.xhtml">  
   	<ui:define name="title">Alterar Família</ui:define>
 
   	<ui:define name="mensagem">
@@ -15,26 +14,11 @@
   	</ui:define>
 
   	<ui:define name="content">
-  	
-  	<ol class="breadcrumb">
-	  <li><a href="http://localhost:8080/siab/index.xhtml">Início</a></li>
-	  <li><a href="http://localhost:8080/siab/familia/startFamilia.xhtml">Família</a></li>
-	  <li><a href="http://localhost:8080/siab/familia/searchFamilia.xhtml">Procurar Família</a></li>
-	  <li class="active">Alterar Família</li>
-	</ol>
-  	
-  	
-		<div class="panel panel-info">
-			<div class="panel-heading">
-				<center><h3><strong>Alterar Família</strong></h3></center>
-			</div>
-			
-			<siab:familia id="familia" raca="#{searchFamilia.familia}" disabled="true">
+	  		<siab:alteraFamilia id="alteraFamilia" form="#{searchFamilia.form}" disabled="true">
 				<f:facet name="buttons">
 					<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchFamilia.confirmUpdate}"/>
 				</f:facet>
-			</siab:familia>
-		</div>
+			</siab:alteraFamilia>
   	</ui:define>
 
 </ui:composition>	
