@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html 	xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:f="http://xmlns.jcp.org/jsf/core"
-		xmlns:siab="http://java.sun.com/jsf/composite/siab"
-		xmlns:ui="http://java.sun.com/jsf/facelets"
-		xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:siab="http://java.sun.com/jsf/composite/siab"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-   		<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	
-		<link href="/siab/lib/dist/css/bootstrap.min.css" rel="stylesheet"/>
-		<link href="/siab/lib/dist/css/justified-nav.css" rel="stylesheet"/>
-		
-		<script src="/siab/lib/jquery.min.js"></script>
-	    <script src="/siab/lib/dist/js/bootstrap.min.js"></script>
-		
-		<title>
-			<ui:insert name="title"></ui:insert>
-		</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<link href="/siab/lib/dist/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/siab/lib/dist/css/justified-nav.css" rel="stylesheet" />
+
+	<script src="/siab/lib/jquery.min.js"></script>
+	<script src="/siab/lib/dist/js/bootstrap.min.js"></script>
+
+	<title><ui:insert name="title"></ui:insert></title>
 </h:head>
 
 <body>
-
-	    <ui:composition template="resources/template/layout.xhtml"></ui:composition>
+	<ui:composition template="/template.xhtml">
+		<ui:define name="title">#{msg.welcome}</ui:define>
+		<ui:define name="mensagem">
+			<h:messages />#{msg.message}
+		</ui:define>
+	</ui:composition>
 </body>
 </html>

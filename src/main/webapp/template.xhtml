@@ -7,27 +7,27 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
-	
-	
-	<link rel="stylesheet" href="/siab/libs/css/bootstrap.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/bootstrap-responsive.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/jquery.fancybox.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/style.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/uniform.default.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/bootstrap.datepicker.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/jquery.cleditor.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/jquery.plupload.queue.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/jquery.tagsinput.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/jquery.ui.plupload.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/chosen.css"/>
-	<link rel="stylesheet" href="/siab/libs/css/jquery.jgrowl.css"/>
+
+
+	<link rel="stylesheet" href="/siab/libs/css/bootstrap.css" />
+	<link rel="stylesheet" href="/siab/libs/css/bootstrap-responsive.css" />
+	<link rel="stylesheet" href="/siab/libs/css/jquery.fancybox.css" />
+	<link rel="stylesheet" href="/siab/libs/css/style.css" />
+	<link rel="stylesheet" href="/siab/libs/css/uniform.default.css" />
+	<link rel="stylesheet" href="/siab/libs/css/bootstrap.datepicker.css" />
+	<link rel="stylesheet" href="/siab/libs/css/jquery.cleditor.css" />
+	<link rel="stylesheet" href="/siab/libs/css/jquery.plupload.queue.css" />
+	<link rel="stylesheet" href="/siab/libs/css/jquery.tagsinput.css" />
+	<link rel="stylesheet" href="/siab/libs/css/jquery.ui.plupload.css" />
+	<link rel="stylesheet" href="/siab/libs/css/chosen.css" />
+	<link rel="stylesheet" href="/siab/libs/css/jquery.jgrowl.css" />
 
 
 
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<meta name="description" content=""/>
+	<meta name="description" content="" />
 
 
 
@@ -44,7 +44,8 @@
 	<script src="/siab/libs/js/chosen.jquery.min.js"></script>
 	<script src="/siab/libs/js/jquery.fancybox.js"></script>
 	<script src="/siab/libs/js/plupload/plupload.full.js"></script>
-	<script src="/siab/libs/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+	<script
+		src="/siab/libs/js/plupload/jquery.plupload.queue/jquery.plupload.queue.js"></script>
 	<script src="/siab/libs/js/jquery.cleditor.min.js"></script>
 	<script src="/siab/libs/js/jquery.inputmask.min.js"></script>
 	<script src="/siab/libs/js/jquery.tagsinput.min.js"></script>
@@ -59,7 +60,8 @@
 	<script src="/siab/libs/js/jquery.form.wizard-min.js"></script>
 	<script src="/siab/libs/js/jquery.cookie.js"></script>
 	<script src="/siab/libs/js/jquery.metadata.js"></script>
-	<script src="/siab/libs/js/custom.js"></script><script src="/siab/libs/js/demo.js"></script>
+	<script src="/siab/libs/js/custom.js"></script>
+	<script src="/siab/libs/js/demo.js"></script>
 
 
 
@@ -69,217 +71,154 @@
 
 <div class="topbar">
 	<div class="container-fluid">
-		<a href="dashboard.html" class='company'>SIAB - Sistema de Informação à Atenção Básica</a>
-		
+		<a href="dashboard.html" class='company'>SIAB - Sistema de
+			Informação à Atenção Básica</a>
+
 		<ul class='mini'>
-			<li>
-				<a>
-					Administrador
-				</a>
-			</li>
-			<li>
-				<a href="index.html">
-					<img src="/siab/libs/img/icons/fugue/control-power.png" alt=""/>
+			<li><a> Administrador </a></li>
+			<li><a href="index.html"> <img
+					src="/siab/libs/img/icons/fugue/control-power.png" alt="" />
 					Logout
-				</a>
-			</li>
+			</a></li>
 		</ul>
 	</div>
 </div>
 <div class="breadcrumbs">
 	<div class="container-fluid">
 		<ul class="bread pull-left">
-			<li>
-				<a href="dashboard.html"><i class="icon-home icon-white"></i></a>
-			</li>
-			<li>
-				<a href="dashboard.html">
-					Início
-				</a>
-			</li>
+			<li><a href="/siab/index.xhtml"><i
+					class="icon-home icon-white"></i></a></li>
+			
+			<li class="dropdown"><a href="#" class="dropdown-toggle"
+				data-toggle="dropdown" role="button" aria-expanded="false">#{msg.families}
+					<span class="caret"></span>
+			</a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="/siab/familia/newFamilia.xhtml">Cadastrar
+							Família</a></li>
+					<li><a href="/siab/familia/searchFamilia.xhtml">Pesquisar
+							Família</a></li>
+				</ul></li>
 		</ul>
 
 	</div>
 </div>
 <div class="main">
 	<div class="container-fluid">
-	<div class="navi">
-		<ul class='main-nav'>
-			<li class='active'>
-				<a href="dashboard.html" class='light'>
-					<div class="ico"><i class="icon-home icon-white"></i></div>
-					Início
+		<div class="navi">
+			<ul class='main-nav'>
+				<li class='active'><a href="/siab/index.xhtml" class='light'>
+						<div class="ico">
+							<i class="icon-home icon-white"></i>
+						</div> Início
+				</a></li>
+
+				<li><a href="#" class='light toggle-collapsed'>
+						<div class="ico">
+							<i class="icon-th-large icon-white"></i>
+						</div> Famílias <img src="/siab/libs/img/toggle-subnav-down.png" alt="" />
 				</a>
-			</li>
-			
-			<li>
-				<a href="#" class='light toggle-collapsed'>
-					<div class="ico"><i class="icon-th-large icon-white"></i></div>
-					Famílias
-					<img src="/siab/libs/img/toggle-subnav-down.png" alt=""/>
+					<ul class='collapsed-nav closed'>
+						<li><a href="/siab/familia/newFamilia.xhtml"> Cadastrar
+								Família </a></li>
+						<li><a href="/siab/familia/searchFamilia.xhtml">
+								Pesquisar Família </a></li>
+					</ul></li>
+
+				<li><a href="#" class='light toggle-collapsed'>
+						<div class="ico">
+							<i class="icon-th-large icon-white"></i>
+						</div> Pessoas <img src="/siab/libs/img/toggle-subnav-down.png" alt="" />
 				</a>
-				<ul class='collapsed-nav closed'>
-					<li>
-						<a href="/siab/familia/newFamilia.xhtml">
-							Cadastrar Família
-						</a>
-					</li>
-					<li>
-						<a href="/siab/familia/searchFamilia.xhtml">
-							Pesquisar Família
-						</a>
-					</li>
-				</ul>
-			</li>
-			
-			<li>
-				<a href="#" class='light toggle-collapsed'>
-					<div class="ico"><i class="icon-th-large icon-white"></i></div>
-					Pessoas
-					<img src="/siab/libs/img/toggle-subnav-down.png" alt=""/>
+					<ul class='collapsed-nav closed'>
+						<li><a href="/siab/pessoa/newPessoa.xhtml"> Cadastrar
+								Pessoa </a></li>
+						<li><a href="/siab/pessoa/searchPessoa.xhtml"> Pesquisar
+								Pessoa </a></li>
+					</ul></li>
+
+				<li><a href="#" class='light toggle-collapsed'>
+						<div class="ico">
+							<i class="icon-th-large icon-white"></i>
+						</div> Endereços <img src="/siab/libs/img/toggle-subnav-down.png" alt="" />
 				</a>
-				<ul class='collapsed-nav closed'>
-					<li>
-						<a href="/siab/pessoa/newPessoa.xhtml">
-							Cadastrar Pessoa
-						</a>
-					</li>
-					<li>
-						<a href="/siab/pessoa/searchPessoa.xhtml">
-							Pesquisar Pessoa
-						</a>
-					</li>
-				</ul>
-			</li>
-			
-			<li>
-				<a href="#" class='light toggle-collapsed'>
-					<div class="ico"><i class="icon-th-large icon-white"></i></div>
-					Endereços
-					<img src="/siab/libs/img/toggle-subnav-down.png" alt=""/>
+					<ul class='collapsed-nav closed'>
+						<li><a href="/siab/endereco/newEndereco.xhtml"> Cadastrar
+								Endereço </a></li>
+						<li><a href="/siab/endereco/searchEndereco.xhtml">
+								Pesquisar Endereço </a></li>
+					</ul></li>
+
+				<li><a href="#" class='light toggle-collapsed'>
+						<div class="ico">
+							<i class="icon-th-large icon-white"></i>
+						</div> Doenças ou Condições <img
+						src="/siab/libs/img/toggle-subnav-down.png" alt="" />
 				</a>
-				<ul class='collapsed-nav closed'>
-					<li>
-						<a href="/siab/endereco/newEndereco.xhtml">
-							Cadastrar Endereço
-						</a>
-					</li>
-					<li>
-						<a href="/siab/endereco/searchEndereco.xhtml">
-							Pesquisar Endereço
-						</a>
-					</li>
-				</ul>
-			</li>
-			
-			<li>
-				<a href="#" class='light toggle-collapsed'>
-					<div class="ico"><i class="icon-th-large icon-white"></i></div>
-					Doenças ou Condições
-					<img src="/siab/libs/img/toggle-subnav-down.png" alt=""/>
+					<ul class='collapsed-nav closed'>
+						<li><a href="/siab/doenca/newDoenca.xhtml"> Cadastrar
+								Doença/Condição </a></li>
+						<li><a href="/siab/doenca/searchDoenca.xhtml"> Pesquisar
+								Doença/Condição </a></li>
+					</ul></li>
+
+				<li><a href="#" class='light toggle-collapsed'>
+						<div class="ico">
+							<i class="icon-th-large icon-white"></i>
+						</div> Escolaridades <img src="/siab/libs/img/toggle-subnav-down.png"
+						alt="" />
 				</a>
-				<ul class='collapsed-nav closed'>
-					<li>
-						<a href="/siab/doenca/newDoenca.xhtml">
-							Cadastrar Doença/Condição
-						</a>
-					</li>
-					<li>
-						<a href="/siab/doenca/searchDoenca.xhtml">
-							Pesquisar Doença/Condição
-						</a>
-					</li>
-				</ul>
-			</li>
-			
-			<li>
-				<a href="#" class='light toggle-collapsed'>
-					<div class="ico"><i class="icon-th-large icon-white"></i></div>
-					Escolaridades
-					<img src="/siab/libs/img/toggle-subnav-down.png" alt=""/>
+					<ul class='collapsed-nav closed'>
+						<li><a href="/siab/escolaridade/newEscolaridade.xhtml">
+								Cadastrar Escolaridade </a></li>
+						<li><a href="/siab/escolaridade/searchEscolaridade.xhtml">
+								Pesquisar Escolaridade </a></li>
+					</ul></li>
+
+				<li><a href="#" class='light toggle-collapsed'>
+						<div class="ico">
+							<i class="icon-th-large icon-white"></i>
+						</div> Raças <img src="/siab/libs/img/toggle-subnav-down.png" alt="" />
 				</a>
-				<ul class='collapsed-nav closed'>
-					<li>
-						<a href="/siab/escolaridade/newEscolaridade.xhtml">
-							Cadastrar Escolaridade
-						</a>
-					</li>
-					<li>
-						<a href="/siab/escolaridade/searchEscolaridade.xhtml">
-							Pesquisar Escolaridade
-						</a>
-					</li>
-				</ul>
-			</li>
-			
-			<li>
-				<a href="#" class='light toggle-collapsed'>
-					<div class="ico"><i class="icon-th-large icon-white"></i></div>
-					Raças
-					<img src="/siab/libs/img/toggle-subnav-down.png" alt=""/>
+					<ul class='collapsed-nav closed'>
+						<li><a href="/siab/raca/newRaca.xhtml"> Cadastrar Raça </a></li>
+						<li><a href="/siab/raca/searchRaca.xhtml"> Pesquisar Raça
+						</a></li>
+					</ul></li>
+
+				<li><a href="#" class='light toggle-collapsed'>
+						<div class="ico">
+							<i class="icon-th-large icon-white"></i>
+						</div> Vínculo Empregatício <img
+						src="/siab/libs/img/toggle-subnav-down.png" alt="" />
 				</a>
-				<ul class='collapsed-nav closed'>
-					<li>
-						<a href="/siab/raca/newRaca.xhtml">
-							Cadastrar Raça
-						</a>
-					</li>
-					<li>
-						<a href="/siab/raca/searchRaca.xhtml">
-							Pesquisar Raça
-						</a>
-					</li>
-				</ul>
-			</li>
-			
-			<li>
-				<a href="#" class='light toggle-collapsed'>
-					<div class="ico"><i class="icon-th-large icon-white"></i></div>
-					Vínculo Empregatício
-					<img src="/siab/libs/img/toggle-subnav-down.png" alt=""/>
+					<ul class='collapsed-nav closed'>
+						<li><a href="/siab/vinculo/newVinculo.xhtml"> Cadastrar
+								Vínculo </a></li>
+						<li><a href="/siab/vinculo/searchVinculo.xhtml">
+								Pesquisar Vínculo </a></li>
+					</ul></li>
+
+				<li><a href="#" class='light toggle-collapsed'>
+						<div class="ico">
+							<i class="icon-th-large icon-white"></i>
+						</div> ACS <img src="/siab/libs/img/toggle-subnav-down.png" alt="" />
 				</a>
-				<ul class='collapsed-nav closed'>
-					<li>
-						<a href="/siab/vinculo/newVinculo.xhtml">
-							Cadastrar Vínculo
-						</a>
-					</li>
-					<li>
-						<a href="/siab/vinculo/searchVinculo.xhtml">
-							Pesquisar Vínculo
-						</a>
-					</li>
-				</ul>
-			</li>
-			
-			<li>
-				<a href="#" class='light toggle-collapsed'>
-					<div class="ico"><i class="icon-th-large icon-white"></i></div>
-					ACS
-					<img src="/siab/libs/img/toggle-subnav-down.png" alt=""/>
-				</a>
-				<ul class='collapsed-nav closed'>
-					<li>
-						<a href="/siab/acs/newAcs.xhtml">
-							Cadastrar ACS
-						</a>
-					</li>
-					<li>
-						<a href="/siab/acs/searchAcs.xhtml">
-							Pesquisar ACS
-						</a>
-					</li>
-				</ul>
-			</li>
-		</ul>
-	</div>
-	<div class="content">
-	
+					<ul class='collapsed-nav closed'>
+						<li><a href="/siab/acs/newAcs.xhtml"> Cadastrar ACS </a></li>
+						<li><a href="/siab/acs/searchAcs.xhtml"> Pesquisar ACS </a></li>
+					</ul></li>
+			</ul>
+		</div>
+		<div class="content">
+
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="box">
 						<div class="box-head">
-							<h3><ui:insert name="title"></ui:insert></h3>
+							<h3>
+								<ui:insert name="title"></ui:insert>
+							</h3>
 						</div>
 						<div class="box-content">
 							<div>
@@ -290,8 +229,8 @@
 					</div>
 				</div>
 			</div>
-		</div>	
+		</div>
 	</div>
-</div>	
+</div>
 
 </html>

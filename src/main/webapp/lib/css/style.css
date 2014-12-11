@@ -1,15 +1,19 @@
 @CHARSET "UTF-8";
 
 body{
-	padding-top: 0px !important;
+//	padding-top: 0px !important;
 }
 .navbar {
-	height: 100px;
-	background: #FFFFFF;
+//	height: 100px;
+//	background: #FFFFFF;
 }
 
 #image {
-	height: 100%;
-	width: 500px;
-	background-image: url("/siab/lib/image/logo.png");
+//	height: 100%;
+//	width: 500px;
+//	background-image: url("/siab/lib/image/logo.png");
+}
+
+.dropdown-menu a{
+	padding: 3px 20px !important;
 }
