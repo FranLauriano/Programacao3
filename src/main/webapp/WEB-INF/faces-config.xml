@@ -6,6 +6,15 @@
 
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+		<resource-bundle>
+			<base-name>prefeitura.siab.resources.sistema</base-name>
+			<var>msg</var>
+		</resource-bundle>
+		<locale-config>
+			<default-locale>pt</default-locale>
+			<supported-locale>pt</supported-locale>
+			<supported-locale>en</supported-locale>
+		</locale-config>
 	</application>
 
 	<navigation-rule>
@@ -127,8 +136,8 @@
 			<to-view-id>/endereco/searchEndereco.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-	
-	
+
+
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
