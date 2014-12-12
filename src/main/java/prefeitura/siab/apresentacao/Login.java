@@ -1,5 +1,6 @@
 package prefeitura.siab.apresentacao;
 
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -11,9 +12,10 @@ import org.springframework.web.context.WebApplicationContext;
 import prefeitura.siab.controller.AcsController;
 import prefeitura.siab.tabela.Acs;
 
+
 @Component
 @Scope(WebApplicationContext.SCOPE_SESSION)
-public class Login {
+public class Login{
 
 	//ATRIBUTOS
 	private @Autowired AcsController controller;
@@ -53,7 +55,7 @@ public class Login {
 		if(matricula != null && matricula != 0){
 			AcsSearchOptions aux = new AcsSearchOptions();
 			aux.setMatricula(matricula);
-			aux.setMicroarea(4);
+			aux.setMicroarea(senha);
 			servidor = controller.searchAcs(aux);
 			if(servidor == null){
 				message.setSummary("Matricula e/ou Senha Incorretas");
