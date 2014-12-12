@@ -1311,7 +1311,7 @@
 }
 .login_body .wrap .login {
   background: #eee;
-  padding: 10px;
+  padding: 5px;
   margin: 5px 20px 20px 20px;
   -webkit-border-radius: 6px 6px 6px 6px;
   -moz-border-radius: 6px 6px 6px 6px;
@@ -1334,6 +1334,7 @@
 }
 .login_body .wrap .login .pw {
   margin-top: 15px;
+  margin-bottom: 15px;
 }
 .login_body .wrap .login .email,
 .login_body .wrap .login .pw {

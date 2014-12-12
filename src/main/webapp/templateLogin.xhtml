@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:siab="http://java.sun.com/jsf/composite/siab"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+<h:head>
+	<link rel="stylesheet" href="/siab/libs/css/bootstrap.css" />
+	<link rel="stylesheet" href="/siab/libs/css/jquery.fancybox.css" />
+	<link rel="stylesheet" href="/siab/libs/css/login.css" />
+
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="description" content="" />
+
+	<script src="/siab/libs/js/jquery.js"></script>
+	<script src="/siab/libs/js/jquery.validate.min.js"></script>
+	<script src="/siab/libs/js/jquery.metadata.js"></script>
+	<script src="/siab/libs/js/error.js"></script>
+
+	<title><ui:insert name="title"></ui:insert></title>
+</h:head>
+<body class='login_body'>
+<div class="wrap">
+	<h2>SIAB</h2>
+	<h4>Sistema de Informação à Atenção Básica</h4>
+	<div class="content">
+		<ui:insert name="content"></ui:insert>
+		<ui:insert name="mensagem"></ui:insert>
+	</div>		
+</div>
+</body>
+	
+</html>

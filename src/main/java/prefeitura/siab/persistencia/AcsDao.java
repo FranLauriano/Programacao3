@@ -124,5 +124,48 @@ public class AcsDao {
 			return result.get(0);
 		}
 	}
+	
+	public Acs searchAcs(AcsSearchOptions options) {
+		StringBuilder predicate = new StringBuilder("1 = 1");
+		if (options.getMatricula() != null && options.getMatricula() != 0) {
+			predicate.append(" and acs.matricula = :acsMatricula");
+		}
+		if (options.getNome() != null && options.getNome().length() >= 1) {
+			predicate.append(" and upper(acs.nome) like :acsNome");
+		}
+		if (options.getMicroarea() != null && options.getMicroarea() != 0) {
+			predicate.append(" and acs.microarea = :acsMicroarea");
+		}
+		if (options.getArea() != null && options.getArea() != 0) {
+			predicate.append(" and acs.area = :acsArea");
+		}
+		if (options.getMicroregiao() != null && options.getMicroregiao() != 0) {
+			predicate.append(" and acs.microregiao = :acsMicroregiao");
+		}
+		String jpql = "Select acs from Acs acs where " + predicate;
+		TypedQuery<Acs> query = manager.createQuery(jpql, Acs.class);
+		if (options.getMatricula() != null && options.getMatricula() != 0) {
+			query.setParameter("acsMatricula", options.getMatricula());
+		}
+		if (options.getNome() != null && options.getNome().length() >= 1) {
+			query.setParameter("acsNome", "%"+options.getNome().toUpperCase()+"%");
+		}
+		if (options.getMicroarea() != null && options.getMicroarea() != 0) {
+			query.setParameter("acsMicroarea", options.getMicroarea());
+		}
+		if (options.getArea() != null && options.getArea() != 0) {
+			query.setParameter("acsArea", options.getArea());
+		}
+		if (options.getMicroregiao() != null && options.getMicroregiao() != 0) {
+			query.setParameter("acsMicroregiao", options.getMicroregiao());
+		}
+		List<Acs> result = query.getResultList();
+		
+		if(result.isEmpty()){
+			return null;			
+		}else{
+			return result.get(0);
+		}
+	}
 
 }

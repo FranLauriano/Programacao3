@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<composite:interface>
+		<composite:attribute name="login"></composite:attribute>
+		<composite:facet name="buttons"></composite:facet>
+	</composite:interface>
+	
+	<composite:implementation>
+	
+	<h:form>
+		<div class="login">
+			<div class="email">
+			    <label>Matricula</label>
+			    <div class="email-input">
+					<div class="control-group">
+						<div class="input-prepend">
+							<span class="add-on">
+								<i class="icon-user"></i>
+							</span>
+							<h:inputText id="matricula" value="#{cc.attrs.login.matricula}" p:placeholder="Matricula"></h:inputText>
+						</div>
+					</div>
+				</div>
+		  	</div>
+		  	<div class="pw">
+			    <label>Senha</label>
+			    <div class="pw-input">
+					<div class="control-group">
+						<div class="input-prepend">
+							<span class="add-on">
+								<i class="icon-lock"></i>
+							</span>
+							<h:inputSecret id="senha" value="#{cc.attrs.login.senha}" p:placeholder="Senha"></h:inputSecret>
+						</div>
+					</div>
+				</div>
+			</div>
+		  	<div class="submit">
+					<composite:renderFacet name="buttons"></composite:renderFacet>
+			</div>
+		</div>
+	</h:form>
+	  	
+	</composite:implementation>
+</html>
