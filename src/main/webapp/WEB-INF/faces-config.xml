@@ -3,6 +3,10 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
 	version="2.2">
+	
+	<lifecycle>
+	   <phase-listener>prefeitura.siab.util.AutenticacaoPhase</phase-listener>
+	</lifecycle>
 
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
@@ -169,5 +173,32 @@
 			<to-view-id>/escolaridade/searchEscolaridade.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>inicio</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect></redirect>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+	   <from-view-id>/*</from-view-id>
+	   <navigation-case>
+	     <from-outcome>loginPage</from-outcome>
+	     <to-view-id>/login/login.xhtml</to-view-id>
+	     <redirect></redirect>
+	   </navigation-case>
+	 </navigation-rule>
+	 
+	 <navigation-rule>
+	   <from-view-id>/*</from-view-id>
+	   <navigation-case>
+	     <from-outcome>sair</from-outcome>
+	     <to-view-id>/login/login.xhtml</to-view-id>
+	     <redirect></redirect>
+	   </navigation-case>
+	 </navigation-rule>
 
 </faces-config>

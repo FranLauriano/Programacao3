@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:siab="http://java.sun.com/jsf/composite/siab"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="/templateLogin.xhtml">  
+  	<ui:define name="title">Sair</ui:define>
+  	
+  	<ui:define name="content">
+		<siab:logout id="login" login="#{login}">
+			<f:facet name="buttons">
+				<h:commandButton class="btn btn-red5" value="Sair" action="#{login.sair}"/>
+			</f:facet>
+			<f:facet name="voltar">
+				<h:commandButton class="btn btn-primary" value="Voltar" action="#{login.voltar}"/>
+			</f:facet>
+		</siab:logout>
+  	</ui:define>
+
+</ui:composition>	
+</html>

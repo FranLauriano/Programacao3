@@ -38,6 +38,10 @@ public class AcsController {
 	public Acs searchAcs(AcsSearchOptions options){
 		return dao.searchAcs(options);
 	}
+	
+	public Acs searchServidor(Acs acs){
+		return dao.searchAcs(acs);
+	}
 
 	@Transactional
 	public void updateAcs(Acs acs) throws BusinessException {

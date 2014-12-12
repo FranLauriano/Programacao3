@@ -30,30 +30,17 @@ public class AcsDao {
 	}
 
 	public Acs searchAcs(Acs agente) {
-		StringBuilder predicate = new StringBuilder("1 = 1");
+		StringBuilder predicate = new StringBuilder("");
 		
 		if (agente.getMatricula() != null && agente.getMatricula() != 0 && agente.getMicroarea() != null && agente.getMicroarea() != 0) {
-			predicate.append(" and (acs.matricula = :acsMatricula or acs.microarea = :acsMicroarea)");
-		} else {
-			if (agente.getMatricula() != null && agente.getMatricula() != 0) {
-				predicate.append(" and acs.matricula = :acsMatricula");
-			}
-			if (agente.getMicroarea() != null && agente.getMicroarea() != 0) {
-				predicate.append(" and acs.microarea = :acsMicroarea");
-			}
+			predicate.append("acs.matricula = :acsMatricula and acs.microarea = :acsMicroarea");
 		}
 		String jpql = "Select acs from Acs acs where " + predicate;
+		System.out.println(jpql);
 		TypedQuery<Acs> query = manager.createQuery(jpql, Acs.class);
 		if (agente.getMatricula() != null && agente.getMatricula() != 0 && agente.getMicroarea() != null && agente.getMicroarea() != 0) {
 			query.setParameter("acsMatricula", agente.getMatricula());
 			query.setParameter("acsMicroarea", agente.getMicroarea());
-		}else{
-			if (agente.getMatricula() != null && agente.getMatricula() != 0) {
-				query.setParameter("acsMatricula", agente.getMatricula());
-			}
-			if (agente.getMicroarea() != null && agente.getMicroarea() != 0) {
-				query.setParameter("acsMicroarea", agente.getMicroarea());
-			}
 		}
 		List<Acs> result = query.getResultList();
 		if(result.isEmpty()){
