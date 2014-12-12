@@ -134,7 +134,7 @@ public class Pessoa {
 	@ManyToMany(fetch=FetchType.EAGER)
 	@JoinTable(
 			name="TB_PES_DOE", 
-			joinColumns=@JoinColumn(name="PES_CODIGO"), 
+			joinColumns=@JoinColumn(name="PES_SUS"), 
 			inverseJoinColumns=@JoinColumn(name="DOE_SIGLA")
 	)
 	public List<Doenca> getSituacao() {

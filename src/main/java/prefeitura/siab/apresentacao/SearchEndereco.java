@@ -29,6 +29,7 @@ public class SearchEndereco {
 	private boolean enderecoAlterado;
 	private EnderecoSearchOptions options;
 	private List<Acs> agentes;
+	private AcsController controllerAcs;
 
 	//PROPRIEDADES
 	public Endereco getEndereco() {
@@ -104,7 +105,7 @@ public class SearchEndereco {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ApplicationContext applicationContext = FacesContextUtils.getWebApplicationContext(facesContext);
 		
-		AcsController controllerAcs = applicationContext.getBean(AcsController.class);
+		controllerAcs = applicationContext.getBean(AcsController.class);
 		agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
 		
 		options = new EnderecoSearchOptions();
@@ -163,11 +164,13 @@ public class SearchEndereco {
 		if(matricula == 0 || matricula == null){
 			options.setAgente(null);
 			endereco.setAgente(null);
+			agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
 		}else{
 			for(Acs agente: agentes){
 				if(agente.getMatricula().equals(matricula)){
 					options.setAgente(agente);
 					endereco.setAgente(agente);
+					agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
 					break;
 				}
 			}

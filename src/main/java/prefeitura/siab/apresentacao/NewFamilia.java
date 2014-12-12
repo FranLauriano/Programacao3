@@ -341,13 +341,17 @@ public class NewFamilia {
 			if(!achou){
 				try{
 				aux.setFamilia(familia);
+				familia.getPessoas().add(aux);
+				familiaController.salvarFamilia(familia);
 				controllerPessoa.salvarPessoa(aux);
 				controllerPessoa.deletePessoa(aux);
+				familiaController.deleteFamilia(familia);
 				resetAux();
 				message.setSummary("Pessoa adicionada com Sucesso!");
 				message.setSeverity(FacesMessage.SEVERITY_INFO);
 				}catch(Exception e){
 					familia.getPessoas().remove(aux);
+					familiaController.deleteFamilia(familia);
 					message.setSummary("Os Campos Família, Raça, Escolaridade e Vínculo Empregatício são Obrigatórios");
 					message.setSeverity(FacesMessage.SEVERITY_ERROR);
 				}
