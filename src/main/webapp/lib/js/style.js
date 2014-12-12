@@ -1,44 +1,41 @@
-/**
- * 
- */
 $(document).ready(function() {
 	$(function() {
 		
-		$('ul li.active').removeClass('active');
+		$('ul li.open').removeClass('open');
 		var path = window.location.pathname;
 		
 		if(path.indexOf("/siab/acs/") == 0){
-			$('#activeSelect1').addClass('active');
+			$('#activeSelect1').addClass('open');
+			$('#activeSelect1 > ul').css("display","block");
 		}
 		if(path.indexOf("/siab/familia/") == 0){
-			$('#activeSelect2').addClass('active');
+			$('#activeSelect2').addClass('open');
+			$('#activeSelect2 > ul').css("display","block");
 		}
 		if(path.indexOf("/siab/pessoa/") == 0){
-			$('#activeSelect3').addClass('active');
+			$('#activeSelect3').addClass('open');
+			$('#activeSelect3 > ul').css("display","block");
 		}
 		if(path.indexOf("/siab/endereco/") == 0){
-			$('#activeSelect4').addClass('active');
+			$('#activeSelect4').addClass('open');
+			$('#activeSelect4 > ul').css("display","block");
 		}
 		if(path.indexOf("/siab/doenca/") == 0){
-			$('#activeSelect5').addClass('active');
+			$('#activeSelect5').addClass('open');
+			$('#activeSelect5 > ul').css("display","block");
 		}
 		if(path.indexOf("/siab/escolaridade/") == 0){
-			$('#activeSelect6').addClass('active');
+			$('#activeSelect6').addClass('open');
+			$('#activeSelect6 > ul').css("display","block");
 		}
 		if(path.indexOf("/siab/raca/") == 0){
-			$('#activeSelect7').addClass('active');
+			$('#activeSelect7').addClass('open');
+			$('#activeSelect7 > ul').css("display","block");
 		}
 		if(path.indexOf("/siab/vinculo/") == 0){
-			$('#activeSelect8').addClass('active');
+			$('#activeSelect8').addClass('open');
+			$('#activeSelect8 > ul').css("display","block");
 		}
 
 	});
 }); 
-
-//$(document).ready(function() {
-//	$('ul li a').click(function() {
-//		$('ul li.active').removeClass('active');
-//		$(this).closest('li').addClass('active');
-//		console.log($(this).attr("href"));
-//	});
-//});
