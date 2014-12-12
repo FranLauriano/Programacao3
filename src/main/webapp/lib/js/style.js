@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	$(function() {
-		
-		$('ul li.open').removeClass('open');
+
 		var path = window.location.pathname;
 		
 		if(path.indexOf("/siab/acs/") == 0){
