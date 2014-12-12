@@ -136,6 +136,9 @@ public class NewPessoa {
 		}catch(BusinessException e){
 			message.setSummary(e.getMessage());
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+		}catch(Exception e){
+			message.setSummary("Os Campos Família, Raça, Escolaridade e Vínculo Empregatício são Obrigatórios");
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
 		}
 		FacesContext context = FacesContext.getCurrentInstance();
 		context.addMessage(null, message);

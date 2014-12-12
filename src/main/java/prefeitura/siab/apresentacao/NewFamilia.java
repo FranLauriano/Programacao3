@@ -192,6 +192,7 @@ public class NewFamilia {
 	public void setAcsMatricula(Integer matricula){
 		if(matricula == 0 || matricula == null){
 			familia.getRua().setAgente(null);
+			endereco = controllerEndereco.searchListEndereco(new Endereco());
 		}else{
 			for(Acs agente: agentes){
 				if(agente.getMatricula().equals(matricula)){
@@ -338,10 +339,18 @@ public class NewFamilia {
 				}
 			}
 			if(!achou){
-				familia.getPessoas().add(aux);
+				try{
+				aux.setFamilia(familia);
+				controllerPessoa.salvarPessoa(aux);
+				controllerPessoa.deletePessoa(aux);
 				resetAux();
 				message.setSummary("Pessoa adicionada com Sucesso!");
 				message.setSeverity(FacesMessage.SEVERITY_INFO);
+				}catch(Exception e){
+					familia.getPessoas().remove(aux);
+					message.setSummary("Os Campos Família, Raça, Escolaridade e Vínculo Empregatício são Obrigatórios");
+					message.setSeverity(FacesMessage.SEVERITY_ERROR);
+				}
 			}
 		}else{
 			message.setSummary("O número do SUS informado, já foi Cadastrado!");
