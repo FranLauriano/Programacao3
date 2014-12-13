@@ -11,6 +11,7 @@ import javax.faces.event.PhaseListener;
 
 import prefeitura.siab.apresentacao.Login;
 import prefeitura.siab.tabela.Acs;
+import prefeitura.siab.tabela.Usuario;
 
 public class AutenticacaoPhase implements PhaseListener{
 
@@ -27,9 +28,9 @@ public class AutenticacaoPhase implements PhaseListener{
 			Map<String, Object> mapa = externalContext.getSessionMap();
 			Login autenticacaoBean = (Login) mapa.get("login");
 			if(autenticacaoBean != null){
-				Acs servidor = autenticacaoBean.getServidor();
+				Usuario usuario = autenticacaoBean.getUsuario();
 
-				if(servidor == null){
+				if(usuario == null){
 					NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
 					nh.handleNavigation(facesContext, null, "loginPage");
 				}

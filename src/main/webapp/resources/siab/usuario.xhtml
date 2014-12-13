@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<composite:interface>
+		<composite:attribute name="classe"></composite:attribute>
+		<composite:facet name="buttons"></composite:facet>
+		<composite:attribute name="disabled" default="false"></composite:attribute>
+	</composite:interface>
+	
+	<composite:implementation>
+	
+	<h:form id="form" class="form-horizontal">
+	
+		<div class="control-group">	    
+		    <label class="control-label">Matricula</label>
+		    <div class="controls">
+		    	<h:inputText id="matricula" value="#{cc.attrs.classe.usuario.matricula}" disabled="#{cc.attrs.disabled}" p:placeholder="Matricula"></h:inputText>
+		    </div>
+	  	</div>
+
+	  	<div class="control-group">	  			
+		    <label class="control-label">Senha</label>
+		    <div class="controls">
+		    	<h:inputSecret id="senha1" value="#{cc.attrs.classe.senha1}" p:placeholder="Senha"></h:inputSecret>
+		    </div>
+	  	</div>
+	  	
+	  	<div class="control-group">	  			
+		    <label class="control-label">Confirme a Senha</label>
+		    <div class="controls">
+		    	<h:inputSecret id="senha2" value="#{cc.attrs.classe.senha2}" p:placeholder="Confirme sua Senha"></h:inputSecret>
+		    </div>
+	  	</div>
+	  	
+	  	<div class="control-group">	  			
+		    <label class="control-label">Tipo</label>
+		    <div class="controls">
+		    	<h:selectOneRadio id="tipo" value="#{cc.attrs.classe.usuario.tipo}">  
+			        <f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador(a)" />  
+			        <f:selectItem itemValue="ENFERMEIRA" itemLabel="Enfermeiro(a)" />  
+			        <f:selectItem itemValue="ACS" itemLabel="ACS" />  
+			    </h:selectOneRadio>
+		    </div>
+	  	</div>
+
+	  	<div class="control-group">	 
+			<div class="controls">
+				<composite:renderFacet name="buttons"></composite:renderFacet>
+			</div>
+		</div>
+			
+	</h:form>
+	  	
+	</composite:implementation>
+</html>

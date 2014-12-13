@@ -38,7 +38,7 @@ public class PessoaController {
 		return dao.searchListPessoa(pessoa);
 	}
 
-	public Pessoa searchPessoaSus(Integer sus) {
+	public Pessoa searchPessoaSus(String sus) {
 		return dao.searchPessoaSus(sus);
 	}
 	

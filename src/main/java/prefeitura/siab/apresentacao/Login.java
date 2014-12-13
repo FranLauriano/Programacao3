@@ -1,8 +1,10 @@
 package prefeitura.siab.apresentacao;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 
 import prefeitura.siab.controller.AcsController;
+import prefeitura.siab.controller.UsuarioController;
 import prefeitura.siab.tabela.Acs;
+import prefeitura.siab.tabela.TipoUsuario;
+import prefeitura.siab.tabela.Usuario;
 
 @Component
 @Scope(WebApplicationContext.SCOPE_SESSION)
@@ -20,10 +25,11 @@ public class Login implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	//ATRIBUTOS
-	private @Autowired AcsController controller;
+	private @Autowired AcsController controllerAcs;
+	private @Autowired UsuarioController controllerUsuario;
 	private Acs servidor;
-	private Integer matricula;
-	private Integer senha;
+	private String template;
+	private Usuario usuario;
 
 	//PROPRIEDADES
 	public Acs getServidor() {
@@ -32,48 +38,52 @@ public class Login implements Serializable{
 	public void setServidor(Acs servidor) {
 		this.servidor = servidor;
 	}
-	public Integer getMatricula() {
-		return matricula;
+	public Usuario getUsuario() {
+		return usuario;
 	}
-	public void setMatricula(Integer matricula) {
-		this.matricula = matricula;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
-	public Integer getSenha() {
-		return senha;
+	public String getTemplate() {
+		return template;
 	}
-	public void setSenha(Integer senha) {
-		this.senha = senha;
-	}
-	
 	
 	//CONSTRUTOR
 	public Login() {
-		
+		usuario = new Usuario();
 	}
-	
+
+
 	//MÉTODOS
 	public String entrar(){
 		FacesMessage message = new FacesMessage();
-		if(matricula != null && matricula != 0){
-			Acs aux = new Acs();
-			aux.setMatricula(matricula);
-			aux.setMicroarea(senha);
-			servidor = controller.searchServidor(aux);
-			if(servidor == null){
+		if(usuario.getMatricula() != null && usuario.getMatricula() != 0 && usuario.getSenha() != null && usuario.getSenha().length() > 6){
+			Usuario usuarioAux = controllerUsuario.searchUsuarioAutentication(usuario);
+			if(usuarioAux == null){
 				message.setSummary("Matricula e/ou Senha Incorretas");
 				message.setSeverity(FacesMessage.SEVERITY_ERROR);
-				matricula = null;
-				senha = null;
+				reset();
 			}else{
-				matricula = null;
-				senha = null;
+				usuario = usuarioAux;
+				AcsSearchOptions aux = new AcsSearchOptions();
+				aux.setMatricula(usuario.getMatricula());
+				servidor = controllerAcs.searchAcs(aux);
+				if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
+					this.template = "/templateAdmin.xhtml";
+				}else if(usuario.getTipo().equals(TipoUsuario.ACS)){
+					this.template = "/templateAcs.xhtml";
+				}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+					this.template = "/template.xhtml";
+				}else{
+					this.template = "/403.xhtml";
+					return "403";
+				}
 				return "inicio";
 			}
 		}else{
 			message.setSummary("Matricula e/ou Senha Incorretas");
 			message.setSeverity(FacesMessage.SEVERITY_ERROR);
-			matricula = null;
-			senha = null;
+			reset();
 		}
 		
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -81,8 +91,16 @@ public class Login implements Serializable{
 		return null;
 	}
 	
+	public void reset(){
+		usuario.setMatricula(null);
+		usuario.setSenha(null);
+	}
+	
 	public String sair(){
-		this.servidor = null;
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> mapa = externalContext.getSessionMap();
+		mapa.clear();
 		return "sair";
 	}
 	

@@ -7,7 +7,7 @@
 		xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="#{login.template}">
-	<ui:define name="title">Procurar Raça</ui:define>
+	<ui:define name="title">Procurar Usuário</ui:define>
 
 	<ui:define name="mensagem">
 		<h:messages/>
@@ -15,11 +15,11 @@
 
 	<ui:define name="content">
 
-		<siab:procuraRaca id="options" options="#{searchRaca.options}">
+		<siab:procuraUsuario id="options" options="#{searchUsuario.options}">
 			<f:facet name="buttons">
-				<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchRaca.search}" ajax="false" />
+				<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchUsuario.search}" ajax="false" />
 			</f:facet>
-		</siab:procuraRaca>
+		</siab:procuraUsuario>
 
 		<h:form>
 			<div class="box">
@@ -27,23 +27,23 @@
 					<div class="tab-content">
 						<div class="tab-pane active">
 							<h:dataTable 	class="table table-striped dataTable table-bordered" 
-											value="#{searchRaca.result}" 
-											var="raca" 
+											value="#{searchUsuario.result}" 
+											var="usuario" 
 											columnClasses="col-sm-5, col-sm-5" 
-											rendered="#{searchRaca.result.isEmpty() == false}">
+											rendered="#{searchUsuario.result.isEmpty() == false}">
 								<h:column>
-									<f:facet name="header">Código</f:facet>
-										#{raca.codigo}
+									<f:facet name="header">Matricula</f:facet>
+										#{usuario.matricula}
 								</h:column>
 								<h:column>
-									<f:facet name="header">Nome</f:facet>
-										#{raca.nome}
+									<f:facet name="header">Tipo</f:facet>
+										#{usuario.tipo}
 								</h:column>
 								<h:column>
-									<h:commandButton class="btn btn-primary" value="Alterar" title="Update" action="#{searchRaca.update(raca)}"/>
+									<h:commandButton class="btn btn-primary" value="Alterar" title="Alterar" action="#{searchUsuario.update(usuario)}"/>
 								</h:column>
 								<h:column>
-									<h:commandButton class="btn btn-danger" value="Deletar" title="Delete" action="#{searchRaca.confirmDeletion(raca)}" onclick="return confirm('Deseja excluir #{raca.nome}?')"/>
+									<h:commandButton class="btn btn-danger" value="Deletar" title="Deletar" action="#{searchUsuario.confirmDeletion(usuario)}" onclick="return confirm('Deseja excluir #{usuario.matricula}?')"/>
 								</h:column>
 							</h:dataTable>
 						</div>

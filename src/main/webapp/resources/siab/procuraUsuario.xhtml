@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
+<composite:interface>
+	<composite:attribute name="options"></composite:attribute>
+	<composite:facet name="buttons"></composite:facet>
+</composite:interface>
+
+<composite:implementation>
+
+	<h:form id="form" class="form-horizontal">
+	
+		<div class="control-group">	    
+		    <label class="control-label">Matricula</label>
+		    <div class="controls">
+		    	<h:inputText id="codigo" value="#{cc.attrs.options.matricula}" disabled="#{cc.attrs.disabled}" p:placeholder="Matricula"></h:inputText>
+		    </div>
+	  	</div> 	
+  
+	  	<div class="control-group">	  			
+		    <label class="control-label">Tipo</label>
+		    <div class="controls">
+		    	<h:selectOneRadio id="tipo" value="#{cc.attrs.options.tipo}">  
+			        <f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador(a)" />  
+			        <f:selectItem itemValue="ENFERMEIRA" itemLabel="Enfermeiro(a)" />  
+			        <f:selectItem itemValue="ACS" itemLabel="ACS" />  
+			    </h:selectOneRadio>
+		    </div>
+	  	</div>
+
+	  	<div class="control-group">	 
+			<div class="controls">
+				<composite:renderFacet name="buttons"></composite:renderFacet>
+			</div>
+		</div>			
+	</h:form>
+	
+</composite:implementation>
+
+</html>

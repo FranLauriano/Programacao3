@@ -4,22 +4,21 @@
 	  xmlns:siab="http://java.sun.com/jsf/composite/siab"
 	  xmlns:h="http://java.sun.com/jsf/html"
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
-	  xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
 	  xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="#{login.template}">  
-  	<ui:define name="title">Alterar Pessoa</ui:define>
+  	<ui:define name="title">Novo Usuário</ui:define>
 
   	<ui:define name="mensagem">
   		<h:messages/>
   	</ui:define>
-
+  	
   	<ui:define name="content">
-		<siab:alteraPessoa id="pessoa" form="#{searchPessoa.form}">
+		<siab:usuario id="usuario" classe="#{newUsuario}">
 			<f:facet name="buttons">
-				<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchPessoa.confirmUpdate}"/>
+				<h:commandButton class="btn btn-primary" value="Cadastrar" action="#{newUsuario.saveUsuario}"/>
 			</f:facet>
-		</siab:alteraPessoa>
+		</siab:usuario>
   	</ui:define>
 
 </ui:composition>	

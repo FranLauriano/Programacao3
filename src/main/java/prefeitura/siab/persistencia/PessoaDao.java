@@ -32,7 +32,7 @@ public class PessoaDao {
 	public Pessoa searchPessoa(Pessoa pessoa) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
 
-		if (pessoa.getSus() != null && pessoa.getSus() != 0) {
+		if (pessoa.getSus() != null && pessoa.getSus().length() > 1) {
 			predicate.append(" and pessoa.sus = :pessoaSus");
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {
@@ -82,7 +82,7 @@ public class PessoaDao {
 		String jpql = "Select pessoa from Pessoa pessoa where " + predicate;
 		TypedQuery<Pessoa> query = manager.createQuery(jpql, Pessoa.class);
 
-		if (pessoa.getSus() != null && pessoa.getSus() != 0) {
+		if (pessoa.getSus() != null && pessoa.getSus().length() > 1) {
 			query.setParameter("pessoaSus", pessoa.getSus());
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {
@@ -134,7 +134,7 @@ public class PessoaDao {
 	public List<Pessoa> searchListPessoa(Pessoa pessoa) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
 		
-		if (pessoa.getSus() != null && pessoa.getSus() != 0) {
+		if (pessoa.getSus() != null && pessoa.getSus().length() > 1) {
 			predicate.append(" and pessoa.sus = :pessoaSus");
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {
@@ -182,7 +182,7 @@ public class PessoaDao {
 		String jpql = "Select pessoa from Pessoa pessoa where " + predicate;
 		TypedQuery<Pessoa> query = manager.createQuery(jpql, Pessoa.class);
 
-		if (pessoa.getSus() != 0 && pessoa.getSus() != 0) {
+		if (pessoa.getSus() != null && pessoa.getSus().length() > 1) {
 			query.setParameter("pessoaSus", pessoa.getSus());
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {
@@ -226,7 +226,7 @@ public class PessoaDao {
 		
 	}
 
-	public Pessoa searchPessoaSus(Integer sus) {
+	public Pessoa searchPessoaSus(String sus) {
 		TypedQuery<Pessoa> query = manager.createQuery("Select pessoa from Pessoa pessoa where pessoa.sus = :pessoaSus", Pessoa.class);
 		query.setParameter("pessoaSus", sus);
 		List<Pessoa> result = query.getResultList();
@@ -241,7 +241,7 @@ public class PessoaDao {
 	public List<Pessoa> searchListOptionsPessoa(PessoaSearchOptions pessoa) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
 		
-		if (pessoa.getSus() != null && pessoa.getSus() != 0) {
+		if (pessoa.getSus() != null && pessoa.getSus().length() > 1) {
 			predicate.append(" and pessoa.sus = :pessoaSus");
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {
@@ -300,7 +300,7 @@ public class PessoaDao {
 		System.out.println(jpql);
 		TypedQuery<Pessoa> query = manager.createQuery(jpql, Pessoa.class);
 
-		if (pessoa.getSus() != null && pessoa.getSus() != 0) {
+		if (pessoa.getSus() != null && pessoa.getSus().length() > 1) {
 			query.setParameter("pessoaSus", pessoa.getSus());
 		}
 		if (pessoa.getNome() != null && pessoa.getNome().length() > 1) {

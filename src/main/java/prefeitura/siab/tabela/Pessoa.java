@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 public class Pessoa {
 
 	//ATRIBUTOS
-	private Integer sus;
+	private String sus;
 	private String nome;
 	private Date dtnascimento;
 	private Integer idade;
@@ -40,10 +40,10 @@ public class Pessoa {
 	//PROPRIEDADES
 	@Id
 	@Column(name="PES_SUS")
-	public Integer getSus() {
+	public String getSus() {
 		return sus;
 	}
-	public void setSus(Integer sus) {
+	public void setSus(String sus) {
 		this.sus = sus;
 	}
 	

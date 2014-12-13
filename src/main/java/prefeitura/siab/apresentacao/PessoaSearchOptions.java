@@ -12,7 +12,7 @@ import prefeitura.siab.tabela.VinculoEmpregaticio;
 public class PessoaSearchOptions {
 	//ATRIBUTOS
 	private Familia familia;
-	private Integer sus;
+	private String sus;
 	private String nome;
 	private Date dtNascimento;
 	private Integer idadeInicial;
@@ -38,10 +38,10 @@ public class PessoaSearchOptions {
 	public void setFamilia(Familia familia) {
 		this.familia = familia;
 	}
-	public Integer getSus() {
+	public String getSus() {
 		return sus;
 	}
-	public void setSus(Integer sus) {
+	public void setSus(String sus) {
 		this.sus = sus;
 	}
 	public String getNome() {

@@ -44,7 +44,7 @@
 			<to-view-id>/raca/deleteRaca.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
-
+	
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
 		<navigation-case>
@@ -52,6 +52,32 @@
 			<to-view-id>/raca/searchRaca.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	
+		
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>updateUsuario</from-outcome>
+			<to-view-id>/usuario/updateUsuario.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>deleteUsuario</from-outcome>
+			<to-view-id>/usuario/deleteUsuario.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>searchUsuario</from-outcome>
+			<to-view-id>/usuario/searchUsuario.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
 
 	<navigation-rule>
 		<from-view-id>*</from-view-id>
@@ -197,6 +223,33 @@
 	   <navigation-case>
 	     <from-outcome>sair</from-outcome>
 	     <to-view-id>/login/login.xhtml</to-view-id>
+	     <redirect></redirect>
+	   </navigation-case>
+	 </navigation-rule>
+	 
+	 <navigation-rule>
+	   <from-view-id>/*</from-view-id>
+	   <navigation-case>
+	     <from-outcome>403</from-outcome>
+	     <to-view-id>/403.xhtml</to-view-id>
+	     <redirect></redirect>
+	   </navigation-case>
+	 </navigation-rule>
+	 
+	 <navigation-rule>
+	   <from-view-id>/*</from-view-id>
+	   <navigation-case>
+	     <from-outcome>404</from-outcome>
+	     <to-view-id>/404.xhtml</to-view-id>
+	     <redirect></redirect>
+	   </navigation-case>
+	 </navigation-rule>
+	 
+	 <navigation-rule>
+	   <from-view-id>/*</from-view-id>
+	   <navigation-case>
+	     <from-outcome>500</from-outcome>
+	     <to-view-id>/500.xhtml</to-view-id>
 	     <redirect></redirect>
 	   </navigation-case>
 	 </navigation-rule>
