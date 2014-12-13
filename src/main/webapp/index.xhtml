@@ -1,31 +1,121 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:siab="http://java.sun.com/jsf/composite/siab"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core">
 
-	<link href="/siab/lib/dist/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="/siab/lib/dist/css/justified-nav.css" rel="stylesheet" />
-
-	<script src="/siab/lib/jquery.min.js"></script>
-	<script src="/siab/lib/dist/js/bootstrap.min.js"></script>
-
-	<title><ui:insert name="title"></ui:insert></title>
-</h:head>
-
-<body>
 	<ui:composition template="#{login.template}">
-		<ui:define name="title">#{msg.welcome}</ui:define>
-		<ui:define name="mensagem">
-			<h:messages />#{msg.message}
+		<ui:define name="title">Seja Bem-Vindo Ovídio César</ui:define>
+		
+		
+		<ui:define name="content">
+		<div class="row-fluid">
+			<div class="span6">
+					<div class="box">
+						<div class="box-head">
+							<h3>Resumo da Área</h3>
+						</div>
+						<div class="box-content">
+							<strong>Acompanhe abaixo informações sobre sua área:</strong>
+							<ul class="quickstats">
+								<li>
+									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/home.png" alt=""/></div>
+									<div class="chart-detail">
+										<span class="amount">175</span>
+										<span class="description">Famílias Cadastradas</span>
+									</div>
+								</li>
+								<li>
+									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/business-contact.png" alt=""/></div>
+									<div class="chart-detail">
+										<span class="amount">556</span>
+										<span class="description">Pessoas Cadastradas</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				
+				<div class="span6">
+					<div class="box">
+						<div class="box-head">
+							<h3>Resumo de Doenças e Condições</h3>
+						</div>
+						<div class="box-content">
+							<strong>Acompanhe informações sobre os Doentes de sua Área:</strong>
+							<ul class="quickstats">
+								<li>
+									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/hire-me.png" alt=""/></div>
+									<div class="chart-detail">
+										<span class="amount">60</span>
+										<span class="description">Hipertensos</span>
+									</div>
+								</li>
+								<li>
+									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/hire-me.png" alt=""/></div>
+									<div class="chart-detail">
+										<span class="amount">55</span>
+										<span class="description">Diabeticos</span>
+									</div>
+								</li>
+								<li>
+									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/hire-me.png" alt=""/></div>
+									<div class="chart-detail">
+										<span class="amount">0</span>
+										<span class="description">Tuberculose</span>
+									</div>
+								</li>
+								<li>
+									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/hire-me.png" alt=""/></div>
+									<div class="chart-detail">
+										<span class="amount">0</span>
+										<span class="description">Hanseniase</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-fluid">
+				<div class="span6">
+					<div class="box">
+						<div class="box-head">
+							<h3>Resumo das Crianças</h3>
+						</div>
+						<div class="box-content">
+							<strong>Acompanhe informações sobre Crianças de sua Área:</strong>
+							<ul class="quickstats">
+								<li>
+									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/user.png" alt=""/></div>
+									<div class="chart-detail">
+										<span class="amount">3</span>
+										<span class="description">Menores de 1 Ano</span>
+									</div>
+								</li>
+								<li>
+									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/user.png" alt=""/></div>
+									<div class="chart-detail">
+										<span class="amount">4</span>
+										<span class="description">Menores de 2 Anos</span>
+									</div>
+								</li>
+								<li>
+									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/user.png" alt=""/></div>
+									<div class="chart-detail">
+										<span class="amount">5</span>
+										<span class="description">Menores de 5 Anos</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
 		</ui:define>
+		
 	</ui:composition>
-</body>
+
 </html>

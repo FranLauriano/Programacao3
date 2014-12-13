@@ -2,8 +2,10 @@ package prefeitura.siab.apresentacao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,7 @@ public class NewFamilia {
 	private List<Pessoa> pessoas;
 	private List<Endereco> endereco;
 	private List<Acs> agentes; 
+	private boolean disabled;
 	
 	//RAÇAS
 	private RacaController controllerRaca;
@@ -63,6 +66,12 @@ public class NewFamilia {
 	
 	//PROPRIEDADES
 	
+	public boolean getDisabled() {
+		return disabled;
+	}
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
 	public Familia getFamilia() {
 		return familia;
 	}
@@ -207,11 +216,27 @@ public class NewFamilia {
 	}
 	
 	public Integer getAcsMatricula(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> mapa = externalContext.getSessionMap();
+		Login autenticacaoBean = (Login) mapa.get("login");
+		Acs servidor = autenticacaoBean.getServidor();
+		if(servidor == null){
+			return null;
+		}else{
+			Endereco aux = new Endereco();
+			aux.setAgente(servidor);
+			endereco = controllerEndereco.searchListEndereco(aux);
+			this.disabled = true;
+			return servidor.getMatricula();
+		}
+		/*
 		if(familia.getRua().getAgente() == null){
 			return null;			
 		}else{
 			return familia.getRua().getAgente().getMatricula();
 		}
+		*/
 	}
 	
 	public void setEnderecoFamilia(Integer cep){
