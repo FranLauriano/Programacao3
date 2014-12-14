@@ -220,7 +220,7 @@ public class NewFamilia {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> mapa = externalContext.getSessionMap();
 		Login autenticacaoBean = (Login) mapa.get("login");
-		Acs servidor = autenticacaoBean.getServidor();
+		Acs servidor = autenticacaoBean.getAgente().getAgente();
 		if(servidor == null){
 			return null;
 		}else{

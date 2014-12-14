@@ -41,7 +41,7 @@ public class PessoaDao {
 		if (pessoa.getDtnascimento() != null) {
 			predicate.append(" and pessoa.dtnascimento = :pessoaDtnascimento");
 		}
-		if (pessoa.getIdade() != 0) {
+		if (pessoa.getIdade() != null && pessoa.getIdade() != 0) {
 			predicate.append(" and pessoa.idade = :pessoaIdade");
 		}
 		if (pessoa.getSexo() != 0) {
@@ -91,7 +91,7 @@ public class PessoaDao {
 		if (pessoa.getDtnascimento() != null) {
 			query.setParameter("pessoaDtnascimento", pessoa.getDtnascimento());
 		}
-		if (pessoa.getIdade() != 0) {
+		if (pessoa.getIdade() != null && pessoa.getIdade() != 0) {
 			query.setParameter("pessoaIdade", pessoa.getIdade());
 		}
 		if (pessoa.getSexo() != 0) {
@@ -143,7 +143,7 @@ public class PessoaDao {
 		if (pessoa.getDtnascimento() != null) {
 			predicate.append(" and pessoa.dtnascimento = :pessoaDtnascimento");
 		}
-		if (pessoa.getIdade() != 0) {
+		if (pessoa.getIdade() != null && pessoa.getIdade() != 0) {
 			predicate.append(" and pessoa.idade = :pessoaIdade");
 		}
 		if (pessoa.getSexo() != 0) {
@@ -191,7 +191,7 @@ public class PessoaDao {
 		if (pessoa.getDtnascimento() != null) {
 			query.setParameter("pessoaDtnascimento", pessoa.getDtnascimento());
 		}
-		if (pessoa.getIdade() != 0) {
+		if (pessoa.getIdade() != null && pessoa.getIdade() != 0) {
 			query.setParameter("pessoaIdade", pessoa.getIdade());
 		}
 		if (pessoa.getSexo() != 0) {

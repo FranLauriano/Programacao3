@@ -6,10 +6,14 @@
 		xmlns:f="http://java.sun.com/jsf/core">
 
 	<ui:composition template="#{login.template}">
-		<ui:define name="title">Seja Bem-Vindo Ovídio César</ui:define>
+		<ui:define name="title">Seja Bem-Vindo #{login.agente.agente.nome}</ui:define>
 		
 		
 		<ui:define name="content">
+		<f:metadata>  
+		    <f:event type="preRenderView" listener="#{login.agente.inicializar}"/>  
+		</f:metadata>  
+		
 		<div class="row-fluid">
 			<div class="span6">
 					<div class="box">
@@ -22,14 +26,14 @@
 								<li>
 									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/home.png" alt=""/></div>
 									<div class="chart-detail">
-										<span class="amount">175</span>
+										<span class="amount">#{login.agente.familias}</span>
 										<span class="description">Famílias Cadastradas</span>
 									</div>
 								</li>
 								<li>
 									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/business-contact.png" alt=""/></div>
 									<div class="chart-detail">
-										<span class="amount">556</span>
+										<span class="amount">#{login.agente.pessoas}</span>
 										<span class="description">Pessoas Cadastradas</span>
 									</div>
 								</li>
@@ -49,28 +53,28 @@
 								<li>
 									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/hire-me.png" alt=""/></div>
 									<div class="chart-detail">
-										<span class="amount">60</span>
+										<span class="amount">#{login.agente.hipertensos}</span>
 										<span class="description">Hipertensos</span>
 									</div>
 								</li>
 								<li>
 									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/hire-me.png" alt=""/></div>
 									<div class="chart-detail">
-										<span class="amount">55</span>
+										<span class="amount">#{login.agente.diabetes}</span>
 										<span class="description">Diabeticos</span>
 									</div>
 								</li>
 								<li>
 									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/hire-me.png" alt=""/></div>
 									<div class="chart-detail">
-										<span class="amount">0</span>
+										<span class="amount">#{login.agente.tubercolosos}</span>
 										<span class="description">Tuberculose</span>
 									</div>
 								</li>
 								<li>
 									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/hire-me.png" alt=""/></div>
 									<div class="chart-detail">
-										<span class="amount">0</span>
+										<span class="amount">#{login.agente.hanseniase}</span>
 										<span class="description">Hanseniase</span>
 									</div>
 								</li>
@@ -91,22 +95,29 @@
 								<li>
 									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/user.png" alt=""/></div>
 									<div class="chart-detail">
-										<span class="amount">3</span>
+										<span class="amount">#{login.agente.menosde1}</span>
 										<span class="description">Menores de 1 Ano</span>
 									</div>
 								</li>
 								<li>
 									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/user.png" alt=""/></div>
 									<div class="chart-detail">
-										<span class="amount">4</span>
+										<span class="amount">#{login.agente.menosde2}</span>
 										<span class="description">Menores de 2 Anos</span>
 									</div>
 								</li>
 								<li>
 									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/user.png" alt=""/></div>
 									<div class="chart-detail">
-										<span class="amount">5</span>
+										<span class="amount">#{login.agente.menosde5}</span>
 										<span class="description">Menores de 5 Anos</span>
+									</div>
+								</li>
+								<li>
+									<div class="small-chart"><img src="/siab/libs/img/icons/essen/32/user.png" alt=""/></div>
+									<div class="chart-detail">
+										<span class="amount">#{login.agente.acimade60}</span>
+										<span class="description">Acima de 60 Anos</span>
 									</div>
 								</li>
 							</ul>
