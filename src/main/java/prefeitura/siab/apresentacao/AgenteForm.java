@@ -163,7 +163,7 @@ public class AgenteForm {
 			}
 			
 			//QUANTITATIVO DE CRIANÇAS
-			List<Pessoa> listaPessoas = controllerPessoa.searchPessoa(new Pessoa());
+			List<Pessoa> listaPessoas = controllerPessoa.searchListPessoa(new PessoaSearchOptions());
 			for(Pessoa pessoa: listaPessoas){
 				if(pessoa.getIdade() < 1){
 					menosde1++;

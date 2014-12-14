@@ -34,10 +34,6 @@ public class PessoaController {
 		return null;
 	}
 
-	public List<Pessoa> searchPessoa(Pessoa pessoa) {
-		return dao.searchListPessoa(pessoa);
-	}
-
 	public Pessoa searchPessoaSus(String sus) {
 		return dao.searchPessoaSus(sus);
 	}

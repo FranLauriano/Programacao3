@@ -1,8 +1,10 @@
 package prefeitura.siab.apresentacao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,7 @@ public class SearchFamilia {
 	private EnderecoController controllerEndereco;
 	private List<Endereco> enderecos;
 	private PessoaController controllerPessoa;
+	private boolean disabled;
 	
 	
 	
@@ -71,6 +74,12 @@ public class SearchFamilia {
 	}
 	public void setForm(FamiliaForm form) {
 		this.form = form;
+	}
+	public boolean isDisabled() {
+		return disabled;
+	}
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
 	}
 	
 	//CONSTRUTOR
@@ -120,10 +129,20 @@ public class SearchFamilia {
 	}
 	
 	public Integer getAcsMatricula(){
-		if(options.getAgente() == null){
-			return null;			
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> mapa = externalContext.getSessionMap();
+		Login autenticacaoBean = (Login) mapa.get("login");
+		Acs servidor = autenticacaoBean.getAgente().getAgente();
+		if(servidor == null){
+			return null;
 		}else{
-			return options.getAgente().getMatricula();
+			Endereco aux = new Endereco();
+			aux.setAgente(servidor);
+			enderecos = controllerEndereco.searchListEndereco(aux);
+			options.setAgente(servidor);
+			this.disabled = true;
+			return servidor.getMatricula();
 		}
 	}
 	

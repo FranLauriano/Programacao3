@@ -28,6 +28,7 @@ public class Login implements Serializable{
 	private @Autowired AcsController controllerAcs;
 	private @Autowired UsuarioController controllerUsuario;
 	private String template;
+	private String nome;
 	private Usuario usuario;
 	private AgenteForm agente;
 
@@ -47,6 +48,13 @@ public class Login implements Serializable{
 	public void setAgente(AgenteForm agente) {
 		this.agente = agente;
 	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 	//CONSTRUTOR
 	public Login() {
 		usuario = new Usuario();
@@ -67,7 +75,9 @@ public class Login implements Serializable{
 				usuario = usuarioAux;
 				AcsSearchOptions aux = new AcsSearchOptions();
 				aux.setMatricula(usuario.getMatricula());
-				agente.setAgente(controllerAcs.searchAcs(aux));
+				Acs acsAux = controllerAcs.searchAcs(aux);
+				agente.setAgente(acsAux);
+				nome = agente.getAgente().getNome();
 				if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
 					this.template = "/templateAdmin.xhtml";
 				}else if(usuario.getTipo().equals(TipoUsuario.ACS)){
