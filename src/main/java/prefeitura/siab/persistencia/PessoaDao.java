@@ -30,7 +30,7 @@ public class PessoaDao {
 	}
 
 	public void delete(Pessoa pessoa) {
-		Pessoa pessoaAux = manager.find(Pessoa.class, pessoa.getSus());
+		Pessoa pessoaAux = manager.find(Pessoa.class, pessoa.getCodigo());
 		manager.remove(pessoaAux);
 	}
 
@@ -95,6 +95,8 @@ public class PessoaDao {
 		}
 		if (agenteAuxiliar != null) {
 			predicate.append(" and pessoa.familia.agente.matricula = :agenteMatricula");
+		}else if(pessoa.getAgente() != null && pessoa.getAgente().getMatricula() != 0){
+			predicate.append(" and pessoa.familia.agente.matricula = :agenteMatricula");
 		}
 		if (pessoa.getFamilia() != null && pessoa.getFamilia().getCodigo() != 0) {
 			predicate.append(" and pessoa.familia.codigo = :pessoaFamiliaCodigo");
@@ -142,6 +144,8 @@ public class PessoaDao {
 		}
 		if (agenteAuxiliar != null) {
 			query.setParameter("agenteMatricula", agenteAuxiliar.getMatricula());
+		}else if(pessoa.getAgente() != null && pessoa.getAgente().getMatricula() != 0){
+			query.setParameter("agenteMatricula", pessoa.getAgente().getMatricula());
 		}
 		if (pessoa.getFamilia() != null && pessoa.getFamilia().getCodigo() != 0) {
 			query.setParameter("pessoaFamiliaCodigo", pessoa.getFamilia().getCodigo());

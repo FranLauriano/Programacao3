@@ -37,12 +37,12 @@
 			<version>3.3.2</version>
 		</dependency>
 	
-			
-		<!-- Implementação do PrimeFaces -->
+		<!-- Implementacao do Bean Validation -->
 		<dependency>
-			<groupId>org.primefaces</groupId>
-			<artifactId>primefaces</artifactId>
-			<version>5.0</version>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.0.1.Final</version>
+			<scope>compile</scope>
 		</dependency>
 
 		<!-- Implementação do Mojarra -->

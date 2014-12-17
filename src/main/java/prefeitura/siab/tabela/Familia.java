@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,15 +25,25 @@ public class Familia {
 	private Endereco rua;
 	private List<Pessoa> pessoas;
 	private Integer numero;
+	private Integer numeroFamilia;
 	
 	//PROPRIEDADES
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
 	@Column(name="FAM_CODIGO")
 	public Integer getCodigo() {
 		return codigo;
 	}
 	public void setCodigo(Integer codigo) {
 		this.codigo = codigo;
+	}
+		
+	@Column(name="FAM_NUMFAMILIA")
+	public Integer getNumeroFamilia() {
+		return numeroFamilia;
+	}
+	public void setNumeroFamilia(Integer numeroFamilia) {
+		this.numeroFamilia = numeroFamilia;
 	}
 	
 	@ManyToOne

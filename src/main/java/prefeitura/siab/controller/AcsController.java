@@ -19,14 +19,21 @@ public class AcsController {
 	public void salvarAcs(Acs agente) throws BusinessException {
 		Acs auxiliar = dao.searchAcs(agente);
 		if(auxiliar != null){
-			if(auxiliar.getMatricula().equals(agente.getMatricula()) && auxiliar.getMicroarea().equals(agente.getMicroarea())){
-				throw new BusinessException("Esse ACS já foi Cadastrado!");
-			}else if(auxiliar.getMatricula().equals(agente.getMatricula())){
-				throw new BusinessException("Essa matricula já pertence a algum ACS cadastrado!");
-			}else if(auxiliar.getMicroarea().equals(agente.getMicroarea())){
+			if(auxiliar.getMicroarea().equals(agente.getMicroarea())){
 				throw new BusinessException("Essa Microarea já pertence a algum ACS cadastrado!");
 			}
-			throw new BusinessException("Impossível salvar esse ACS");
+		}
+		if(agente.getMatricula() == null || agente.getMatricula() == 0){
+			throw new BusinessException("Impossível salvar um ACS sem Matrícula");
+		}
+		if(agente.getMicroarea() == null || agente.getMicroarea() == 0){
+			throw new BusinessException("Micro-Área Inválida!");
+		}
+		if(agente.getArea() == null || agente.getArea() == 0){
+			throw new BusinessException("Área Inválida!");
+		}
+		if(agente.getMicroregiao() == null || agente.getMicroregiao() == 0){
+			throw new BusinessException("Micro-Região Inválida!");
 		}
 		dao.insert(agente);
 	}

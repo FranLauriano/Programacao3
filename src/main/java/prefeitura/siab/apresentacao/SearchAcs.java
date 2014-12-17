@@ -66,7 +66,7 @@ public class SearchAcs {
 	public String update(Acs acs){
 		Acs acsAux = new Acs();
 		acsAux.setMatricula(acs.getMatricula());
-		acsAux.setNome(acs.getNome());
+		//acsAux.setNome(acs.getNome());
 		acsAux.setMicroregiao(acs.getMicroregiao());
 		acsAux.setArea(acs.getArea());
 		acsAux.setMicroarea(acs.getMicroarea());

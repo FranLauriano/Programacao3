@@ -2,8 +2,10 @@ package prefeitura.siab.apresentacao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.jsf.FacesContextUtils;
 
+import prefeitura.siab.controller.AcsController;
 import prefeitura.siab.controller.BusinessException;
 import prefeitura.siab.controller.DoencaController;
 import prefeitura.siab.controller.EscolaridadeController;
@@ -20,6 +23,7 @@ import prefeitura.siab.controller.FamiliaController;
 import prefeitura.siab.controller.PessoaController;
 import prefeitura.siab.controller.RacaController;
 import prefeitura.siab.controller.VinculoController;
+import prefeitura.siab.tabela.Acs;
 import prefeitura.siab.tabela.Doenca;
 import prefeitura.siab.tabela.Escolaridade;
 import prefeitura.siab.tabela.Familia;
@@ -36,6 +40,8 @@ public class SearchPessoa {
 	private PessoaSearchOptions options;
 	private List<Pessoa> result;
 	private Pessoa pessoa;
+	private PessoaForm form;
+	private boolean disabled;
 	//FAMÍLIAS
 	private FamiliaController controllerFamilia;
 	private List<Familia> familias;
@@ -51,7 +57,10 @@ public class SearchPessoa {
 	//DOENÇAS
 	private DoencaController controllerDoenca;
 	private List<Doenca> doencas;
-	private PessoaForm form;
+	//ACS
+	private AcsController controllerAcs;
+	private List<Acs> agentes;
+	
 	
 	//PROPRIEDADES
 	
@@ -109,7 +118,18 @@ public class SearchPessoa {
 	public void setResult(List<Pessoa> result) {
 		this.result = result;
 	}
-	
+	public List<Acs> getAgentes() {
+		return agentes;
+	}
+	public void setAgentes(List<Acs> agentes) {
+		this.agentes = agentes;
+	}
+	public boolean isDisabled() {
+		return disabled;
+	}
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
 	//CONSTRUTOR
 	public SearchPessoa() {
 		result = null;
@@ -124,12 +144,14 @@ public class SearchPessoa {
 		controllerEscolaridade = applicationContext.getBean(EscolaridadeController.class);
 		controllerVinculo = applicationContext.getBean(VinculoController.class);
 		controllerDoenca = applicationContext.getBean(DoencaController.class);
+		controllerAcs = applicationContext.getBean(AcsController.class);
 		
 		familias = controllerFamilia.searchFamilia(new Familia());
 		racas = controllerRaca.searchRaca(new Raca());
 		escolaridades = controllerEscolaridade.searchEscolaridade(new Escolaridade());
 		vinculos = controllerVinculo.searchVinculo(new VinculoEmpregaticio());
 		doencas = controllerDoenca.searchListDoenca(new Doenca());
+		agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
 	}
 	
 	//MÉTODOS
@@ -268,6 +290,35 @@ public class SearchPessoa {
 			}
 			
 			return siglas;
+		}
+		
+		public void setAcsMatricula(Integer matricula){
+			if(matricula == 0 || matricula == null){
+				options.setAgente(null);
+			}else{
+				for(Acs agente: agentes){
+					if(agente.getMatricula().equals(matricula)){
+						options.setAgente(agente);
+						break;
+					}
+				}
+				
+			}
+		}
+		
+		public Integer getAcsMatricula(){
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			Map<String, Object> mapa = externalContext.getSessionMap();
+			Login autenticacaoBean = (Login) mapa.get("login");
+			Acs servidor = autenticacaoBean.getAgente().getAgente();
+			if(servidor == null){
+				return null;
+			}else{
+				options.setAgente(servidor);
+				this.disabled = true;
+				return servidor.getMatricula();
+			}
 		}
 		
 

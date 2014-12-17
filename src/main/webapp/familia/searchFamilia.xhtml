@@ -27,8 +27,8 @@
 						<div class="tab-pane active">
 							<h:dataTable styleClass="table table-bordered table-condensed table-hover" value="#{searchFamilia.result}" var="familia" rendered="#{searchFamilia.result.isEmpty() == false}">
 								<h:column>
-									<f:facet name="header">Código</f:facet>
-									#{familia.codigo}
+									<f:facet name="header">Código da Família</f:facet>
+									#{familia.numeroFamilia}
 								</h:column>
 								<h:column>
 									<f:facet name="header">ACS</f:facet>

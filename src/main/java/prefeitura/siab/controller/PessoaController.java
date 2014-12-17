@@ -47,7 +47,7 @@ public class PessoaController {
 			if(pessoa.getSus().equals(pessoaAux.getSus())){
 				dao.updatePessoa(pessoa);
 			}else{
-				throw new BusinessException("Já existe uma Pessoa com o nome: "+ pessoa.getNome());
+				throw new BusinessException("Já existe uma cadastrada com esse número do SUS: ");
 			}
 		}
 	}

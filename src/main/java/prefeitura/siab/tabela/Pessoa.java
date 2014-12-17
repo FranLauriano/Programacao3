@@ -6,6 +6,8 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -22,6 +24,7 @@ import javax.persistence.TemporalType;
 public class Pessoa {
 
 	//ATRIBUTOS
+	private Integer codigo;
 	private String sus;
 	private String nome;
 	private Date dtnascimento;
@@ -39,10 +42,21 @@ public class Pessoa {
 	
 	//PROPRIEDADES
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@Column(name="PES_CODIGO")
+	public Integer getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+	
+	
 	@Column(name="PES_SUS")
 	public String getSus() {
 		return sus;
 	}
+	
 	public void setSus(String sus) {
 		this.sus = sus;
 	}

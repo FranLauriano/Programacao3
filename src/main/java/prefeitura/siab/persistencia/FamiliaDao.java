@@ -40,18 +40,7 @@ public class FamiliaDao {
 		if (familia.getRua() != null && familia.getRua().getRua().length() != 0) {
 			predicate.append(" and upper(familia.rua.rua) like :familiaRuaRua");
 		}
-		/*
-		if (familia.getPessoas() != null && familia.getPessoas().size() != 0) {
-			String operadorAnd = (familia.getPessoas().size() > 1) ? " and" : "";
-			predicate.append(" and (");
-			
-			for (int i = 0; i < familia.getPessoas().size(); i++) {
-				predicate.append(" upper(familia.pessoas.nome) like :familiaPessoaNome" + i);
-				predicate.append(operadorAnd);
-			}
-			predicate.append(" )");
-		}
-		*/
+
 		
 		String jpql = "Select familia from Familia familia where " + predicate;
 		TypedQuery<Familia> query = manager.createQuery(jpql, Familia.class);
@@ -65,13 +54,7 @@ public class FamiliaDao {
 		if (familia.getRua() != null && familia.getRua().getRua().length() != 0) {
 			query.setParameter("familiaRuaRua", familia.getRua().getRua().toUpperCase());
 		}
-		/*
-		if (familia.getPessoas() != null && familia.getPessoas().size() != 0) {
-			for (int i = 0; i < familia.getPessoas().size(); i++) {
-				query.setParameter("familiaPessoaNome" + i, familia.getPessoas().get(i).getNome().toUpperCase());
-			}
-		}
-		*/
+
 
 		List<Familia> result = query.getResultList();
 		if(result.isEmpty()){
@@ -93,19 +76,8 @@ public class FamiliaDao {
 		if (familia.getRua() != null && familia.getRua().getRua().length() != 0) {
 			predicate.append(" and upper(familia.rua.rua) like :familiaRuaRua");
 		}
-		/*
-		if (familia.getPessoas() != null && familia.getPessoas().size() != 0) {
-			String operadorAnd = (familia.getPessoas().size() > 1) ? " and" : "";
-			predicate.append(" and (");
-			
-			for (int i = 0; i < familia.getPessoas().size(); i++) {
-				predicate.append(" upper(familia.pessoas.nome) like :familiaPessoaNome" + i);
-				predicate.append(operadorAnd);
-			}
-			predicate.append(" )");
-		}
-		*/
-		String jpql = "Select familia from Familia familia where " + predicate;
+
+		String jpql = "Select familia from Familia familia where " + predicate + " order by familia.numeroFamilia";
 		TypedQuery<Familia> query = manager.createQuery(jpql, Familia.class);
 		
 		if (familia.getCodigo() != null && familia.getCodigo() != 0) {
@@ -117,13 +89,7 @@ public class FamiliaDao {
 		if (familia.getRua() != null && familia.getRua().getRua().length() != 0) {
 			query.setParameter("familiaRuaRua", familia.getRua().getRua().toUpperCase());
 		}
-		/*
-		if (familia.getPessoas() != null && familia.getPessoas().size() != 0) {
-			for (int i = 0; i < familia.getPessoas().size(); i++) {
-				query.setParameter("familiaPessoaNome" + i, familia.getPessoas().get(i).getNome().toUpperCase());
-			}
-		}
-		 */
+
 		List<Familia> result = query.getResultList();
 		return result;
 	}

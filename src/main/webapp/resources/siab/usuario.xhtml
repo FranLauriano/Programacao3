@@ -16,45 +16,119 @@
 	<composite:implementation>
 	
 	<h:form id="form" class="form-horizontal">
-	
-		<div class="control-group">	    
-		    <label class="control-label">Matricula</label>
-		    <div class="controls">
-		    	<h:inputText id="matricula" value="#{cc.attrs.classe.usuario.matricula}" disabled="#{cc.attrs.disabled}" p:placeholder="Matricula"></h:inputText>
-		    </div>
-	  	</div>
-
-	  	<div class="control-group">	  			
-		    <label class="control-label">Senha</label>
-		    <div class="controls">
-		    	<h:inputSecret id="senha1" value="#{cc.attrs.classe.senha1}" p:placeholder="Senha"></h:inputSecret>
-		    </div>
-	  	</div>
-	  	
-	  	<div class="control-group">	  			
-		    <label class="control-label">Confirme a Senha</label>
-		    <div class="controls">
-		    	<h:inputSecret id="senha2" value="#{cc.attrs.classe.senha2}" p:placeholder="Confirme sua Senha"></h:inputSecret>
-		    </div>
-	  	</div>
-	  	
-	  	<div class="control-group">	  			
-		    <label class="control-label">Tipo</label>
-		    <div class="controls">
-		    	<h:selectOneRadio id="tipo" value="#{cc.attrs.classe.usuario.tipo}">  
-			        <f:selectItem itemValue="ADMINISTRADOR" itemLabel="Administrador(a)" />  
-			        <f:selectItem itemValue="ENFERMEIRA" itemLabel="Enfermeiro(a)" />  
-			        <f:selectItem itemValue="ACS" itemLabel="ACS" />  
-			    </h:selectOneRadio>
-		    </div>
-	  	</div>
-
-	  	<div class="control-group">	 
-			<div class="controls">
-				<composite:renderFacet name="buttons"></composite:renderFacet>
-			</div>
-		</div>
+		<div class="row-fluid">
+			<div class="span6">
+				<div class="control-group">
+				    <label class="control-label">Tipo</label>
+				    <div class="controls">
+				    	<h:selectOneMenu id="tipo" styleClass="form-control" value="#{cc.attrs.classe.escolherTipo}" disabled="#{cc.attrs.classe.disabled}">
+							<f:selectItem itemValue="0" itemLabel="Administrador" />  
+				        	<f:selectItem itemValue="1" itemLabel="Enfermeiro(a)" />  
+					        <f:selectItem itemValue="2" itemLabel="Agente Comunitário de Saúde" />  
+							<f:ajax process="@this" render="@form" />
+						</h:selectOneMenu>
+				    </div>
+			  	</div>
 			
+				<div class="control-group">	 
+					<h:outputLabel rendered="#{cc.attrs.classe.admin}" class="control-label">Matricula</h:outputLabel>   
+				    <div class="controls">
+				    	<h:inputText id="matricula" rendered="#{cc.attrs.classe.admin}" value="#{cc.attrs.classe.usuario.matricula}" disabled="#{cc.attrs.disabled}" p:placeholder="Matricula"></h:inputText>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">	  
+			  		<h:outputLabel rendered="#{cc.attrs.classe.admin}" class="control-label">Nome</h:outputLabel>     
+				    <div class="controls">
+				    	<h:inputText id="nome" rendered="#{cc.attrs.classe.admin}" value="#{cc.attrs.classe.usuario.nome}" disabled="#{cc.attrs.disabled}" p:placeholder="Nome"></h:inputText>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">	
+			  		<h:outputLabel rendered="#{cc.attrs.classe.admin}" class="control-label">Senha</h:outputLabel>     			
+				    <div class="controls">
+				    	<h:inputSecret id="senha1" rendered="#{cc.attrs.classe.admin}" value="#{cc.attrs.classe.senha1}" p:placeholder="Senha"></h:inputSecret>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">	
+			  		<h:outputLabel rendered="#{cc.attrs.classe.admin}" class="control-label">Confirme a Senha</h:outputLabel>     			
+				    <div class="controls">
+				    	<h:inputSecret id="senha2" rendered="#{cc.attrs.classe.admin}" value="#{cc.attrs.classe.senha2}" p:placeholder="Confirme sua Senha"></h:inputSecret>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">
+					<div class="controls">
+						<composite:renderFacet name="buttons" rendered="#{cc.attrs.classe.admin}"></composite:renderFacet>
+					</div>
+				</div>
+			  	
+		  	</div>
+	  	
+			<div class="span6">
+				<div class="control-group">
+					<h:outputLabel rendered="#{cc.attrs.classe.admin}" class="control-label">Email</h:outputLabel>	    
+				    <div class="controls">
+				    	<h:inputText id="email" rendered="#{cc.attrs.classe.admin}" value="#{cc.attrs.classe.usuario.email}" disabled="#{cc.attrs.disabled}" p:placeholder="seu@email.com.br"></h:inputText>
+				    </div>
+			  	</div>
+			  	
+				<h:form rendered="#{cc.attrs.classe.acs}">
+			  		<div class="control-group">
+					    <label class="control-label">Supervisor</label>
+					    <div class="controls">
+					    	<h:selectOneMenu id="supervisor" styleClass="form-control" value="#{cc.attrs.classe.enfermeiras}" disabled="#{cc.attrs.classe.disabled}">
+								<f:selectItem itemLabel="Selecione um(a) Supervisora" itemValue="#{null}" />
+								<f:selectItems value="#{cc.attrs.classe.supervisores}" var="enfermeira"	itemLabel="#{enfermeira.nome}" itemValue="#{enfermeira.matricula}"></f:selectItems>
+								<f:ajax process="@this" render="supervisor" />
+							</h:selectOneMenu>
+					    </div>
+				  	</div>
+			  		
+			  		<div class="control-group">	  			
+					    <h:outputLabel rendered="#{cc.attrs.classe.acs}" class="control-label">Micro-Área</h:outputLabel>
+					    <div class="controls">
+					    	<h:inputText id="microarea" styleClass="form-control" rendered="#{cc.attrs.classe.acs}" value="#{cc.attrs.classe.usuario.acs.microarea}" p:placeholder="Microarea"></h:inputText>
+					    </div>
+				  	</div>
+					  	
+				  	<div class="control-group">	 
+				  		<h:outputLabel rendered="#{cc.attrs.classe.acs}" class="control-label">Área</h:outputLabel> 			
+					    <div class="controls">
+					    	<h:inputText id="area" rendered="#{cc.attrs.classe.acs}" styleClass="form-control" value="#{cc.attrs.classe.usuario.acs.area}" p:placeholder="Área"></h:inputText>
+					    </div>
+				  	</div>
+					  	
+				  	<div class="control-group">
+				  		<h:outputLabel rendered="#{cc.attrs.classe.acs}" class="control-label">Micro-Região</h:outputLabel>	  			
+					    <div class="controls">
+					    	<h:inputText id="microregiao" rendered="#{cc.attrs.classe.acs}" styleClass="form-control" value="#{cc.attrs.classe.usuario.acs.microregiao}" p:placeholder="Microregiao"></h:inputText>
+					    </div>
+				  	</div>
+				</h:form>
+			
+				<h:form rendered="#{cc.attrs.classe.enfermeira}">
+			  		<div class="control-group">	  
+			  			<h:outputLabel rendered="#{cc.attrs.classe.enfermeira}" class="control-label">COREN</h:outputLabel>	  			
+					    <div class="controls">
+					    	<h:inputText id="coren" styleClass="form-control" rendered="#{cc.attrs.classe.enfermeira}" value="#{cc.attrs.classe.usuario.enfermeira.coren}" p:placeholder="COREN"></h:inputText>
+					    </div>
+				  	</div>
+					  	
+				  	<div class="control-group">	
+				  		<h:outputLabel rendered="#{cc.attrs.classe.enfermeira}" class="control-label">Equipe</h:outputLabel>
+					    <div class="controls">
+					    	<h:inputText id="equipe" styleClass="form-control" rendered="#{cc.attrs.classe.enfermeira}" value="#{cc.attrs.classe.usuario.enfermeira.equipe}" p:placeholder="Nome da Equipe"></h:inputText>
+					    </div>
+				  	</div>
+				
+			  	</h:form>
+		  	</div>
+	  	</div>
+	  	
+	  	
+	  	
 	</h:form>
 	  	
 	</composite:implementation>

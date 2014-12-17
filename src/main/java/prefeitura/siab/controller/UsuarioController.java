@@ -13,6 +13,8 @@ import prefeitura.siab.tabela.Usuario;
 public class UsuarioController {
 
 	private @Autowired UsuarioDao dao;
+	private @Autowired AcsController controllerAcs;
+	private @Autowired EnfermeiraController controllerEnfermeira;
 	
 	@Transactional
 	public void salvarUsuario(Usuario usuario) throws BusinessException{
@@ -21,14 +23,31 @@ public class UsuarioController {
 			if(auxiliar.getMatricula().equals(usuario.getMatricula())){
 				throw new BusinessException("Essa Matricula já está cadastrada!!!");
 			}
-		}else if((usuario.getMatricula() == null || usuario.getMatricula() == 0) && (usuario.getSenha() == null || usuario.getSenha().length() < 6)){
+		}
+		if((usuario.getMatricula() == null || usuario.getMatricula() == 0) && (usuario.getSenha() == null || usuario.getSenha().length() < 6)){
 			throw new BusinessException("Favor inserir uma Matricula e uma Senha Válida");
-		}else if((usuario.getMatricula() == null || usuario.getMatricula() == 0)){
+		}
+		if((usuario.getMatricula() == null || usuario.getMatricula() == 0)){
 			throw new BusinessException("Favor inserir uma Matricula");
-		}else if(usuario.getSenha() == null || usuario.getSenha().length() < 6){
+		}
+		if((usuario.getNome() == null || usuario.getNome().length() < 5)){
+			throw new BusinessException("Favor inserir um Nome");
+		}
+		if(usuario.getSenha() == null || usuario.getSenha().length() < 6){
 			throw new BusinessException("Favor inserir uma senha acima de 6 digitos");
 		}
+		
+		if(usuario.getAcs() != null){
+			usuario.getAcs().setMatricula(usuario.getMatricula());
+			usuario.getAcs().setNome(usuario.getNome());
+			controllerAcs.salvarAcs(usuario.getAcs());
+		}else if(usuario.getEnfermeira() != null){
+			usuario.getEnfermeira().setMatricula(usuario.getMatricula());
+			usuario.getEnfermeira().setNome(usuario.getNome());
+			controllerEnfermeira.salvarEnfermeira(usuario.getEnfermeira());	
+		}
 		dao.insert(usuario);
+		
 	}
 	
 	public List<Usuario> searchListUsuario(Usuario usuario) {

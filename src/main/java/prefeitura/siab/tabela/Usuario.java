@@ -2,11 +2,16 @@ package prefeitura.siab.tabela;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name="TB_USUARIO")
@@ -18,6 +23,10 @@ public class Usuario implements Serializable{
 	private Integer matricula;
 	private String senha;
 	private TipoUsuario tipo;
+	private String nome;
+	private String email;
+	private Acs acs;
+	private Enfermeira enfermeira;
 	
 	
 	@Id
@@ -46,6 +55,40 @@ public class Usuario implements Serializable{
 		this.tipo = tipo;
 	}
 	
+	@Column(name="USU_NOME")
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	@Email
+	@Column(name="USU_EMAIL")
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
+	@OneToOne(cascade=CascadeType.REMOVE)
+	@JoinColumn(name="USU_AGENTE")
+	public Acs getAcs() {
+		return acs;
+	}
+	public void setAcs(Acs acs) {
+		this.acs = acs;
+	}
+	
+	@OneToOne(cascade=CascadeType.REMOVE)
+	@JoinColumn(name="USU_ENFERMEIRA")
+	public Enfermeira getEnfermeira() {
+		return enfermeira;
+	}
+	public void setEnfermeira(Enfermeira enfermeira) {
+		this.enfermeira = enfermeira;
+	}
 	
 	@Override
 	public int hashCode() {

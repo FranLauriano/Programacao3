@@ -5,7 +5,10 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +23,8 @@ public class Acs {
 	private Double microregiao;
 	private List<Endereco> ruas;
 	private List<Familia> familias;
+	private Usuario usuario;
+	private Enfermeira supervisor;
 	
 	//PROPRIEDADES
 	@Id
@@ -37,14 +42,6 @@ public class Acs {
 	}
 	public void setMicroregiao(Double microregiao) {
 		this.microregiao = microregiao;
-	}
-	
-	@Column(name="ACS_NOME")
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 	
 	@Column(name="ACS_MICROAREA")
@@ -78,5 +75,34 @@ public class Acs {
 	public void setFamilias(List<Familia> familias) {
 		this.familias = familias;
 	}
+	
+	@OneToOne(mappedBy="acs")
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	@ManyToOne
+	@JoinColumn(name="ACS_SUPERVISOR")
+	public Enfermeira getSupervisor() {
+		return supervisor;
+	}
+	public void setSupervisor(Enfermeira supervisor) {
+		this.supervisor = supervisor;
+	}
+	
+	@Column(name="ACS_NOME")
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
+	
+	
+	
 	
 }

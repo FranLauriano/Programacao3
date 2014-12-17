@@ -77,13 +77,13 @@ public class Login implements Serializable{
 				aux.setMatricula(usuario.getMatricula());
 				Acs acsAux = controllerAcs.searchAcs(aux);
 				agente.setAgente(acsAux);
-				nome = agente.getAgente().getNome();
+				nome = usuario.getNome();
 				if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
 					this.template = "/templateAdmin.xhtml";
 				}else if(usuario.getTipo().equals(TipoUsuario.ACS)){
 					this.template = "/templateAcs.xhtml";
 				}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
-					this.template = "/template.xhtml";
+					this.template = "/templateAdmin.xhtml";
 				}else{
 					this.template = "/403.xhtml";
 					return "403";

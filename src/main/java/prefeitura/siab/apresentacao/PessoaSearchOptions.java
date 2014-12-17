@@ -3,6 +3,7 @@ package prefeitura.siab.apresentacao;
 import java.util.Date;
 import java.util.List;
 
+import prefeitura.siab.tabela.Acs;
 import prefeitura.siab.tabela.Doenca;
 import prefeitura.siab.tabela.Escolaridade;
 import prefeitura.siab.tabela.Familia;
@@ -23,6 +24,7 @@ public class PessoaSearchOptions {
 	private String mae;
 	private VinculoEmpregaticio vinculo;
 	private List<Doenca> doencas;
+	private Acs agente;
 
 	
 	//PROPRIEDADES
@@ -98,4 +100,11 @@ public class PessoaSearchOptions {
 	public void setDoencas(List<Doenca> doencas) {
 		this.doencas = doencas;
 	}
+	public Acs getAgente() {
+		return agente;
+	}
+	public void setAgente(Acs agente) {
+		this.agente = agente;
+	}
+	
 }
