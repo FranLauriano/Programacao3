@@ -83,7 +83,7 @@ public class Login implements Serializable{
 				}else if(usuario.getTipo().equals(TipoUsuario.ACS)){
 					this.template = "/templateAcs.xhtml";
 				}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
-					this.template = "/templateAdmin.xhtml";
+					this.template = "/template.xhtml";
 				}else{
 					this.template = "/403.xhtml";
 					return "403";

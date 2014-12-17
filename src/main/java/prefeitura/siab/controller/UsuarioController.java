@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import prefeitura.siab.persistencia.UsuarioDao;
+import prefeitura.siab.tabela.TipoUsuario;
 import prefeitura.siab.tabela.Usuario;
 
 @Component
@@ -64,6 +65,16 @@ public class UsuarioController {
 	
 	@Transactional
 	public void updateUsuario(Usuario usuario) throws BusinessException {
+		Usuario auxiliar = dao.searchUsuarioMatricula(usuario.getMatricula());
+		if(auxiliar != null){
+			if(auxiliar.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+				controllerEnfermeira.updateEnfermeira(usuario.getEnfermeira());
+			}else if(auxiliar.getTipo().equals(TipoUsuario.ACS)){
+				controllerAcs.updateAcs(usuario.getAcs());
+			}else{
+				dao.updateUsuario(usuario);
+			}
+		}
 		dao.updateUsuario(usuario);
 	}
 	

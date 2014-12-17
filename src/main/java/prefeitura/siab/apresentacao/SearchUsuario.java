@@ -20,19 +20,13 @@ public class SearchUsuario {
 
 	//ATRIBUTOS
 	private @Autowired UsuarioController controller;
-	private Usuario usuario;
 	private List<Usuario> result;
 	private Usuario options;
 	private String senha1;
 	private String senha2;
+	private NewUsuario updateUser;
 
 	//PROPRIEDADES
-	public Usuario getUsuario() {
-		return usuario;
-	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
 	public List<Usuario> getResult() {
 		return result;
 	}
@@ -57,15 +51,18 @@ public class SearchUsuario {
 	public void setSenha2(String senha2) {
 		this.senha2 = senha2;
 	}
-	
+	public NewUsuario getUpdateUser() {
+		return updateUser;
+	}
+	public void setUpdateUser(NewUsuario updateUser) {
+		this.updateUser = updateUser;
+	}
 	
 	//CONSTRUTOR
 	public SearchUsuario() {
 		reset();
 	}
 	
-	
-
 	//MÉTODOS
 	public String search(){
 		result = controller.searchListUsuario(options);
@@ -76,21 +73,28 @@ public class SearchUsuario {
 		Usuario auxiliar = new Usuario();
 		auxiliar.setMatricula(usuario.getMatricula());
 		auxiliar.setTipo(usuario.getTipo());
-		this.usuario = auxiliar;
+		auxiliar.setEmail(usuario.getEmail());
+		auxiliar.setEnfermeira(usuario.getEnfermeira());
+		auxiliar.setNome(usuario.getNome());
+		auxiliar.setAcs(usuario.getAcs());
+		auxiliar.setSenha(usuario.getSenha());
+		this.updateUser.setUsuario(auxiliar);
+		this.updateUser.setDisabled(true);
 		return "updateUsuario";
 	}
 	
 	public void reset() {
 		options = new Usuario();
 		result = null;
+		updateUser = new NewUsuario();
 	}
 	
 	public String confirmUpdate(){
 		FacesMessage message = new FacesMessage();
-		if(senha1.equals(senha2)){
-			usuario.setSenha(senha1);
+		if(updateUser.getSenha1().equals(updateUser.getSenha2())){
+			updateUser.getUsuario().setSenha(updateUser.getSenha1());
 			try{
-				controller.updateUsuario(usuario);
+				controller.updateUsuario(updateUser.getUsuario());
 				reset();
 				message.setSummary("Usuario atualizado com Sucesso!");
 				message.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -132,7 +136,7 @@ public class SearchUsuario {
 	
 	public String back(){
 		reset();
-		return "searchRaca";
+		return "searchUpdate";
 	}
 	
 }

@@ -49,6 +49,20 @@ public class AutenticacaoPhase implements PhaseListener{
 								nh.handleNavigation(facesContext, null, "403");
 							}
 						}
+						if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+							boolean tenhoPermisao = !	(paginaAtual.lastIndexOf("/usuario/") > -1)
+													|| 	(paginaAtual.lastIndexOf("/logout/") > -1)
+													|| 	(paginaAtual.lastIndexOf("newUsuario.xhtml") > -1)
+													|| 	(paginaAtual.lastIndexOf("index.xhtml") > -1) 
+													|| 	(paginaAtual.lastIndexOf("403.xhtml") > -1) 
+													|| 	(paginaAtual.lastIndexOf("500.xhtml") > -1) 
+													|| 	(paginaAtual.lastIndexOf("404.xhtml") > -1);
+							
+							if(!tenhoPermisao){
+								NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
+								nh.handleNavigation(facesContext, null, "403");
+							}
+						}
 					}else{
 						NavigationHandler nh = facesContext.getApplication().getNavigationHandler();
 						nh.handleNavigation(facesContext, null, "loginPage");

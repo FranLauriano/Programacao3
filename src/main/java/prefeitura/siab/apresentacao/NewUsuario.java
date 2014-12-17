@@ -23,7 +23,7 @@ import prefeitura.siab.tabela.TipoUsuario;
 import prefeitura.siab.tabela.Usuario;
 
 @Component
-@Scope(WebApplicationContext.SCOPE_SESSION)
+@Scope(WebApplicationContext.SCOPE_REQUEST)
 public class NewUsuario {
 
 	//ATRIBUTOS
@@ -168,7 +168,19 @@ public class NewUsuario {
 			if(this.usuario.getTipo() == null){
 				return null;
 			}else{
-				return this.usuario.getTipo().ordinal();
+				if(this.usuario.getTipo().equals(TipoUsuario.ACS)){
+					this.acs = true;
+					this.enfermeira = false;
+					return 2;
+				}else if(this.usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+					this.acs = false;
+					this.enfermeira = true;
+					return 1;
+				}else{
+					this.enfermeira = false;
+					this.acs = false;
+					return 0;
+				}
 			}
 		}else{
 			this.disabled = true;
