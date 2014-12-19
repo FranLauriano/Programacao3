@@ -37,7 +37,7 @@ public class FamiliaDao {
 		if (familia.getAgente() != null && familia.getAgente().getMatricula() != 0) {
 			predicate.append(" and familia.agente.matricula = :familiaAgenteMatricula");
 		}
-		if (familia.getRua() != null && familia.getRua().getRua().length() != 0) {
+		if (familia.getRua() != null && familia.getRua().getRua() != null &&familia.getRua().getRua().length() != 0) {
 			predicate.append(" and upper(familia.rua.rua) like :familiaRuaRua");
 		}
 
@@ -51,7 +51,7 @@ public class FamiliaDao {
 		if (familia.getAgente() != null && familia.getAgente().getMatricula() != 0) {
 			query.setParameter("familiaAgenteMatricula", familia.getAgente().getMatricula());
 		}
-		if (familia.getRua() != null && familia.getRua().getRua().length() != 0) {
+		if (familia.getRua() != null && familia.getRua().getRua() != null &&familia.getRua().getRua().length() != 0) {
 			query.setParameter("familiaRuaRua", familia.getRua().getRua().toUpperCase());
 		}
 

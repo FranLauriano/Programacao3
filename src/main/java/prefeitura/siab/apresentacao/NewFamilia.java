@@ -129,7 +129,7 @@ public class NewFamilia {
 	
 	//CONSTRUTOR
 	public NewFamilia() {
-		
+		pessoas = new ArrayList<Pessoa>();
 		resetFamilia();
 		resetAux();
 		
@@ -164,7 +164,7 @@ public class NewFamilia {
 	
 	public void resetAux(){
 		aux = new Pessoa();
-		aux.setFamilia(new Familia());
+		//aux.setFamilia(new Familia());
 		aux.setEscolaridade(new Escolaridade());
 		aux.setRaca(new Raca());
 		aux.setVinculo(new VinculoEmpregaticio());
@@ -177,6 +177,7 @@ public class NewFamilia {
 		FacesMessage message = new FacesMessage();
 		try{
 			if(familia.getPessoas().size() != 0){
+				//familia.getPessoas().clear();
 				familiaController.salvarFamilia(familia);
 				for(Pessoa pessoa: familia.getPessoas()){
 					pessoa.setFamilia(familia);
@@ -197,6 +198,68 @@ public class NewFamilia {
 		context.addMessage(null, message);
 		return null;
 	}
+	
+	
+	public void setSexoPessoa(char sexo){
+		if(sexo == 'f'){
+			aux.setSexo("Feminino");
+		}else{
+			aux.setSexo("Masculino");
+		}
+	}
+	
+	public char getSexoPessoa(){
+		if(aux.getSexo() != null){
+			if(aux.getSexo().equals("Feminino")){
+				return 'f';
+			}else{
+				return 'm';
+			}
+		}else{
+			return 'm';
+		}
+	}
+	
+	public void setFrequentaEscola(Integer frequentaEscola){
+		if(frequentaEscola.equals(1)){
+			aux.setFrequentaescola("Sim");
+		}else{
+			aux.setFrequentaescola("Não");
+		}
+	}
+	
+	public Integer getFrequentaEscola(){
+		if(aux.getFrequentaescola() != null){
+			if(aux.getFrequentaescola().equals("Sim")){
+				return 1;
+			}else{
+				return 0;
+			}
+		}else{
+			return 0;
+		}
+	}
+	
+	public void setBolsaEscola(Integer bolsaEscola){
+		if(bolsaEscola.equals(1)){
+			aux.setBolsaescola("Sim");
+		}else{
+			aux.setBolsaescola("Não");
+		}
+	}
+	
+	public Integer getBolsaEscola(){
+		if(aux.getBolsaescola() != null){
+			if(aux.getBolsaescola().equals("Sim")){
+				return 1;
+			}else{
+				return 0;
+			}
+		}else{
+			return 0;
+		}
+	}
+	
 	
 	public void setAcsMatricula(Integer matricula){
 		if(matricula == 0 || matricula == null){
@@ -228,15 +291,9 @@ public class NewFamilia {
 			aux.setAgente(servidor);
 			endereco = controllerEndereco.searchListEndereco(aux);
 			this.disabled = true;
+			familia.setAgente(servidor);
 			return servidor.getMatricula();
 		}
-		/*
-		if(familia.getRua().getAgente() == null){
-			return null;			
-		}else{
-			return familia.getRua().getAgente().getMatricula();
-		}
-		*/
 	}
 	
 	public void setEnderecoFamilia(Integer cep){
@@ -356,7 +413,7 @@ public class NewFamilia {
 	
 		Pessoa pAux = controllerPessoa.searchPessoaSus(aux.getSus());
 		if(pAux == null){
-			for(Pessoa pessoa: familia.getPessoas()){
+			for(Pessoa pessoa: pessoas){
 				if(pessoa.getSus().equals(aux.getSus())){
 					achou = true;
 					message.setSummary("O número do SUS informado, já foi Cadastrado!");
@@ -365,18 +422,16 @@ public class NewFamilia {
 			}
 			if(!achou){
 				try{
-				aux.setFamilia(familia);
-				familia.getPessoas().add(aux);
-				familiaController.salvarFamilia(familia);
-				controllerPessoa.salvarPessoa(aux);
-				controllerPessoa.deletePessoa(aux);
-				familiaController.deleteFamilia(familia);
-				resetAux();
-				message.setSummary("Pessoa adicionada com Sucesso!");
-				message.setSeverity(FacesMessage.SEVERITY_INFO);
+					controllerPessoa.verificaPessoa(aux);
+					familia.getPessoas().add(aux);
+					pessoas.add(aux);
+					resetAux();
+					message.setSummary("Pessoa adicionada com Sucesso!");
+					message.setSeverity(FacesMessage.SEVERITY_INFO);
+				}catch(BusinessException e){
+					message.setSummary(e.getMessage());
+					message.setSeverity(FacesMessage.SEVERITY_ERROR);
 				}catch(Exception e){
-					familia.getPessoas().remove(aux);
-					familiaController.deleteFamilia(familia);
 					message.setSummary("Os Campos Família, Raça, Escolaridade e Vínculo Empregatício são Obrigatórios");
 					message.setSeverity(FacesMessage.SEVERITY_ERROR);
 				}
@@ -393,6 +448,7 @@ public class NewFamilia {
 	public void removeList(Pessoa pessoa){
 		if(familia.getPessoas().contains(pessoa)){
 			familia.getPessoas().remove(pessoa);
+			pessoas.remove(pessoa);
 		}
 	}
 }

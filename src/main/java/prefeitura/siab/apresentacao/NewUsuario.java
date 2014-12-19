@@ -23,7 +23,7 @@ import prefeitura.siab.tabela.TipoUsuario;
 import prefeitura.siab.tabela.Usuario;
 
 @Component
-@Scope(WebApplicationContext.SCOPE_REQUEST)
+@Scope(WebApplicationContext.SCOPE_SESSION)
 public class NewUsuario {
 
 	//ATRIBUTOS
@@ -33,7 +33,7 @@ public class NewUsuario {
 	private String senha2;
 	private boolean acs;
 	private boolean enfermeira;
-	private boolean admin = true;
+	private boolean admin;
 	private boolean disabled;
 	//ENFERMEIRA
 	private @Autowired EnfermeiraController controllerEnfermeira;
@@ -132,25 +132,31 @@ public class NewUsuario {
 	
 	//ESCOLHER TIPO
 	public void setEscolherTipo(Integer codigo){
-		if(codigo == null){
+		if(codigo.equals(100)){
 			this.usuario.setTipo(null);
+			this.acs = false;
+			this.enfermeira = false;
+			this.admin = false;
 		}else{
 				
 			if(codigo.equals(2)){
 				this.acs = true;
 				this.enfermeira = false;
+				this.admin = false;
 				this.usuario.setAcs(new Acs());
 				this.usuario.setEnfermeira(null);
 				this.usuario.setTipo(TipoUsuario.ACS);
 			}else if(codigo.equals(1)){
 				this.acs = false;
 				this.enfermeira = true;
+				this.admin = false;
 				this.usuario.setAcs(null);
 				this.usuario.setEnfermeira(new Enfermeira());
 				this.usuario.setTipo(TipoUsuario.ENFERMEIRA);
 			}else if(codigo.equals(0)){
 				this.enfermeira = false;
 				this.acs = false;
+				this.admin = true;
 				this.usuario.setAcs(null);
 				this.usuario.setEnfermeira(null);
 				this.usuario.setTipo(TipoUsuario.ADMINISTRADOR);
@@ -199,17 +205,17 @@ public class NewUsuario {
 		this.senha2 = null;
 		this.acs = false;
 		this.enfermeira = false;
-		this.admin = true;
+		this.admin = false;
 	}
 	
 	//CARREGA A LISTA DE ENFERMEIRAS NO SELECTMENU
 	public void setEnfermeiras(Integer matricula){
 		if(matricula == null || matricula == 0){
-			usuario.getEnfermeira().setMatricula(null);
+			usuario.getAcs().setMatricula(null);
 		}else{
 			for(Enfermeira sup: supervisores){
 				if(sup.getMatricula().equals(matricula)){
-					usuario.getEnfermeira().setMatricula(matricula);
+					usuario.getAcs().setMatricula(matricula);
 					break;
 				}
 			}

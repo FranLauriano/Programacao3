@@ -22,6 +22,12 @@ public class FamiliaController {
 				throw new BusinessException("Já existe Família cadastrada com esse Código");
 			}
 		}
+		if(familia.getAgente() == null || familia.getAgente().getMatricula() == 0){
+			throw new BusinessException("Favor selecionar um Agente Comunitário de Saúde Válido!");
+		}
+		if(familia.getRua() == null || familia.getRua().getRua() == null || familia.getRua().getRua().length() < 1){
+			throw new BusinessException("Favor selecionar um Endereço Válido!");
+		}
 		dao.insert(familia);
 		
 	}

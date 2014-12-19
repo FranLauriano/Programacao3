@@ -33,6 +33,27 @@ public class PessoaController {
 		dao.insert(pessoa);
 		return null;
 	}
+	
+	public void verificaPessoa(Pessoa pessoa) throws BusinessException{
+		if(pessoa.getSus() == null || pessoa.getSus().length() < 6){
+			throw new BusinessException("SUS: Favor inserir um Número do SUS Válido");
+		}
+		if(pessoa.getNome() == null || pessoa.getNome().length() < 5){
+			throw new BusinessException("Nome: Favor inserir um Nome Válido");	
+		}
+		if(pessoa.getDtnascimento() == null){
+			throw new BusinessException("Data de Nascimento: Favor escolher uma Data de Nascimento Válida!");
+		}
+		if(pessoa.getRaca().getCodigo() == null || pessoa.getRaca().getCodigo() == 0){
+			throw new BusinessException("Raça: Favor escolher uma Raça Válida!");
+		}
+		if(pessoa.getEscolaridade().getCodigo() == null || pessoa.getEscolaridade().getCodigo() == 0){
+			throw new BusinessException("Escolaridade: Favor escolher uma Escolaridade Válida!");
+		}
+		if(pessoa.getVinculo().getCodigo() == null || pessoa.getVinculo().getCodigo() == 0){
+			throw new BusinessException("Vínculo Empregatício: Favor escolher um Vínculo Empregatício Válido!");
+		}
+	}
 
 	public Pessoa searchPessoaSus(String sus) {
 		return dao.searchPessoaSus(sus);

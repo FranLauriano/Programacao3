@@ -29,7 +29,7 @@ public class Familia {
 	
 	//PROPRIEDADES
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="FAM_CODIGO")
 	public Integer getCodigo() {
 		return codigo;

@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -29,20 +30,20 @@ public class Pessoa {
 	private String nome;
 	private Date dtnascimento;
 	private Integer idade;
-	private char sexo;
+	private String sexo;
 	private Raca raca;
-	private boolean frequentaescola;
+	private String frequentaescola;
 	private Escolaridade escolaridade;
 	private VinculoEmpregaticio vinculo;
 	private String mae;
 	private String parentesco;
 	private List<Doenca> situacao;
-	private boolean bolsaescola;
+	private String bolsaescola;
 	private Familia familia;
 	
 	//PROPRIEDADES
 	@Id
-	@GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="PES_CODIGO")
 	public Integer getCodigo() {
 		return codigo;
@@ -86,11 +87,12 @@ public class Pessoa {
 		this.idade = idade;
 	}
 	
+	@Size(min=8, max=9)
 	@Column(name="PES_SEXO")
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
-	public void setSexo(char sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 	
@@ -103,11 +105,12 @@ public class Pessoa {
 		this.raca = raca;
 	}
 	
+	@Size(max=3)
 	@Column(name="PES_FREQUENCIA_ESC")
-	public boolean getFrequentaescola() {
+	public String getFrequentaescola() {
 		return frequentaescola;
 	}
-	public void setFrequentaescola(boolean frequentaescola) {
+	public void setFrequentaescola(String frequentaescola) {
 		this.frequentaescola = frequentaescola;
 	}
 	
@@ -158,15 +161,16 @@ public class Pessoa {
 		this.situacao = situacao;
 	}
 	
+	@Size(max=3)
 	@Column(name="PES_BOLSA_ESCOLA")
-	public boolean getBolsaescola() {
+	public String getBolsaescola() {
 		return bolsaescola;
 	}
-	public void setBolsaescola(boolean bolsaescola) {
+	public void setBolsaescola(String bolsaescola) {
 		this.bolsaescola = bolsaescola;
 	}
 	
-	@ManyToOne
+	@ManyToOne(optional = true)
 	@JoinColumn(name="PES_FAMILIA")
 	public Familia getFamilia() {
 		return familia;

@@ -58,7 +58,7 @@
 			<div class="controls btn-toolbar">
 				<button class="btn btn-success" data-toggle="modal"	data-target="#myModal" onclick="return false;">Adicionar Pessoa</button>
 				<composite:renderFacet name="buttons"></composite:renderFacet>
-				<composite:renderFacet name="voltar"></composite:renderFacet>
+				<composite:renderFacet name="voltar" ></composite:renderFacet>
 			</div>
 		</div>
 
@@ -176,7 +176,7 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Sexo</label>
 						    <div class="controls">
-						    	<h:selectOneRadio id="sexo" value="#{cc.attrs.classe.aux.sexo}">
+						    	<h:selectOneRadio id="sexo" value="#{cc.attrs.classe.sexoPessoa}">
 								   <f:selectItem itemValue='m' itemLabel="Masculino" />
 								   <f:selectItem itemValue='f' itemLabel="Feminino" />   			
 								</h:selectOneRadio>
@@ -197,9 +197,9 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Frequenta a Escola?</label>
 						    <div class="controls">
-						    	<h:selectOneRadio id="fescola" value="#{cc.attrs.classe.aux.frequentaescola}">
-								   <f:selectItem itemValue="#{true}" itemLabel="Sim" />
-								   <f:selectItem itemValue="#{false}" itemLabel="Não" />
+						    	<h:selectOneRadio id="fescola" value="#{cc.attrs.classe.frequentaEscola}">
+								   <f:selectItem itemValue="1" itemLabel="Sim" />
+								   <f:selectItem itemValue="0" itemLabel="Não" />
 								   <f:ajax process="@this" render="fescola" />	   			
 								</h:selectOneRadio>
 						    </div>
@@ -237,9 +237,9 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Bolsa-Escola</label>
 						    <div class="controls">
-						    	<h:selectOneRadio id="bolsaEsc" value="#{cc.attrs.classe.aux.bolsaescola}">
-								   <f:selectItem itemValue="#{true}" itemLabel="Sim" />
-								   <f:selectItem itemValue="#{false}" itemLabel="Não" />
+						    	<h:selectOneRadio id="bolsaEsc" value="#{cc.attrs.classe.bolsaEscola}">
+								   <f:selectItem itemValue="1" itemLabel="Sim" />
+								   <f:selectItem itemValue="0" itemLabel="Não" />
 								   <f:ajax process="@this" render="bolsaEsc" />	   			
 								</h:selectOneRadio>
 						    </div>
