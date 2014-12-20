@@ -164,6 +164,15 @@ public class NewFamilia {
 		if(usuario != null){
 			if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
 				agentes = usuario.getEnfermeira().getAgentes();
+				List<Endereco> end = new ArrayList<>();
+				for(Acs agente: agentes){
+					for(Endereco endAux: endereco){
+						if(endAux.getAgente().getMatricula().equals(agente.getMatricula())){
+							end.add(endAux);
+						}
+					}
+				}
+				endereco = end;
 			}else{
 				agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
 			}
@@ -280,7 +289,16 @@ public class NewFamilia {
 	public void setAcsMatricula(Integer matricula){
 		if(matricula == 0 || matricula == null){
 			familia.getRua().setAgente(null);
+			List<Endereco> end = new ArrayList<>();
 			endereco = controllerEndereco.searchListEndereco(new Endereco());
+			for(Acs agente: agentes){
+				for(Endereco endAux: endereco){
+					if(endAux.getAgente().getMatricula().equals(agente.getMatricula())){
+						end.add(endAux);
+					}
+				}
+			}
+			endereco = end;
 		}else{
 			for(Acs agente: agentes){
 				if(agente.getMatricula().equals(matricula)){
@@ -299,17 +317,23 @@ public class NewFamilia {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> mapa = externalContext.getSessionMap();
 		Login autenticacaoBean = (Login) mapa.get("login");
-		Acs servidor = autenticacaoBean.getAgente().getAgente();
-		if(servidor == null){
-			return null;
-		}else{
-			Endereco aux = new Endereco();
-			aux.setAgente(servidor);
-			endereco = controllerEndereco.searchListEndereco(aux);
-			this.disabled = true;
-			familia.setAgente(servidor);
-			return servidor.getMatricula();
+		Usuario usuario = autenticacaoBean.getUsuario();
+		if(usuario != null){
+			if(usuario.getTipo().equals(TipoUsuario.ACS)){
+				Endereco aux = new Endereco();
+				aux.setAgente(usuario.getAcs());
+				endereco = controllerEndereco.searchListEndereco(aux);
+				familia.setAgente(usuario.getAcs());
+				this.disabled = true;
+				return usuario.getMatricula();
+			}else{
+				if(familia.getAgente() != null){
+					return familia.getAgente().getMatricula();
+				}
+				return null;
+			}
 		}
+		return null;
 	}
 	
 	public void setEnderecoFamilia(Integer cep){

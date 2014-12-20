@@ -1,5 +1,6 @@
 package prefeitura.siab.apresentacao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -130,6 +131,15 @@ public class SearchFamilia {
 		if(usuario != null){
 			if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
 				agentes = usuario.getEnfermeira().getAgentes();
+				List<Endereco> end = new ArrayList<>();
+				for(Acs agente: agentes){
+					for(Endereco endAux: enderecos){
+						if(endAux.getAgente().getMatricula().equals(agente.getMatricula())){
+							end.add(endAux);
+						}
+					}
+				}
+				enderecos = end;
 			}else{
 				agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
 			}
@@ -150,7 +160,16 @@ public class SearchFamilia {
 	public void setAcsMatricula(Integer matricula){
 		if(matricula == 0 || matricula == null){
 			options.setAgente(null);
+			List<Endereco> end = new ArrayList<>();
 			enderecos = controllerEndereco.searchListEndereco(new Endereco());
+			for(Acs agente: agentes){
+				for(Endereco endAux: enderecos){
+					if(endAux.getAgente().getMatricula().equals(agente.getMatricula())){
+						end.add(endAux);
+					}
+				}
+			}
+			enderecos = end;
 		}else{
 			for(Acs agente: agentes){
 				if(agente.getMatricula().equals(matricula)){
@@ -170,17 +189,23 @@ public class SearchFamilia {
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> mapa = externalContext.getSessionMap();
 		Login autenticacaoBean = (Login) mapa.get("login");
-		Acs servidor = autenticacaoBean.getAgente().getAgente();
-		if(servidor == null){
-			return null;
-		}else{
-			Endereco aux = new Endereco();
-			aux.setAgente(servidor);
-			enderecos = controllerEndereco.searchListEndereco(aux);
-			options.setAgente(servidor);
-			this.disabled = true;
-			return servidor.getMatricula();
+		Usuario usuario = autenticacaoBean.getUsuario();
+		if(usuario != null){
+			if(usuario.getTipo().equals(TipoUsuario.ACS)){
+				Endereco aux = new Endereco();
+				aux.setAgente(usuario.getAcs());
+				enderecos = controllerEndereco.searchListEndereco(aux);
+				options.setAgente(usuario.getAcs());
+				this.disabled = true;
+				return usuario.getMatricula();
+			}else{
+				if(options.getAgente() != null){
+					return options.getAgente().getMatricula();
+				}
+				return null;
+			}
 		}
+		return null;
 	}
 	
 	public Integer getSupervisorMatricula(){
@@ -267,15 +292,20 @@ public class SearchFamilia {
 			fam.setCodigo(options.getCodigo());
 			pAux.setFamilia(fam);
 			List<Pessoa> jaCadastrada = controllerPessoa.searchListPessoa(pAux);
+			controller.updateFamilia(options);
 			for(Pessoa p: options.getPessoas()){
 				Pessoa aux = controllerPessoa.searchPessoaCodigo(p.getCodigo());
 				if(aux != null){
 					controllerPessoa.updatePessoa(p);
+					jaCadastrada.remove(aux);
 				}else{
 					controllerPessoa.salvarPessoa(p);
+					jaCadastrada.remove(aux);
 				}
 			}
-			controller.updateFamilia(options);
+			for(Pessoa pes:jaCadastrada){
+				controllerPessoa.deletePessoa(pes);
+			}
 			reset();
 			result = null;
 			message.setSummary("Família atualizado com Sucesso!");

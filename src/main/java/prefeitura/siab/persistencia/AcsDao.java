@@ -35,11 +35,17 @@ public class AcsDao {
 		if (agente.getMicroarea() != null && agente.getMicroarea() != 0) {
 			predicate.append(" and acs.microarea = :acsMicroarea");
 		}
+		if (agente.getSupervisor() != null && agente.getSupervisor().getMatricula() != null && agente.getSupervisor().getMatricula() != 0) {
+			predicate.append(" and acs.supervisor.matricula = :supervisorMatricula");
+		}
 		String jpql = "Select acs from Acs acs where " + predicate;
 		System.out.println(jpql);
 		TypedQuery<Acs> query = manager.createQuery(jpql, Acs.class);
 		if (agente.getMatricula() != null && agente.getMatricula() != 0 && agente.getMicroarea() != null && agente.getMicroarea() != 0) {
 			query.setParameter("acsMicroarea", agente.getMicroarea());
+		}
+		if (agente.getSupervisor() != null && agente.getSupervisor().getMatricula() != null && agente.getSupervisor().getMatricula() != 0) {
+			query.setParameter("supervisorMatricula", agente.getSupervisor().getMatricula());
 		}
 		List<Acs> result = query.getResultList();
 		if(result.isEmpty()){

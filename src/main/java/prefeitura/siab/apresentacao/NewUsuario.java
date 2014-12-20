@@ -144,6 +144,7 @@ public class NewUsuario {
 				this.enfermeira = false;
 				this.admin = false;
 				this.usuario.setAcs(new Acs());
+				this.usuario.getAcs().setSupervisor(new Enfermeira());
 				this.usuario.setEnfermeira(null);
 				this.usuario.setTipo(TipoUsuario.ACS);
 			}else if(codigo.equals(1)){
@@ -169,34 +170,26 @@ public class NewUsuario {
 		Map<String, Object> mapa = externalContext.getSessionMap();
 		Login autenticacaoBean = (Login) mapa.get("login");
 		Usuario usuario = autenticacaoBean.getUsuario();
-		Enfermeira supervisora = usuario.getEnfermeira();
-		if(supervisora == null){
-			if(this.usuario.getTipo() == null){
-				return null;
-			}else{
-				if(this.usuario.getTipo().equals(TipoUsuario.ACS)){
-					this.acs = true;
-					this.enfermeira = false;
-					return 2;
-				}else if(this.usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
-					this.acs = false;
-					this.enfermeira = true;
-					return 1;
+		if(usuario != null){
+			if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+				this.disabled = true;
+				this.acs = true;
+				this.enfermeira = false;
+				this.admin = false;
+				this.usuario.setAcs(new Acs());
+				this.usuario.getAcs().setSupervisor(new Enfermeira());
+				this.usuario.setEnfermeira(null);
+				this.usuario.setTipo(TipoUsuario.ACS);
+				return 2;
+			}else if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
+				if(this.usuario.getTipo() == null){
+					return null;
 				}else{
-					this.enfermeira = false;
-					this.acs = false;
-					return 0;
+					return this.usuario.getTipo().ordinal();					
 				}
 			}
-		}else{
-			this.disabled = true;
-			this.acs = true;
-			this.enfermeira = false;
-			this.usuario.setAcs(new Acs());
-			this.usuario.setEnfermeira(null);
-			this.usuario.setTipo(TipoUsuario.ACS);
-			return 2;
 		}
+		return 100;
 	}
 	
 	public void reset(){
@@ -211,11 +204,11 @@ public class NewUsuario {
 	//CARREGA A LISTA DE ENFERMEIRAS NO SELECTMENU
 	public void setEnfermeiras(Integer matricula){
 		if(matricula == null || matricula == 0){
-			usuario.getAcs().setMatricula(null);
+			usuario.getAcs().getSupervisor().setMatricula(null);
 		}else{
 			for(Enfermeira sup: supervisores){
 				if(sup.getMatricula().equals(matricula)){
-					usuario.getAcs().setMatricula(matricula);
+					usuario.getAcs().getSupervisor().setMatricula(matricula);
 					break;
 				}
 			}
@@ -227,13 +220,21 @@ public class NewUsuario {
 		Map<String, Object> mapa = externalContext.getSessionMap();
 		Login autenticacaoBean = (Login) mapa.get("login");
 		Usuario usuario = autenticacaoBean.getUsuario();
-		Enfermeira supervisora = usuario.getEnfermeira();
-		if(supervisora == null){
-			return null;
-		}else{
-			this.disabled = true;
-			return supervisora.getMatricula();
+		if(usuario != null){
+			if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+				this.disabled = true;
+				this.usuario.getAcs().getSupervisor().setMatricula(usuario.getMatricula());
+				return usuario.getMatricula();
+			}else if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
+				this.disabled = false;
+				if(this.usuario.getAcs().getSupervisor() != null){
+					return this.usuario.getAcs().getSupervisor().getMatricula();					
+				}else{
+					return null;
+				}
+			}
 		}
+		return null;
 	}
 	
 }

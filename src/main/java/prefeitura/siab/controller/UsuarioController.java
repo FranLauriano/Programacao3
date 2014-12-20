@@ -37,6 +37,10 @@ public class UsuarioController {
 		if(usuario.getSenha() == null || usuario.getSenha().length() < 6){
 			throw new BusinessException("Favor inserir uma senha acima de 6 digitos");
 		}
+		auxiliar = dao.searchUsuarioMatricula(usuario.getMatricula());
+		if(auxiliar != null){
+			throw new BusinessException("Essa Matricula já está cadastrada!!!");
+		}
 		
 		if(usuario.getAcs() != null){
 			usuario.getAcs().setMatricula(usuario.getMatricula());
