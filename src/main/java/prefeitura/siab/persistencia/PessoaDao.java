@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 import prefeitura.siab.apresentacao.Login;
 import prefeitura.siab.apresentacao.PessoaSearchOptions;
-import prefeitura.siab.tabela.Acs;
 import prefeitura.siab.tabela.Pessoa;
+import prefeitura.siab.tabela.Usuario;
 
 @Component
 public class PessoaDao {
@@ -34,6 +34,18 @@ public class PessoaDao {
 		manager.remove(pessoaAux);
 	}
 
+	public Pessoa searchPessoaCodigo(Integer codigo) {
+		TypedQuery<Pessoa> query = manager.createQuery("Select pessoa from Pessoa pessoa where pessoa.codigo = :pessoaCodigo", Pessoa.class);
+		query.setParameter("pessoaCodigo", codigo);
+		List<Pessoa> result = query.getResultList();
+		
+		if(result.isEmpty()){
+			return null;
+		}else{
+			return result.get(0);
+		}
+	}
+	
 	public Pessoa searchPessoaSus(String sus) {
 		TypedQuery<Pessoa> query = manager.createQuery("Select pessoa from Pessoa pessoa where pessoa.sus = :pessoaSus", Pessoa.class);
 		query.setParameter("pessoaSus", sus);
@@ -47,17 +59,26 @@ public class PessoaDao {
 	}
 
 	public List<Pessoa> searchListOptionsPessoa(PessoaSearchOptions pessoa) {
+		StringBuilder predicate = new StringBuilder("1 = 1");
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
 		Map<String, Object> mapa = externalContext.getSessionMap();
 		Login bean = (Login) mapa.get("login");
-		Acs agenteAuxiliar = new Acs();
-		if(bean.getAgente() != null){
-			agenteAuxiliar = bean.getAgente().getAgente();
+		Usuario usuario = bean.getUsuario();
+		
+		if (usuario.getAcs() != null) {
+			predicate.append(" and pessoa.familia.agente.matricula = :agenteMatricula");
+		}else if(pessoa.getAgente() != null && pessoa.getAgente().getMatricula() != 0){
+			predicate.append(" and pessoa.familia.agente.matricula = :agenteMatricula");
 		}
-		
-		StringBuilder predicate = new StringBuilder("1 = 1");
-		
+	
+		if(usuario.getEnfermeira() != null){
+			predicate.append(" and pessoa.familia.agente.supervisor.matricula = :supervisorMatricula");
+		}else if(pessoa.getEnfermeira() != null && pessoa.getEnfermeira().getMatricula() != 0){
+			predicate.append(" and pessoa.familia.agente.supervisor.matricula = :supervisorMatricula");
+		}
+	
+				
 		if (pessoa.getSus() != null && pessoa.getSus().length() > 1) {
 			predicate.append(" and pessoa.sus = :pessoaSus");
 		}
@@ -78,7 +99,7 @@ public class PessoaDao {
 				predicate.append(" and pessoa.idade <= :idadeFinal");
 			}
 		}
-		if (pessoa.getSexo() == 'm' || pessoa.getSexo() == 'f') {
+		if (pessoa.getSexo() != null && (pessoa.getSexo().equals("Masculino") || pessoa.getSexo().equals("Feminino"))) {
 			predicate.append(" and upper(pessoa.sexo) = :pessoaSexo");
 		}
 		if (pessoa.getRaca() != null && pessoa.getRaca().getCodigo() != 0) {
@@ -93,13 +114,9 @@ public class PessoaDao {
 		if (pessoa.getMae() != null && pessoa.getMae().length() > 1) {
 			predicate.append(" and upper(pessoa.mae) like :pessoaMae");
 		}
-		if (agenteAuxiliar != null) {
-			predicate.append(" and pessoa.familia.agente.matricula = :agenteMatricula");
-		}else if(pessoa.getAgente() != null && pessoa.getAgente().getMatricula() != 0){
-			predicate.append(" and pessoa.familia.agente.matricula = :agenteMatricula");
-		}
-		if (pessoa.getFamilia() != null && pessoa.getFamilia().getCodigo() != 0) {
-			predicate.append(" and pessoa.familia.codigo = :pessoaFamiliaCodigo");
+		
+		if (pessoa.getFamilia() != null && pessoa.getFamilia().getNumeroFamilia() != null && pessoa.getFamilia().getNumeroFamilia() != 0) {
+			predicate.append(" and pessoa.familia.numeroFamilia = :pessoaFamiliaCodigo");
 		}
 
 		
@@ -127,8 +144,8 @@ public class PessoaDao {
 				query.setParameter("idadeFinal", pessoa.getIdadeFinal());
 			}
 		}
-		if (pessoa.getSexo() == 'm' || pessoa.getSexo() == 'f') {
-			query.setParameter("pessoaSexo", Character.toUpperCase(pessoa.getSexo()));
+		if (pessoa.getSexo() != null && (pessoa.getSexo().equals("Masculino") || pessoa.getSexo().equals("Feminino"))) {
+			query.setParameter("pessoaSexo", pessoa.getSexo().toUpperCase());
 		}
 		if (pessoa.getRaca() != null && pessoa.getRaca().getCodigo() != 0) {
 			query.setParameter("pessoaRacaCodigo", pessoa.getRaca().getCodigo());
@@ -142,13 +159,20 @@ public class PessoaDao {
 		if (pessoa.getMae() != null && pessoa.getMae().length() > 1) {
 			query.setParameter("pessoaMae", "%" + pessoa.getMae().toUpperCase() + "%");
 		}
-		if (agenteAuxiliar != null) {
-			query.setParameter("agenteMatricula", agenteAuxiliar.getMatricula());
+		if (usuario.getAcs() != null) {
+			query.setParameter("agenteMatricula", usuario.getAcs().getMatricula());
 		}else if(pessoa.getAgente() != null && pessoa.getAgente().getMatricula() != 0){
 			query.setParameter("agenteMatricula", pessoa.getAgente().getMatricula());
 		}
-		if (pessoa.getFamilia() != null && pessoa.getFamilia().getCodigo() != 0) {
-			query.setParameter("pessoaFamiliaCodigo", pessoa.getFamilia().getCodigo());
+
+		if(usuario.getEnfermeira() != null){
+			query.setParameter("supervisorMatricula", usuario.getEnfermeira().getMatricula());
+		}else if(pessoa.getEnfermeira() != null && pessoa.getEnfermeira().getMatricula() != 0){
+			query.setParameter("supervisorMatricula", pessoa.getEnfermeira().getMatricula());
+		}
+	
+		if (pessoa.getFamilia() != null && pessoa.getFamilia().getNumeroFamilia() != null && pessoa.getFamilia().getNumeroFamilia() != 0) {
+			query.setParameter("pessoaFamiliaCodigo", pessoa.getFamilia().getNumeroFamilia());
 		}
 
 		List<Pessoa> result = query.getResultList();

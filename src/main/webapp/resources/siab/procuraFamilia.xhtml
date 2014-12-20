@@ -21,25 +21,32 @@
 
 	<h:form id="form" class="form-horizontal">
 	
-
 			<div class="control-group">	    
-			    <label class="control-label">Código</label>
-			    <div class="controls">
-			    	<h:inputText id="codigo" styleClass="form-control" value="#{cc.attrs.options.numeroFamilia}" p:placeholder="Código da Família"></h:inputText>
-			    </div>
-		  	</div> 
-
-	  	
-		  	<div class="control-group">	    
+				    <label class="control-label">Supervisor</label>
+				    <div class="controls">
+				    	<h:selectOneMenu id="supervisores" styleClass="form-control"	value="#{cc.attrs.classe.supervisorMatricula}" disabled="#{cc.attrs.classe.disabledSuper}">
+							<f:selectItem itemLabel="Selecione um Supervisor" itemValue="#{null}" />
+							<f:selectItems value="#{cc.attrs.classe.supervisores}" var="supervisor"	itemLabel="#{supervisor.nome}" itemValue="#{supervisor.matricula}"></f:selectItems>
+						</h:selectOneMenu>
+				    </div>
+			  	</div>
+			
+			<div class="control-group">	    
 			    <label class="control-label">Agente</label>
 			    <div class="controls">
 			    	<h:selectOneMenu id="acs" styleClass="form-control"	value="#{cc.attrs.classe.acsMatricula}" disabled="#{cc.attrs.classe.disabled}">
 						<f:selectItem itemLabel="Selecione um ACS" itemValue="#{null}" />
 						<f:selectItems value="#{cc.attrs.classe.agentes}" var="agente"	itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
-						<f:ajax process="@this" render="endereco" />
 					</h:selectOneMenu>
 			    </div>
-		  	</div> 
+		  	</div>
+
+			<div class="control-group">	    
+			    <label class="control-label">Código da Família</label>
+			    <div class="controls">
+			    	<h:inputText id="codigo" styleClass="form-control" value="#{cc.attrs.options.numeroFamilia}" p:placeholder="Código da Família"></h:inputText>
+			    </div>
+		  	</div>
 	  	
 		  	<div class="control-group">	    
 			    <label class="control-label">Endereço</label>

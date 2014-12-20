@@ -1,5 +1,7 @@
 package prefeitura.siab.apresentacao;
 
+import prefeitura.siab.tabela.Enfermeira;
+
 public class AcsSearchOptions {
 	
 	//ATRIBUTOS
@@ -8,6 +10,7 @@ public class AcsSearchOptions {
 	private Integer microarea;
 	private Integer area;
 	private Double microregiao;
+	private Enfermeira supervisora;
 	
 	//PROPRIEDADES
 	public Integer getMatricula() {
@@ -40,5 +43,11 @@ public class AcsSearchOptions {
 	public void setMicroregiao(Double microregiao) {
 		this.microregiao = microregiao;
 	}
-	
+	public Enfermeira getSupervisora() {
+		return supervisora;
+	}
+	public void setSupervisora(Enfermeira supervisora) {
+		this.supervisora = supervisora;
+	}
+
 }

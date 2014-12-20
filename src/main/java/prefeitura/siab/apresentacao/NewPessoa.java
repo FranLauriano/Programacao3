@@ -2,8 +2,10 @@ package prefeitura.siab.apresentacao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,14 @@ import prefeitura.siab.controller.FamiliaController;
 import prefeitura.siab.controller.PessoaController;
 import prefeitura.siab.controller.RacaController;
 import prefeitura.siab.controller.VinculoController;
+import prefeitura.siab.tabela.Acs;
 import prefeitura.siab.tabela.Doenca;
 import prefeitura.siab.tabela.Escolaridade;
 import prefeitura.siab.tabela.Familia;
 import prefeitura.siab.tabela.Pessoa;
 import prefeitura.siab.tabela.Raca;
+import prefeitura.siab.tabela.TipoUsuario;
+import prefeitura.siab.tabela.Usuario;
 import prefeitura.siab.tabela.VinculoEmpregaticio;
 
 
@@ -115,16 +120,45 @@ public class NewPessoa {
 		controllerVinculo = applicationContext.getBean(VinculoController.class);
 		controllerDoenca = applicationContext.getBean(DoencaController.class);
 		
-		familias = controllerFamilia.searchFamilia(new Familia());
+		init_familia();
 		racas = controllerRaca.searchRaca(new Raca());
 		escolaridades = controllerEscolaridade.searchEscolaridade(new Escolaridade());
 		vinculos = controllerVinculo.searchVinculo(new VinculoEmpregaticio());
 		doencas = controllerDoenca.searchListDoenca(new Doenca());
-
 	}
 	
-
 	
+	public void init_familia(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> mapa = externalContext.getSessionMap();
+		Login autenticacaoBean = (Login) mapa.get("login");
+		Usuario usuario = autenticacaoBean.getUsuario();
+		if(usuario != null){
+			Familia auxiliar = new Familia();
+			if(usuario.getTipo().equals(TipoUsuario.ACS)){
+				auxiliar.setAgente(usuario.getAcs());
+				familias = controllerFamilia.searchFamilia(auxiliar);
+			}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+				Acs acsAux = new Acs();
+				acsAux.setSupervisor(usuario.getEnfermeira());
+				auxiliar.setAgente(acsAux);
+				familias = controllerFamilia.searchFamilia(auxiliar);
+			}else if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
+				if(usuario.getAcs() == null && usuario.getEnfermeira() == null){
+					familias = controllerFamilia.searchFamilia(new Familia());
+				}else if(usuario.getAcs() == null){
+					Acs acsAux = new Acs();
+					acsAux.setSupervisor(usuario.getEnfermeira());
+					auxiliar.setAgente(acsAux);
+					familias = controllerFamilia.searchFamilia(auxiliar);
+				}else if(usuario.getEnfermeira() == null){
+					auxiliar.setAgente(usuario.getAcs());
+					familias = controllerFamilia.searchFamilia(auxiliar);
+				}
+			}
+		}
+	}
 
 	//MÉTODOS
 	public String savePessoa(){
@@ -149,10 +183,10 @@ public class NewPessoa {
 	//CARREGA A LISTA DE FAMÍLIAS NO SELECTMENU
 	public void setFamiliaPessoa(Integer codigo){
 		if(codigo == null || codigo == 0){
-			pessoa.getFamilia().setCodigo(codigo);
+			pessoa.getFamilia().setNumeroFamilia(codigo);
 		}else{
 			for(Familia familia: familias){
-				if(familia.getCodigo().equals(codigo)){
+				if(familia.getNumeroFamilia().equals(codigo)){
 					pessoa.setFamilia(familia);
 					familias = controllerFamilia.searchFamilia(new Familia());
 					break;
@@ -162,10 +196,10 @@ public class NewPessoa {
 	}
 	
 	public Integer getFamiliaPessoa(){
-		if(pessoa.getFamilia().getCodigo() == null){
+		if(pessoa.getFamilia().getNumeroFamilia() == null){
 			return null;
 		}else{
-			return pessoa.getFamilia().getCodigo();
+			return pessoa.getFamilia().getNumeroFamilia();
 		}
 	}
 	
@@ -258,10 +292,63 @@ public class NewPessoa {
 	}
 	
 	public void setSexoPessoa(char sexo){
-		
+		if(sexo == 'f'){
+			pessoa.setSexo("Feminino");
+		}else{
+			pessoa.setSexo("Masculino");
+		}
 	}
+	
 	public char getSexoPessoa(){
-		return 'm';
+		if(pessoa.getSexo() != null){
+			if(pessoa.getSexo().equals("Feminino")){
+				return 'f';
+			}else{
+				return 'm';
+			}
+		}else{
+			return 'm';
+		}
+	}
+	
+	public void setFrequentaEscola(Integer frequentaEscola){
+		if(frequentaEscola.equals(1)){
+			pessoa.setFrequentaescola("Sim");
+		}else{
+			pessoa.setFrequentaescola("Não");
+		}
+	}
+	
+	public Integer getFrequentaEscola(){
+		if(pessoa.getFrequentaescola() != null){
+			if(pessoa.getFrequentaescola().equals("Sim")){
+				return 1;
+			}else{
+				return 0;
+			}
+		}else{
+			return 0;
+		}
+	}
+	
+	public void setBolsaEscola(Integer bolsaEscola){
+		if(bolsaEscola.equals(1)){
+			pessoa.setBolsaescola("Sim");
+		}else{
+			pessoa.setBolsaescola("Não");
+		}
+	}
+	
+	public Integer getBolsaEscola(){
+		if(pessoa.getBolsaescola() != null){
+			if(pessoa.getBolsaescola().equals("Sim")){
+				return 1;
+			}else{
+				return 0;
+			}
+		}else{
+			return 0;
+		}
 	}
 
 

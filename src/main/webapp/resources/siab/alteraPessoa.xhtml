@@ -27,7 +27,7 @@
 					    <div class="controls">
 					    	<h:selectOneMenu id="familia" styleClass="form-control"	value="#{cc.attrs.form.familiaPessoa}">
 								<f:selectItem itemLabel="Selecione a Família" itemValue="#{null}" />
-								<f:selectItems value="#{cc.attrs.form.familias}" var="familia"	itemLabel="#{familia.codigo}" itemValue="#{familia.codigo}"></f:selectItems>
+								<f:selectItems value="#{cc.attrs.form.familias}" var="familia"	itemLabel="#{familia.numeroFamilia}" itemValue="#{familia.numeroFamilia}"></f:selectItems>
 								<f:ajax process="@this" render="familia" />
 							</h:selectOneMenu>
 					    </div>
@@ -76,7 +76,7 @@
 				  	<div class="control-group">	  			
 					    <label class="control-label">Sexo</label>
 					    <div class="controls">
-					    	<h:selectOneRadio id="sexo" value="#{cc.attrs.form.pessoa.sexo}">
+					    	<h:selectOneRadio id="sexo" value="#{cc.attrs.form.sexoPessoa}">
 								   <f:selectItem itemValue='m' itemLabel="Masculino" />
 								   <f:selectItem itemValue='f' itemLabel="Feminino" />   			
 								</h:selectOneRadio>
@@ -99,9 +99,9 @@
 				  	<div class="control-group">	  			
 					    <label class="control-label">Frequenta a Escola?</label>
 					    <div class="controls">
-					    	<h:selectOneRadio id="fescola" value="#{cc.attrs.form.pessoa.frequentaescola}">
-							   <f:selectItem itemValue="#{true}" itemLabel="Sim" />
-							   <f:selectItem itemValue="#{false}" itemLabel="Não" />
+					    	<h:selectOneRadio id="fescola" value="#{cc.attrs.form.frequentaEscola}">
+							   <f:selectItem itemValue="1" itemLabel="Sim" />
+							   <f:selectItem itemValue="0" itemLabel="Não" />
 							   <f:ajax process="@this" render="fescola" />	   			
 							</h:selectOneRadio>
 					    </div>
@@ -139,9 +139,9 @@
 				  	<div class="control-group">	  			
 					    <label class="control-label">Bolsa-Escola</label>
 					    <div class="controls">
-					    	<h:selectOneRadio id="bolsaEsc" value="#{cc.attrs.form.pessoa.bolsaescola}">
-							   <f:selectItem itemValue="#{true}" itemLabel="Sim" />
-							   <f:selectItem itemValue="#{false}" itemLabel="Não" />
+					    	<h:selectOneRadio id="bolsaEsc" value="#{cc.attrs.form.bolsaEscola}">
+							   <f:selectItem itemValue="1" itemLabel="Sim" />
+							   <f:selectItem itemValue="0" itemLabel="Não" />
 							   <f:ajax process="@this" render="bolsaEsc" />	   			
 							</h:selectOneRadio>
 					    </div>

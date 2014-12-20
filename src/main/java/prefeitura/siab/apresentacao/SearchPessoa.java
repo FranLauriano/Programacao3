@@ -18,6 +18,7 @@ import org.springframework.web.jsf.FacesContextUtils;
 import prefeitura.siab.controller.AcsController;
 import prefeitura.siab.controller.BusinessException;
 import prefeitura.siab.controller.DoencaController;
+import prefeitura.siab.controller.EnfermeiraController;
 import prefeitura.siab.controller.EscolaridadeController;
 import prefeitura.siab.controller.FamiliaController;
 import prefeitura.siab.controller.PessoaController;
@@ -25,10 +26,13 @@ import prefeitura.siab.controller.RacaController;
 import prefeitura.siab.controller.VinculoController;
 import prefeitura.siab.tabela.Acs;
 import prefeitura.siab.tabela.Doenca;
+import prefeitura.siab.tabela.Enfermeira;
 import prefeitura.siab.tabela.Escolaridade;
 import prefeitura.siab.tabela.Familia;
 import prefeitura.siab.tabela.Pessoa;
 import prefeitura.siab.tabela.Raca;
+import prefeitura.siab.tabela.TipoUsuario;
+import prefeitura.siab.tabela.Usuario;
 import prefeitura.siab.tabela.VinculoEmpregaticio;
 
 @Component
@@ -42,6 +46,7 @@ public class SearchPessoa {
 	private Pessoa pessoa;
 	private PessoaForm form;
 	private boolean disabled;
+	private boolean disabledSuper;
 	//FAMÍLIAS
 	private FamiliaController controllerFamilia;
 	private List<Familia> familias;
@@ -60,12 +65,21 @@ public class SearchPessoa {
 	//ACS
 	private AcsController controllerAcs;
 	private List<Acs> agentes;
+	//ENFERMEIRAS
+	private EnfermeiraController controllerEnfermeira;
+	private List<Enfermeira> supervisores;
 	
 	
 	//PROPRIEDADES
 	
 	public PessoaForm getForm() {
 		return form;
+	}
+	public boolean isDisabledSuper() {
+		return disabledSuper;
+	}
+	public void setDisabledSuper(boolean disabledSuper) {
+		this.disabledSuper = disabledSuper;
 	}
 	public void setForm(PessoaForm form) {
 		this.form = form;
@@ -130,12 +144,24 @@ public class SearchPessoa {
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 	}
+	public List<Enfermeira> getSupervisores() {
+		return supervisores;
+	}
+	public void setSupervisores(List<Enfermeira> supervisores) {
+		this.supervisores = supervisores;
+	}
 	//CONSTRUTOR
 	public SearchPessoa() {
 		result = null;
 		reset();
+	}
+	
+
+	//MÉTODOS
+	public void inicializar(){
+		
 		form = new PessoaForm();
-			
+		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ApplicationContext applicationContext = FacesContextUtils.getWebApplicationContext(facesContext);
 		
@@ -145,16 +171,16 @@ public class SearchPessoa {
 		controllerVinculo = applicationContext.getBean(VinculoController.class);
 		controllerDoenca = applicationContext.getBean(DoencaController.class);
 		controllerAcs = applicationContext.getBean(AcsController.class);
+		controllerEnfermeira = applicationContext.getBean(EnfermeiraController.class);
 		
-		familias = controllerFamilia.searchFamilia(new Familia());
+		init_familia();
 		racas = controllerRaca.searchRaca(new Raca());
 		escolaridades = controllerEscolaridade.searchEscolaridade(new Escolaridade());
 		vinculos = controllerVinculo.searchVinculo(new VinculoEmpregaticio());
 		doencas = controllerDoenca.searchListDoenca(new Doenca());
-		agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
+		supervisores = controllerEnfermeira.searchListEnfermeira(new Enfermeira());
 	}
 	
-	//MÉTODOS
 	
 	public void reset(){
 		
@@ -179,17 +205,47 @@ public class SearchPessoa {
 		return null;
 	}
 	
+	public void init_familia(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> mapa = externalContext.getSessionMap();
+		Login autenticacaoBean = (Login) mapa.get("login");
+		Usuario usuario = autenticacaoBean.getUsuario();
+		if(usuario != null){
+			Familia auxiliar = new Familia();
+			if(usuario.getTipo().equals(TipoUsuario.ACS)){
+				auxiliar.setAgente(usuario.getAcs());
+				familias = controllerFamilia.searchFamilia(auxiliar);
+			}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+				Acs acsAux = new Acs();
+				acsAux.setSupervisor(usuario.getEnfermeira());
+				auxiliar.setAgente(acsAux);
+				familias = controllerFamilia.searchFamilia(auxiliar);
+			}else if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
+				if(usuario.getAcs() == null && usuario.getEnfermeira() == null){
+					familias = controllerFamilia.searchFamilia(new Familia());
+				}else if(usuario.getAcs() == null){
+					Acs acsAux = new Acs();
+					acsAux.setSupervisor(usuario.getEnfermeira());
+					auxiliar.setAgente(acsAux);
+					familias = controllerFamilia.searchFamilia(auxiliar);
+				}else if(usuario.getEnfermeira() == null){
+					auxiliar.setAgente(usuario.getAcs());
+					familias = controllerFamilia.searchFamilia(auxiliar);
+				}
+			}
+		}
+	}
+	
 	//CARREGA A LISTA DE FAMÍLIAS NO SELECTMENU
 		public void setFamiliaPessoa(Integer codigo){
 			if(codigo == null || codigo == 0){
-				options.getFamilia().setCodigo(codigo);
-				pessoa.getFamilia().setCodigo(codigo);
+				options.getFamilia().setNumeroFamilia(null);
 			}else{
 				for(Familia familia: familias){
-					if(familia.getCodigo().equals(codigo)){
+					if(familia.getNumeroFamilia().equals(codigo)){
 						options.setFamilia(familia);
-						pessoa.setFamilia(familia);
-						familias = controllerFamilia.searchFamilia(new Familia());
+						//familias = controllerFamilia.searchFamilia(new Familia());
 						break;
 					}
 				}
@@ -197,10 +253,10 @@ public class SearchPessoa {
 		}
 		
 		public Integer getFamiliaPessoa(){
-			if(options.getFamilia().getCodigo() == null){
+			if(options.getFamilia().getNumeroFamilia() == null){
 				return null;
 			}else{
-				return options.getFamilia().getCodigo();
+				return options.getFamilia().getNumeroFamilia();
 			}
 		}
 		
@@ -311,13 +367,101 @@ public class SearchPessoa {
 			ExternalContext externalContext = facesContext.getExternalContext();
 			Map<String, Object> mapa = externalContext.getSessionMap();
 			Login autenticacaoBean = (Login) mapa.get("login");
-			Acs servidor = autenticacaoBean.getAgente().getAgente();
-			if(servidor == null){
-				return null;
+			Usuario usuario = autenticacaoBean.getUsuario();
+			if(usuario != null){
+				if(usuario.getTipo().equals(TipoUsuario.ACS)){
+					options.setAgente(usuario.getAcs());
+					this.disabled = true;
+					Familia aux = new Familia();
+					aux.setAgente(usuario.getAcs());
+					familias = controllerFamilia.searchFamilia(aux);
+					return usuario.getAcs().getMatricula();
+				}else{
+					if(options.getAgente() != null){
+						return options.getAgente().getMatricula();						
+					}else{
+						return null;
+					}
+				}
+			}
+			return null;
+		}
+		
+		public void setSupervisorMatricula(Integer matricula){
+			if(matricula == 0 || matricula == null){
+				options.setEnfermeira(null);
 			}else{
-				options.setAgente(servidor);
-				this.disabled = true;
-				return servidor.getMatricula();
+				for(Enfermeira enfermeira: supervisores){
+					if(enfermeira.getMatricula().equals(matricula)){
+						options.setEnfermeira(enfermeira);
+						AcsSearchOptions aux = new AcsSearchOptions();
+						aux.setSupervisora(enfermeira);
+						agentes = controllerAcs.searchListAcs(aux);
+						break;
+					}
+				}
+				
+			}
+		}
+		
+		public Integer getSupervisorMatricula(){
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			Map<String, Object> mapa = externalContext.getSessionMap();
+			Login autenticacaoBean = (Login) mapa.get("login");
+			Usuario usuario = autenticacaoBean.getUsuario();
+			if(usuario != null){
+				if(usuario.getTipo().equals(TipoUsuario.ACS)){
+					options.setEnfermeira(usuario.getAcs().getSupervisor());
+					this.disabledSuper = true;
+					agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
+					return usuario.getAcs().getSupervisor().getMatricula();
+				}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+					options.setEnfermeira(usuario.getEnfermeira());
+					this.disabledSuper = true;
+					agentes = usuario.getEnfermeira().getAgentes();
+					return usuario.getEnfermeira().getMatricula();
+				}else if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
+					agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
+					if(usuario.getAcs() == null && usuario.getEnfermeira() == null){
+						this.disabled = false;
+						this.disabledSuper = false;
+						return null;
+					}else if(usuario.getAcs() == null){
+						options.setEnfermeira(usuario.getEnfermeira());
+						this.disabledSuper = true;
+						return usuario.getEnfermeira().getMatricula();
+					}else if(usuario.getEnfermeira() == null){
+						this.disabled = true;
+						this.disabledSuper = true;
+						options.setAgente(usuario.getAcs());
+						options.setEnfermeira(usuario.getEnfermeira());
+						return usuario.getAcs().getSupervisor().getMatricula();
+					}
+				}
+			}
+			return null;
+		}
+		
+		public void setSexoPessoa(char sexo){
+			if(sexo == 'f'){
+				options.setSexo("Feminino");
+			}else if(sexo == 'm'){
+				options.setSexo("Masculino");
+			}else{
+				options.setSexo(null);
+			}
+		}
+		
+		public char getSexoPessoa(){
+			if(options.getSexo() != null){
+				if(options.getSexo().equals("Feminino")){
+					return 'f';
+				}else{
+					return 'm';
+				}
+			}else{
+				return 'a';
 			}
 		}
 		
@@ -338,6 +482,7 @@ public class SearchPessoa {
 		pessoaAux.setSituacao(pessoa.getSituacao());
 		pessoaAux.setSus(pessoa.getSus());
 		pessoaAux.setVinculo(pessoa.getVinculo());
+		pessoaAux.setCodigo(pessoa.getCodigo());
 		this.pessoa = pessoaAux;
 		form.setPessoa(pessoaAux);
 		return "updatePessoa";
@@ -365,19 +510,33 @@ public class SearchPessoa {
 	
 	
 	public String confirmDeletion(Pessoa pessoa) throws BusinessException{
-		controller.deletePessoa(pessoa);
-		options = new PessoaSearchOptions();	
-		for(int i = 0; i < result.size(); i++){
-			if(result.get(i).equals(pessoa)){
-				result.remove(i);
+		if(pessoa.getFamilia().getPessoas().size() > 1){
+			controller.deletePessoa(pessoa);
+			boolean achou = false;
+			for(Pessoa pes: result){
+				if(pes.getCodigo().equals(pessoa.getCodigo())){
+					achou = true;
+					break;
+				}
 			}
+			if(achou){
+				result.remove(pessoa);
+			}
+			FacesMessage message = new FacesMessage();
+			message.setSummary("Pessoa foi Deletado!");
+			message.setSeverity(FacesMessage.SEVERITY_INFO);
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, message);
+			return null;
+		}else{
+			FacesMessage message = new FacesMessage();
+			message.setSummary("Impossível deletar essa pessoa. A Familia " + pessoa.getFamilia().getNumeroFamilia() + " só tem essa Pessoa cadastrada. Contudo você terá que deletar a Família.");
+			message.setSeverity(FacesMessage.SEVERITY_INFO);
+			FacesContext context = FacesContext.getCurrentInstance();
+			context.addMessage(null, message);
+			return null;
 		}
-		FacesMessage message = new FacesMessage();
-		message.setSummary("Pessoa foi Deletado!");
-		message.setSeverity(FacesMessage.SEVERITY_INFO);
-		FacesContext context = FacesContext.getCurrentInstance();
-		context.addMessage(null, message);
-		return null;
+		
 	}
 
 }

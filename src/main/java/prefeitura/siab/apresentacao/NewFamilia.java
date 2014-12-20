@@ -31,6 +31,8 @@ import prefeitura.siab.tabela.Escolaridade;
 import prefeitura.siab.tabela.Familia;
 import prefeitura.siab.tabela.Pessoa;
 import prefeitura.siab.tabela.Raca;
+import prefeitura.siab.tabela.TipoUsuario;
+import prefeitura.siab.tabela.Usuario;
 import prefeitura.siab.tabela.VinculoEmpregaticio;
 
 
@@ -139,19 +141,33 @@ public class NewFamilia {
 		
 		controllerAcs = applicationContext.getBean(AcsController.class);
 		controllerEndereco = applicationContext.getBean(EnderecoController.class);
-		agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
-		endereco = controllerEndereco.searchListEndereco(new Endereco());
-		
 		controllerPessoa = applicationContext.getBean(PessoaController.class);
-		controllerRaca = applicationContext.getBean(RacaController.class);
 		controllerEscolaridade = applicationContext.getBean(EscolaridadeController.class);
+		controllerRaca = applicationContext.getBean(RacaController.class);
 		controllerVinculo = applicationContext.getBean(VinculoController.class);
-		controllerDoenca = applicationContext.getBean(DoencaController.class);
+		controllerDoenca = applicationContext.getBean(DoencaController.class);		
 	
+		endereco = controllerEndereco.searchListEndereco(new Endereco());
 		racas = controllerRaca.searchRaca(new Raca());
 		escolaridades = controllerEscolaridade.searchEscolaridade(new Escolaridade());
 		vinculos = controllerVinculo.searchVinculo(new VinculoEmpregaticio());
 		doencas = controllerDoenca.searchListDoenca(new Doenca());
+		init_agentes();
+	}
+	
+	public void init_agentes(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> mapa = externalContext.getSessionMap();
+		Login autenticacaoBean = (Login) mapa.get("login");
+		Usuario usuario = autenticacaoBean.getUsuario();
+		if(usuario != null){
+			if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+				agentes = usuario.getEnfermeira().getAgentes();
+			}else{
+				agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
+			}
+		}
 	}
 	
 	public void resetFamilia(){
@@ -411,7 +427,7 @@ public class NewFamilia {
 		boolean achou = false;
 		FacesMessage message = new FacesMessage();
 	
-		Pessoa pAux = controllerPessoa.searchPessoaSus(aux.getSus());
+		Pessoa pAux = controllerPessoa.searchPessoaCodigo(aux.getCodigo());
 		if(pAux == null){
 			for(Pessoa pessoa: pessoas){
 				if(pessoa.getSus().equals(aux.getSus())){

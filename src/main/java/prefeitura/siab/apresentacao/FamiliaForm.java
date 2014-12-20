@@ -2,8 +2,10 @@ package prefeitura.siab.apresentacao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,7 @@ public class FamiliaForm {
 	private List<Endereco> enderecos;
 	//Pessoa
 	private PessoaController controllerPessoa;
+	private boolean disabled;
 	
 		
 	//CONSTRUTOR
@@ -108,6 +111,14 @@ public class FamiliaForm {
 	public Pessoa getAux() {
 		return aux;
 	}
+	public boolean isDisabled() {
+		return disabled;
+	}
+
+	public void setDisabled(boolean disabled) {
+		this.disabled = disabled;
+	}
+
 	public List<Pessoa> getPessoas() {
 		return pessoas;
 	}
@@ -277,10 +288,20 @@ public class FamiliaForm {
 		}
 		
 		public Integer getAcsMatricula(){
-			if(familia.getAgente() == null){
-				return null;			
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			ExternalContext externalContext = facesContext.getExternalContext();
+			Map<String, Object> mapa = externalContext.getSessionMap();
+			Login autenticacaoBean = (Login) mapa.get("login");
+			Acs servidor = autenticacaoBean.getAgente().getAgente();
+			if(servidor == null){
+				return null;
 			}else{
-				return familia.getAgente().getMatricula();
+				Endereco aux = new Endereco();
+				aux.setAgente(servidor);
+				enderecos = controllerEndereco.searchListEndereco(aux);
+				this.disabled = true;
+				familia.setAgente(servidor);
+				return servidor.getMatricula();
 			}
 		}
 		
@@ -307,6 +328,66 @@ public class FamiliaForm {
 			}
 		}
 		
+		public void setSexoPessoa(char sexo){
+			if(sexo == 'f'){
+				aux.setSexo("Feminino");
+			}else{
+				aux.setSexo("Masculino");
+			}
+		}
+		
+		public char getSexoPessoa(){
+			if(aux.getSexo() != null){
+				if(aux.getSexo().equals("Feminino")){
+					return 'f';
+				}else{
+					return 'm';
+				}
+			}else{
+				return 'm';
+			}
+		}
+		
+		public void setFrequentaEscola(Integer frequentaEscola){
+			if(frequentaEscola.equals(1)){
+				aux.setFrequentaescola("Sim");
+			}else{
+				aux.setFrequentaescola("Não");
+			}
+		}
+		
+		public Integer getFrequentaEscola(){
+			if(aux.getFrequentaescola() != null){
+				if(aux.getFrequentaescola().equals("Sim")){
+					return 1;
+				}else{
+					return 0;
+				}
+			}else{
+				return 0;
+			}
+		}
+		
+		public void setBolsaEscola(Integer bolsaEscola){
+			if(bolsaEscola.equals(1)){
+				aux.setBolsaescola("Sim");
+			}else{
+				aux.setBolsaescola("Não");
+			}
+		}
+		
+		public Integer getBolsaEscola(){
+			if(aux.getBolsaescola() != null){
+				if(aux.getBolsaescola().equals("Sim")){
+					return 1;
+				}else{
+					return 0;
+				}
+			}else{
+				return 0;
+			}
+		}
+		
 		public void removeList(Pessoa pessoa) throws BusinessException{
 			FacesMessage message = new FacesMessage();
 
@@ -315,13 +396,13 @@ public class FamiliaForm {
 				message.setSeverity(FacesMessage.SEVERITY_ERROR);
 			}else{
 				boolean achou = false;
-				for(Pessoa p: pessoas){
+				for(Pessoa p: familia.getPessoas()){
 					if(p.getSus().equals(pessoa.getSus())){
 						achou = true;
 					}
 				}
 				if(achou){
-					pessoas.remove(pessoa);
+					familia.getPessoas().remove(pessoa);
 				}
 				message.setSummary("Pessoa Removida com sucesso da Família");
 				message.setSeverity(FacesMessage.SEVERITY_INFO);
@@ -335,10 +416,10 @@ public class FamiliaForm {
 			boolean achou = false;
 			FacesMessage message = new FacesMessage();
 
-			Pessoa pAux = controllerPessoa.searchPessoaSus(aux.getSus());
+			Pessoa pAux = controllerPessoa.searchPessoaCodigo(aux.getCodigo());
 			try{
 				if(pAux == null){
-					for(Pessoa pessoa: pessoas){
+					for(Pessoa pessoa: familia.getPessoas()){
 						if(pessoa.getSus().equals(aux.getSus())){
 							achou = true;
 							message.setSummary("O número do SUS informado, já foi Cadastrado!");
@@ -347,9 +428,8 @@ public class FamiliaForm {
 					}
 					if(!achou){
 						aux.setFamilia(familia);
-						controllerPessoa.salvarPessoa(aux);
-						controllerPessoa.deletePessoa(aux);
-						pessoas.add(aux);
+						controllerPessoa.verificaPessoa(aux);
+						familia.getPessoas().add(aux);
 						resetAux();
 						message.setSummary("Pessoa adicionada com Sucesso!");
 						message.setSeverity(FacesMessage.SEVERITY_INFO);

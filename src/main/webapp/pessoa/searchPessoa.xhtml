@@ -14,6 +14,11 @@
   	</ui:define>
 
   	<ui:define name="content">
+  	
+  		<f:metadata>
+  			 <f:event type="preRenderView" listener="#{searchPessoa.inicializar}"/>   
+  		</f:metadata>
+  		
 		<siab:procuraPessoa id="pessoa" options="#{searchPessoa.options}" classe="#{searchPessoa}">
 			<f:facet name="buttons">
 				<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchPessoa.search}" ajax="false"/>
@@ -30,8 +35,12 @@
 											var="pessoa" 
 											rendered="#{searchPessoa.result.isEmpty() == false}">
 								<h:column>
-									<f:facet name="header">Família</f:facet>
-									#{pessoa.familia.codigo}
+									<f:facet name="header">Código da Família</f:facet>
+									#{pessoa.familia.numeroFamilia}
+								</h:column>
+								<h:column>
+									<f:facet name="header">SUS</f:facet>
+									#{pessoa.sus}
 								</h:column>
 								<h:column>
 									<f:facet name="header">Nome</f:facet>

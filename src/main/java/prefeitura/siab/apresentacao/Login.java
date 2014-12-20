@@ -28,7 +28,6 @@ public class Login implements Serializable{
 	private @Autowired AcsController controllerAcs;
 	private @Autowired UsuarioController controllerUsuario;
 	private String template;
-	private String nome;
 	private Usuario usuario;
 	private AgenteForm agente;
 
@@ -47,12 +46,6 @@ public class Login implements Serializable{
 	}
 	public void setAgente(AgenteForm agente) {
 		this.agente = agente;
-	}
-	public String getNome() {
-		return nome;
-	}
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 	
 	//CONSTRUTOR
@@ -73,14 +66,13 @@ public class Login implements Serializable{
 				reset();
 			}else{
 				usuario = usuarioAux;
-				AcsSearchOptions aux = new AcsSearchOptions();
-				aux.setMatricula(usuario.getMatricula());
-				Acs acsAux = controllerAcs.searchAcs(aux);
-				agente.setAgente(acsAux);
-				nome = usuario.getNome();
 				if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
 					this.template = "/templateAdmin.xhtml";
 				}else if(usuario.getTipo().equals(TipoUsuario.ACS)){
+					AcsSearchOptions aux = new AcsSearchOptions();
+					aux.setMatricula(usuario.getMatricula());
+					Acs acsAux = controllerAcs.searchAcs(aux);
+					agente.setAgente(acsAux);
 					this.template = "/templateAcs.xhtml";
 				}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
 					this.template = "/template.xhtml";

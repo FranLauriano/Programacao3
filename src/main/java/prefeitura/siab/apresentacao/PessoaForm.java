@@ -219,6 +219,66 @@ public class PessoaForm {
 		
 		return siglas;
 	}
+	
+	public void setSexoPessoa(char sexo){
+		if(sexo == 'f'){
+			pessoa.setSexo("Feminino");
+		}else{
+			pessoa.setSexo("Masculino");
+		}
+	}
+	
+	public char getSexoPessoa(){
+		if(pessoa.getSexo() != null){
+			if(pessoa.getSexo().equals("Feminino")){
+				return 'f';
+			}else{
+				return 'm';
+			}
+		}else{
+			return 'm';
+		}
+	}
+	
+	public void setFrequentaEscola(Integer frequentaEscola){
+		if(frequentaEscola.equals(1)){
+			pessoa.setFrequentaescola("Sim");
+		}else{
+			pessoa.setFrequentaescola("Não");
+		}
+	}
+	
+	public Integer getFrequentaEscola(){
+		if(pessoa.getFrequentaescola() != null){
+			if(pessoa.getFrequentaescola().equals("Sim")){
+				return 1;
+			}else{
+				return 0;
+			}
+		}else{
+			return 0;
+		}
+	}
+	
+	public void setBolsaEscola(Integer bolsaEscola){
+		if(bolsaEscola.equals(1)){
+			pessoa.setBolsaescola("Sim");
+		}else{
+			pessoa.setBolsaescola("Não");
+		}
+	}
+	
+	public Integer getBolsaEscola(){
+		if(pessoa.getBolsaescola() != null){
+			if(pessoa.getBolsaescola().equals("Sim")){
+				return 1;
+			}else{
+				return 0;
+			}
+		}else{
+			return 0;
+		}
+	}
 			
 	
 }

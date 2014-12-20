@@ -66,6 +66,9 @@ public class AcsDao {
 		if (options.getMicroregiao() != null && options.getMicroregiao() != 0) {
 			predicate.append(" and acs.microregiao = :acsMicroregiao");
 		}
+		if	(options.getSupervisora() != null && options.getSupervisora().getMatricula() != 0){
+			predicate.append(" and acs.supervisor = :acsSupervisor");
+		}
 		String jpql = "Select acs from Acs acs where " + predicate;
 		TypedQuery<Acs> query = manager.createQuery(jpql, Acs.class);
 		if (options.getMatricula() != null && options.getMatricula() != 0) {
@@ -82,6 +85,9 @@ public class AcsDao {
 		}
 		if (options.getMicroregiao() != null && options.getMicroregiao() != 0) {
 			query.setParameter("acsMicroregiao", options.getMicroregiao());
+		}
+		if	(options.getSupervisora() != null && options.getSupervisora().getMatricula() != 0){
+			query.setParameter("acsSupervisor", options.getSupervisora().getMatricula());
 		}
 		List<Acs> result = query.getResultList();
 		return result;

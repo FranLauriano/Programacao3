@@ -5,6 +5,7 @@ import java.util.List;
 
 import prefeitura.siab.tabela.Acs;
 import prefeitura.siab.tabela.Doenca;
+import prefeitura.siab.tabela.Enfermeira;
 import prefeitura.siab.tabela.Escolaridade;
 import prefeitura.siab.tabela.Familia;
 import prefeitura.siab.tabela.Raca;
@@ -18,13 +19,14 @@ public class PessoaSearchOptions {
 	private Date dtNascimento;
 	private Integer idadeInicial;
 	private Integer idadeFinal;
-	private char sexo;
+	private String sexo;
 	private Raca raca;
 	private Escolaridade escolaridade;
 	private String mae;
 	private VinculoEmpregaticio vinculo;
 	private List<Doenca> doencas;
 	private Acs agente;
+	private Enfermeira enfermeira;
 
 	
 	//PROPRIEDADES
@@ -70,10 +72,10 @@ public class PessoaSearchOptions {
 	public void setIdadeFinal(Integer idadeFinal) {
 		this.idadeFinal = idadeFinal;
 	}
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
-	public void setSexo(char sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 	public Raca getRaca() {
@@ -106,5 +108,12 @@ public class PessoaSearchOptions {
 	public void setAgente(Acs agente) {
 		this.agente = agente;
 	}
+	public Enfermeira getEnfermeira() {
+		return enfermeira;
+	}
+	public void setEnfermeira(Enfermeira enfermeira) {
+		this.enfermeira = enfermeira;
+	}
+	
 	
 }

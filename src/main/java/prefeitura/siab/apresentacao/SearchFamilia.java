@@ -17,12 +17,16 @@ import org.springframework.web.jsf.FacesContextUtils;
 import prefeitura.siab.controller.AcsController;
 import prefeitura.siab.controller.BusinessException;
 import prefeitura.siab.controller.EnderecoController;
+import prefeitura.siab.controller.EnfermeiraController;
 import prefeitura.siab.controller.FamiliaController;
 import prefeitura.siab.controller.PessoaController;
 import prefeitura.siab.tabela.Acs;
 import prefeitura.siab.tabela.Endereco;
+import prefeitura.siab.tabela.Enfermeira;
 import prefeitura.siab.tabela.Familia;
 import prefeitura.siab.tabela.Pessoa;
+import prefeitura.siab.tabela.TipoUsuario;
+import prefeitura.siab.tabela.Usuario;
 
 @Component
 @Scope(WebApplicationContext.SCOPE_SESSION)
@@ -33,6 +37,9 @@ public class SearchFamilia {
 	private Familia options;
 	private List<Familia> result;
 	private FamiliaForm form;
+	//ENFERMEIRAS
+	private EnfermeiraController controllerEnfermeira;
+	private List<Enfermeira> supervisores;
 	//ACS's
 	private AcsController controllerAcs;
 	private List<Acs> agentes;
@@ -41,6 +48,7 @@ public class SearchFamilia {
 	private List<Endereco> enderecos;
 	private PessoaController controllerPessoa;
 	private boolean disabled;
+	private boolean disabledSuper;
 	
 	
 	
@@ -81,6 +89,18 @@ public class SearchFamilia {
 	public void setDisabled(boolean disabled) {
 		this.disabled = disabled;
 	}
+	public boolean isDisabledSuper() {
+		return disabledSuper;
+	}
+	public void setDisabledSuper(boolean disabledSuper) {
+		this.disabledSuper = disabledSuper;
+	}
+	public List<Enfermeira> getSupervisores() {
+		return supervisores;
+	}
+	public void setSupervisores(List<Enfermeira> supervisores) {
+		this.supervisores = supervisores;
+	}
 	
 	//CONSTRUTOR
 	public SearchFamilia() {
@@ -94,10 +114,27 @@ public class SearchFamilia {
 		controllerAcs = applicationContext.getBean(AcsController.class);
 		controllerEndereco = applicationContext.getBean(EnderecoController.class);
 		controllerPessoa = applicationContext.getBean(PessoaController.class);
-		agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
+		controllerEnfermeira = applicationContext.getBean(EnfermeiraController.class);
+
 		enderecos = controllerEndereco.searchListEndereco(new Endereco());
+		supervisores = controllerEnfermeira.searchListEnfermeira(new Enfermeira());
+		init_agentes();
 	}
 	
+	public void init_agentes(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> mapa = externalContext.getSessionMap();
+		Login autenticacaoBean = (Login) mapa.get("login");
+		Usuario usuario = autenticacaoBean.getUsuario();
+		if(usuario != null){
+			if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+				agentes = usuario.getEnfermeira().getAgentes();
+			}else{
+				agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
+			}
+		}
+	}
 	
 	//MÉTODOS
 	public void reset(){
@@ -146,6 +183,40 @@ public class SearchFamilia {
 		}
 	}
 	
+	public Integer getSupervisorMatricula(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> mapa = externalContext.getSessionMap();
+		Login autenticacaoBean = (Login) mapa.get("login");
+		Usuario usuario = autenticacaoBean.getUsuario();
+		if(usuario != null){
+			if(usuario.getTipo().equals(TipoUsuario.ACS)){
+				//options.getAgente().setSupervisor(usuario.getAcs().getSupervisor());
+				this.disabledSuper = true;
+				return usuario.getAcs().getSupervisor().getMatricula();
+			}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+				//options.getAgente().setSupervisor(usuario.getEnfermeira());
+				this.disabledSuper = true;
+				return usuario.getEnfermeira().getMatricula();
+			}else if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
+				if(usuario.getAcs() == null && usuario.getEnfermeira() == null){
+					this.disabled = false;
+					this.disabledSuper = false;
+					return null;
+				}else if(usuario.getAcs() == null){
+					//options.getAgente().setSupervisor(usuario.getAcs().getSupervisor());
+					this.disabledSuper = true;
+					return usuario.getEnfermeira().getMatricula();
+				}else if(usuario.getEnfermeira() == null){
+					this.disabled = true;
+					this.disabledSuper = true;
+					//options.setAgente(usuario.getAcs());
+					return usuario.getAcs().getSupervisor().getMatricula();
+				}
+			}
+		}
+		return null;
+	}
 	//Carrega todos os Endereços
 	public void setEnderecoFamilia(Integer cep){
 		if(cep == 0 || cep == null){
@@ -177,6 +248,7 @@ public class SearchFamilia {
 		familiaAux.setNumero(familia.getNumero());
 		familiaAux.setPessoas(familia.getPessoas());
 		familiaAux.setRua(familia.getRua());
+		familiaAux.setNumeroFamilia(familia.getNumeroFamilia());
 		this.options = familiaAux;
 		form.setFamilia(familiaAux);
 		form.setPessoas(familiaAux.getPessoas());
@@ -190,8 +262,13 @@ public class SearchFamilia {
 	public String confirmUpdate(){
 		FacesMessage message = new FacesMessage();
 		try{
+			PessoaSearchOptions pAux = new PessoaSearchOptions();
+			Familia fam = new Familia();
+			fam.setCodigo(options.getCodigo());
+			pAux.setFamilia(fam);
+			List<Pessoa> jaCadastrada = controllerPessoa.searchListPessoa(pAux);
 			for(Pessoa p: options.getPessoas()){
-				Pessoa aux = controllerPessoa.searchPessoaSus(p.getSus());
+				Pessoa aux = controllerPessoa.searchPessoaCodigo(p.getCodigo());
 				if(aux != null){
 					controllerPessoa.updatePessoa(p);
 				}else{

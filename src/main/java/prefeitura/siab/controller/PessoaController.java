@@ -30,6 +30,27 @@ public class PessoaController {
 			}
 			throw new BusinessException("Impossível salvar essa Pessoa!");
 		}
+		if(pessoa.getFamilia().getCodigo() == null || pessoa.getFamilia().getCodigo() == 0){
+			throw new BusinessException("Família: Favor escolher uma Família Válida!");
+		}
+		if(pessoa.getSus() == null || pessoa.getSus().length() < 6){
+			throw new BusinessException("SUS: Favor inserir um Número do SUS Válido");
+		}
+		if(pessoa.getNome() == null || pessoa.getNome().length() < 5){
+			throw new BusinessException("Nome: Favor inserir um Nome Válido");	
+		}
+		if(pessoa.getDtnascimento() == null){
+			throw new BusinessException("Data de Nascimento: Favor escolher uma Data de Nascimento Válida!");
+		}
+		if(pessoa.getRaca().getCodigo() == null || pessoa.getRaca().getCodigo() == 0){
+			throw new BusinessException("Raça: Favor escolher uma Raça Válida!");
+		}
+		if(pessoa.getEscolaridade().getCodigo() == null || pessoa.getEscolaridade().getCodigo() == 0){
+			throw new BusinessException("Escolaridade: Favor escolher uma Escolaridade Válida!");
+		}
+		if(pessoa.getVinculo().getCodigo() == null || pessoa.getVinculo().getCodigo() == 0){
+			throw new BusinessException("Vínculo Empregatício: Favor escolher um Vínculo Empregatício Válido!");
+		}
 		dao.insert(pessoa);
 		return null;
 	}
@@ -54,10 +75,6 @@ public class PessoaController {
 			throw new BusinessException("Vínculo Empregatício: Favor escolher um Vínculo Empregatício Válido!");
 		}
 	}
-
-	public Pessoa searchPessoaSus(String sus) {
-		return dao.searchPessoaSus(sus);
-	}
 	
 	@Transactional
 	public void updatePessoa(Pessoa pessoa) throws BusinessException {
@@ -75,7 +92,7 @@ public class PessoaController {
 
 	@Transactional
 	public void deletePessoa(Pessoa pessoa) throws BusinessException{
-		Pessoa pessoaAux = dao.searchPessoaSus(pessoa.getSus());
+		Pessoa pessoaAux = dao.searchPessoaCodigo(pessoa.getCodigo());
 		if(pessoaAux != null){
 			dao.delete(pessoa);
 		}else{
@@ -114,6 +131,10 @@ public class PessoaController {
 		}else{
 			return dao.searchListOptionsPessoa(options);
 		}
+	}
+
+	public Pessoa searchPessoaCodigo(Integer codigo) {
+		return dao.searchPessoaCodigo(codigo);
 	}
 
 }

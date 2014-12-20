@@ -28,6 +28,10 @@ public class FamiliaController {
 		if(familia.getRua() == null || familia.getRua().getRua() == null || familia.getRua().getRua().length() < 1){
 			throw new BusinessException("Favor selecionar um Endereço Válido!");
 		}
+		Familia aux = dao.searchCodAcs(familia);
+		if(aux != null){
+			throw new BusinessException("Código da Família: Já existe uma Família com esse Código");
+		}
 		dao.insert(familia);
 		
 	}

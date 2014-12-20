@@ -24,12 +24,34 @@
 	<div class="box-content">
 		<div class="row-fluid">
 			<div class="span6">
+			
+				<div class="control-group">	    
+				    <label class="control-label">Supervisor</label>
+				    <div class="controls">
+				    	<h:selectOneMenu id="supervisores" styleClass="form-control"	value="#{cc.attrs.classe.supervisorMatricula}" disabled="#{cc.attrs.classe.disabledSuper}">
+							<f:selectItem itemLabel="Selecione um Supervisor" itemValue="#{null}" />
+							<f:selectItems value="#{cc.attrs.classe.supervisores}" var="supervisor"	itemLabel="#{supervisor.nome}" itemValue="#{supervisor.matricula}"></f:selectItems>
+						</h:selectOneMenu>
+				    </div>
+			  	</div>
+			
+				<div class="control-group">	    
+				    <label class="control-label">Agente</label>
+				    <div class="controls">
+				    	<h:selectOneMenu id="acs" styleClass="form-control"	value="#{cc.attrs.classe.acsMatricula}" disabled="#{cc.attrs.classe.disabled}">
+							<f:selectItem itemLabel="Selecione um ACS" itemValue="#{null}" />
+							<f:selectItems value="#{cc.attrs.classe.agentes}" var="agente"	itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
+							<f:ajax process="@this" render="acs" />
+						</h:selectOneMenu>
+				    </div>
+			  	</div> 
+			  	
 				<div class="control-group">	    
 				    <label class="control-label">Família</label>
 				    <div class="controls">
 				    	<h:selectOneMenu id="familia" styleClass="form-control"	value="#{cc.attrs.classe.familiaPessoa}" disabled="#{cc.attrs.disabled}">
 							<f:selectItem itemLabel="Selecione a Família" itemValue="#{null}" />
-							<f:selectItems value="#{cc.attrs.classe.familias}" var="familia"	itemLabel="#{familia.codigo}" itemValue="#{familia.codigo}"></f:selectItems>
+							<f:selectItems value="#{cc.attrs.classe.familias}" var="familia"	itemLabel="#{familia.numeroFamilia}" itemValue="#{familia.numeroFamilia}"></f:selectItems>
 							<f:ajax process="@this" render="familia" />
 						</h:selectOneMenu>
 				    </div>
@@ -67,18 +89,17 @@
 						</h:inputText>
 				    </div>
 			  	</div>
-			  	
-			  	<div class="control-group">	  			
+			</div>
+			
+			<div class="span6">
+			
+				<div class="control-group">	  			
 				    <label class="control-label">Idade Inicial</label>
 				    <div class="controls">
 				    	<h:inputText 	id="idadeInicial" styleClass="form-control" value="#{cc.attrs.options.idadeInicial}" p:placeholder="Idade Inicial"></h:inputText>
 				    </div>
 			  	</div>
 			  	
-			  	
-			</div>
-			
-			<div class="span6">
 				<div class="control-group">	  			
 				    <label class="control-label">Idade Final</label>
 				    <div class="controls">
@@ -89,7 +110,7 @@
 			  	<div class="control-group">	  			
 				    <label class="control-label">Sexo</label>
 				    <div class="controls">
-				    	<h:selectOneRadio id="sexo" value="#{cc.attrs.options.sexo}">
+				    	<h:selectOneRadio id="sexo" value="#{cc.attrs.classe.sexoPessoa}">
 						   <f:selectItem itemValue='a' itemLabel="Ambos" />
 						   <f:selectItem itemValue='m' itemLabel="Masculino" />
 						   <f:selectItem itemValue='f' itemLabel="Feminino" />   			
@@ -129,16 +150,6 @@
 						</h:selectOneMenu>
 				    </div>
 			  	</div>
-			  	
-			  	<div class="control-group">	    
-				    <label class="control-label">Agente</label>
-				    <div class="controls">
-				    	<h:selectOneMenu id="acs" styleClass="form-control"	value="#{cc.attrs.classe.acsMatricula}" disabled="#{cc.attrs.classe.disabled}">
-							<f:selectItem itemLabel="Selecione um ACS" itemValue="#{null}" />
-							<f:selectItems value="#{cc.attrs.classe.agentes}" var="agente"	itemLabel="#{agente.nome}" itemValue="#{agente.matricula}"></f:selectItems>
-						</h:selectOneMenu>
-				    </div>
-			  	</div> 
 			  	
 			  	<div class="control-group">	  			
 				    <label class="control-label">Doenças</label>	
