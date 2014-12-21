@@ -48,7 +48,9 @@
 								</h:column>
 								<h:column>
 									<f:facet name="header">Data de Nascimento</f:facet>
-									#{pessoa.dtnascimento}
+									<h:outputText value="#{pessoa.dtnascimento}" >
+					              		<f:convertDateTime pattern="dd/MM/yyyy" />
+								 	</h:outputText>
 								</h:column>
 								<h:column>
 									<f:facet name="header">Idade</f:facet>

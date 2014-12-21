@@ -27,6 +27,7 @@
 				    	<h:selectOneMenu id="supervisores" styleClass="form-control"	value="#{cc.attrs.classe.supervisorMatricula}" disabled="#{cc.attrs.classe.disabledSuper}">
 							<f:selectItem itemLabel="Selecione um Supervisor" itemValue="#{null}" />
 							<f:selectItems value="#{cc.attrs.classe.supervisores}" var="supervisor"	itemLabel="#{supervisor.nome}" itemValue="#{supervisor.matricula}"></f:selectItems>
+							<f:ajax process="@this" render="acs" />
 						</h:selectOneMenu>
 				    </div>
 			  	</div>

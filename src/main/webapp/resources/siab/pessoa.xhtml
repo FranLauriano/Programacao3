@@ -55,18 +55,16 @@
 					    </div>
 				  	</div>
 				  	
-				  	<div class="control-group">	  			
-					    <label class="control-label">Data de Nascimento</label>
+			  		<div class="control-group">	  			
+					    	<label class="control-label">Data de Nascimento</label>
 					    <div class="controls">
-							<h:inputText 		id="data" 
-												styleClass="form-control" 
-												value="#{cc.attrs.pessoa.dtnascimento}"
-												p:placeholder="dd/mm/yyyy">
+							<h:inputText type="date" name="datepicker" id="datepicker" class='datepick' value="#{cc.attrs.classe.calculaIdade}">
 								<f:convertDateTime timeZone="GMT-3" locale="pt_BR" pattern="dd/MM/yyyy" type="date" />
+								<f:ajax process="@this" render="idade" />
 							</h:inputText>
 					    </div>
 				  	</div>
-				  	
+				  				  	
 				  	<div class="control-group">	  			
 					    <label class="control-label">Idade</label>
 					    <div class="controls">

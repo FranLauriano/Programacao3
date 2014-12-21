@@ -1,6 +1,8 @@
 package prefeitura.siab.apresentacao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -177,6 +179,29 @@ public class NewFamilia {
 				agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
 			}
 		}
+	}
+	
+	public void setCalculaIdade(Date data) {  
+		if(data != null){
+			this.aux.setDtnascimento(data);
+			Calendar dataNascimento = Calendar.getInstance();  
+			dataNascimento.setTime(data);  
+			Calendar dataAtual = Calendar.getInstance();  
+			
+			Integer diferencaMes = dataAtual.get(Calendar.MONTH) - dataNascimento.get(Calendar.MONTH);  
+			Integer diferencaDia = dataAtual.get(Calendar.DAY_OF_MONTH) - dataNascimento.get(Calendar.DAY_OF_MONTH);  
+			Integer idade = (dataAtual.get(Calendar.YEAR) - dataNascimento.get(Calendar.YEAR));  
+			
+			if(diferencaMes < 0  || (diferencaMes == 0 && diferencaDia < 0)) {  
+				idade--;  
+			}  
+			
+			this.aux.setIdade(idade);			
+		}
+	}
+	
+	public Date getCalculaIdade() {  
+		return this.aux.getDtnascimento();
 	}
 	
 	public void resetFamilia(){

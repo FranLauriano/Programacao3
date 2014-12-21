@@ -149,6 +149,7 @@ public class SearchFamilia {
 	//MÉTODOS
 	public void reset(){
 		options = new Familia();
+		options.setAgente(new Acs());
 	}
 	
 	public String search(){
@@ -159,7 +160,7 @@ public class SearchFamilia {
 	//Carrega todos os ACS's
 	public void setAcsMatricula(Integer matricula){
 		if(matricula == 0 || matricula == null){
-			options.setAgente(null);
+			options.getAgente().setMatricula(null);;
 			List<Endereco> end = new ArrayList<>();
 			enderecos = controllerEndereco.searchListEndereco(new Endereco());
 			for(Acs agente: agentes){
@@ -208,6 +209,29 @@ public class SearchFamilia {
 		return null;
 	}
 	
+	public void setSupervisorMatricula(Integer matricula){
+		if(matricula == null || matricula == 0){
+			options.getAgente().setSupervisor(null);
+			init_agentes();
+			enderecos = controllerEndereco.searchListEndereco(new Endereco());
+		}else{
+			for(Enfermeira enf: supervisores){
+				if(enf.getMatricula().equals(matricula)){
+					options.getAgente().setSupervisor(enf);
+					List<Acs> agentesAtuais = controllerAcs.searchListAcs(new AcsSearchOptions());
+					List<Acs> ag = new ArrayList<>();
+					for(Acs agente: agentesAtuais){
+						if(agente.getSupervisor().getMatricula().equals(matricula)){
+							ag.add(agente);
+						}
+					}
+					agentes = ag;
+					break;
+				}
+			}
+		}
+	}
+	
 	public Integer getSupervisorMatricula(){
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ExternalContext externalContext = facesContext.getExternalContext();
@@ -216,27 +240,20 @@ public class SearchFamilia {
 		Usuario usuario = autenticacaoBean.getUsuario();
 		if(usuario != null){
 			if(usuario.getTipo().equals(TipoUsuario.ACS)){
-				//options.getAgente().setSupervisor(usuario.getAcs().getSupervisor());
 				this.disabledSuper = true;
 				return usuario.getAcs().getSupervisor().getMatricula();
 			}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
-				//options.getAgente().setSupervisor(usuario.getEnfermeira());
 				this.disabledSuper = true;
 				return usuario.getEnfermeira().getMatricula();
 			}else if(usuario.getTipo().equals(TipoUsuario.ADMINISTRADOR)){
-				if(usuario.getAcs() == null && usuario.getEnfermeira() == null){
-					this.disabled = false;
-					this.disabledSuper = false;
-					return null;
-				}else if(usuario.getAcs() == null){
-					//options.getAgente().setSupervisor(usuario.getAcs().getSupervisor());
-					this.disabledSuper = true;
-					return usuario.getEnfermeira().getMatricula();
-				}else if(usuario.getEnfermeira() == null){
-					this.disabled = true;
-					this.disabledSuper = true;
-					//options.setAgente(usuario.getAcs());
-					return usuario.getAcs().getSupervisor().getMatricula();
+				this.disabled = false;
+				this.disabledSuper = false;
+				if(options.getAgente() != null){
+					if(options.getAgente().getSupervisor() != null && options.getAgente().getSupervisor().getMatricula() != null){
+						return options.getAgente().getSupervisor().getMatricula();
+					}else{
+						return null;					
+					}					
 				}
 			}
 		}

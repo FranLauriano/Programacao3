@@ -1,6 +1,8 @@
 package prefeitura.siab.apresentacao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -56,7 +58,6 @@ public class NewPessoa {
 	private List<Doenca> doencas;
 	
 	private Pessoa pessoa;
-
 	
 	//PROPRIEDADES
 	public List<Familia> getFamilias() {
@@ -161,6 +162,28 @@ public class NewPessoa {
 	}
 
 	//MÉTODOS
+	public void setCalculaIdade(Date data) {  
+		this.pessoa.setDtnascimento(data);
+	    Calendar dataNascimento = Calendar.getInstance();  
+	    dataNascimento.setTime(data);  
+	    Calendar dataAtual = Calendar.getInstance();  
+	  
+	    Integer diferencaMes = dataAtual.get(Calendar.MONTH) - dataNascimento.get(Calendar.MONTH);  
+	    Integer diferencaDia = dataAtual.get(Calendar.DAY_OF_MONTH) - dataNascimento.get(Calendar.DAY_OF_MONTH);  
+	    Integer idade = (dataAtual.get(Calendar.YEAR) - dataNascimento.get(Calendar.YEAR));  
+	  
+	    if(diferencaMes < 0  || (diferencaMes == 0 && diferencaDia < 0)) {  
+	        idade--;  
+	    }  
+	      
+	    this.pessoa.setIdade(idade);  
+	}
+	
+	public Date getCalculaIdade() {  
+		return this.pessoa.getDtnascimento();
+	}
+	
+	
 	public String savePessoa(){
 		FacesMessage message = new FacesMessage();
 		try{
