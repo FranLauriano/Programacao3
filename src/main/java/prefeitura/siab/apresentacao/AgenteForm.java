@@ -138,32 +138,28 @@ public class AgenteForm {
 			//QUANTITATIVO DE DOENÇAS
 			List<Doenca> listaDoencas = controllerDoenca.searchListDoenca(new Doenca());
 			for(Doenca doenca: listaDoencas){
+				PessoaSearchOptions pessoaAuxiliar = new PessoaSearchOptions();
+				pessoaAuxiliar.setDoencas(new ArrayList<Doenca>());
+				pessoaAuxiliar.getDoencas().add(doenca);
+				pessoaAuxiliar.setAgente(new Acs());
+				pessoaAuxiliar.getAgente().setMatricula(this.agente.getMatricula());
 				
 				if(doenca.getSigla().toLowerCase().equals("dia")){
-					PessoaSearchOptions pessoaAuxiliar = new PessoaSearchOptions();
-					pessoaAuxiliar.setDoencas(new ArrayList<Doenca>());
-					pessoaAuxiliar.getDoencas().add(doenca);
 					diabetes = controllerPessoa.searchListPessoa(pessoaAuxiliar).size();
 				}else if(doenca.getSigla().toLowerCase().equals("ha")){
-					PessoaSearchOptions pessoaAuxiliar = new PessoaSearchOptions();
-					pessoaAuxiliar.setDoencas(new ArrayList<Doenca>());
-					pessoaAuxiliar.getDoencas().add(doenca);
 					hipertensos = controllerPessoa.searchListPessoa(pessoaAuxiliar).size();
 				}else if(doenca.getSigla().toLowerCase().equals("han")){
-					PessoaSearchOptions pessoaAuxiliar = new PessoaSearchOptions();
-					pessoaAuxiliar.setDoencas(new ArrayList<Doenca>());
-					pessoaAuxiliar.getDoencas().add(doenca);
 					hanseniase = controllerPessoa.searchListPessoa(pessoaAuxiliar).size();
 				}else if(doenca.getSigla().toLowerCase().equals("tb")){
-					PessoaSearchOptions pessoaAuxiliar = new PessoaSearchOptions();
-					pessoaAuxiliar.setDoencas(new ArrayList<Doenca>());
-					pessoaAuxiliar.getDoencas().add(doenca);
 					tubercolosos = controllerPessoa.searchListPessoa(pessoaAuxiliar).size();
 				}
 			}
 			
 			//QUANTITATIVO DE CRIANÇAS
-			List<Pessoa> listaPessoas = controllerPessoa.searchListPessoa(new PessoaSearchOptions());
+			PessoaSearchOptions pessoaAuxiliar = new PessoaSearchOptions();
+			pessoaAuxiliar.setAgente(new Acs());
+			pessoaAuxiliar.getAgente().setMatricula(this.agente.getMatricula());
+			List<Pessoa> listaPessoas = controllerPessoa.searchListPessoa(pessoaAuxiliar);
 			for(Pessoa pessoa: listaPessoas){
 				if(pessoa.getIdade() < 1){
 					menosde1++;

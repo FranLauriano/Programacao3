@@ -11,9 +11,9 @@
 		
 		<ui:define name="content">
 		<f:metadata>  
-		    <f:event type="preRenderView" listener="#{login.agente.inicializar}"/>  
+		    <f:event type="preRenderView" listener="#{login.inicializar}"/>  
 		</f:metadata>  
-		
+		<h:form id="acs" rendered="#{login.acs}">
 		<div class="row-fluid">
 			<div class="span6">
 					<div class="box">
@@ -125,6 +125,83 @@
 					</div>
 				</div>
 			</div>
+			</h:form>
+			
+			<h:form id="enfermeira" rendered="#{login.enfermeira}">
+				<div class="box">
+					<div class="box-head">
+						<h3>Resumo das informações do <strong>#{login.usuario.enfermeira.equipe}</strong></h3>
+					</div>
+					<div class="box-content">
+						<strong>Abaixo segue as informações resumida para acompanhamento. =)</strong>
+						<div class="box">
+							<div class="box-content box-nomargin">
+								<div class="tab-content">
+									<div class="tab-pane active">
+										<h:dataTable styleClass="table table-striped dataTable table-bordered" value="#{login.supervisora.result}" var="acs">
+											<h:column>
+												<f:facet name="header">Agente de Saúde</f:facet>
+													#{acs.agente.nome}
+												<f:facet name="footer"><strong>TOTAL:</strong></f:facet>
+											</h:column>
+											<h:column>
+												<f:facet name="header">Famílias</f:facet>
+												#{acs.familias}
+												<f:facet name="footer"><strong>#{login.supervisora.tfamilias}</strong></f:facet>
+											</h:column>
+											<h:column>
+												<f:facet name="header">Pessoas</f:facet>
+													#{acs.pessoas}
+												<f:facet name="footer"><strong>#{login.supervisora.tpessoas}</strong></f:facet>
+											</h:column>
+											<h:column>
+												<f:facet name="header">Hipertensos</f:facet>
+												#{acs.hipertensos}
+												<f:facet name="footer"><strong>#{login.supervisora.thipertensos}</strong></f:facet>
+											</h:column>
+											<h:column>
+												<f:facet name="header">Diabéticos</f:facet>
+													#{acs.diabetes}
+												<f:facet name="footer"><strong>#{login.supervisora.tdiabetes}</strong></f:facet>
+											</h:column>
+											<h:column>
+												<f:facet name="header">Tuberculosos</f:facet>
+													#{acs.tubercolosos}
+												<f:facet name="footer"><strong>#{login.supervisora.ttubercolosos}</strong></f:facet>
+											</h:column>
+											<h:column>
+												<f:facet name="header">Hanseniase</f:facet>
+												#{acs.hanseniase}
+												<f:facet name="footer"><strong>#{login.supervisora.thanseniase}</strong></f:facet>
+											</h:column>
+											<h:column>
+												<f:facet name="header">Menores de 1 Ano</f:facet>
+												#{acs.menosde1}
+												<f:facet name="footer"><strong>#{login.supervisora.tmenosde1}</strong></f:facet>
+											</h:column>
+											<h:column>
+												<f:facet name="header">Menores de 2 Anos</f:facet>
+												#{acs.menosde2}
+												<f:facet name="footer"><strong>#{login.supervisora.tmenosde2}</strong></f:facet>
+											</h:column>
+											<h:column>
+												<f:facet name="header">Menores de 5 Anos</f:facet>
+												#{acs.menosde5}
+												<f:facet name="footer"><strong>#{login.supervisora.tmenosde5}</strong></f:facet>
+											</h:column>
+											<h:column>
+												<f:facet name="header">Maiores de 60</f:facet>
+												#{acs.acimade60}
+												<f:facet name="footer"><strong>#{login.supervisora.tacimade60}</strong></f:facet>
+											</h:column>
+										</h:dataTable>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</h:form>
 		</ui:define>
 		
 	</ui:composition>

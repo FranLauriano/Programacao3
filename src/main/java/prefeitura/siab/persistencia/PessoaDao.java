@@ -68,7 +68,7 @@ public class PessoaDao {
 		
 		if (usuario.getAcs() != null) {
 			predicate.append(" and pessoa.familia.agente.matricula = :agenteMatricula");
-		}else if(pessoa.getAgente() != null && pessoa.getAgente().getMatricula() != 0){
+		}else if(pessoa.getAgente() != null && pessoa.getAgente().getMatricula() != null && pessoa.getAgente().getMatricula() != 0){
 			predicate.append(" and pessoa.familia.agente.matricula = :agenteMatricula");
 		}
 	
@@ -161,7 +161,7 @@ public class PessoaDao {
 		}
 		if (usuario.getAcs() != null) {
 			query.setParameter("agenteMatricula", usuario.getAcs().getMatricula());
-		}else if(pessoa.getAgente() != null && pessoa.getAgente().getMatricula() != 0){
+		}else if(pessoa.getAgente() != null && pessoa.getAgente().getMatricula() != null && pessoa.getAgente().getMatricula() != 0){
 			query.setParameter("agenteMatricula", pessoa.getAgente().getMatricula());
 		}
 

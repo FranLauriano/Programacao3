@@ -7,6 +7,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -107,7 +108,7 @@ public class NewUsuario {
 	public String saveUsuario(){
 		FacesMessage message = new FacesMessage();
 		if(senha1.equals(senha2)){
-			usuario.setSenha(senha1);
+			usuario.setSenha(DigestUtils.md5Hex(senha1));
 			try{
 				controller.salvarUsuario(usuario);
 				message.setSummary("Usuário salvo com Sucesso!");
