@@ -79,7 +79,7 @@ public class SearchUsuario {
 		auxiliar.setAcs(usuario.getAcs());
 		auxiliar.setSenha(usuario.getSenha());
 		this.updateUser.setUsuario(auxiliar);
-		this.updateUser.setDisabled(true);
+		this.updateUser.setDisabled(false);
 		return "updateUsuario";
 	}
 	

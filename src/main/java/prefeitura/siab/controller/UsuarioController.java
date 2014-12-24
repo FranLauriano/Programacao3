@@ -64,7 +64,7 @@ public class UsuarioController {
 	}
 	
 	public Usuario searchUsuarioAutentication(Usuario usuario) {
-		return dao.searchUsuario(usuario);
+		return dao.searchUsuarioAutentication(usuario);
 	}
 	
 	@Transactional

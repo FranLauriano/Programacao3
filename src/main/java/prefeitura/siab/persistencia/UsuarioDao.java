@@ -125,14 +125,14 @@ public class UsuarioDao {
 	}
 
 	public Usuario searchUsuarioAutentication(Usuario usuario) {
-		StringBuilder predicate = new StringBuilder("");
+		StringBuilder predicate = new StringBuilder("1 = 1");
 		
-		if(usuario.getMatricula() != null && usuario.getMatricula() != 0 && usuario.getTipo() != null){
-			predicate.append("usuario.matricula = :usuarioMatricula and usuario.senha = :usuarioSenha");
+		if(usuario.getMatricula() != null && usuario.getMatricula() != 0 && usuario.getSenha() != null && usuario.getSenha().length() >= 6){
+			predicate.append(" and usuario.matricula = :usuarioMatricula and usuario.senha like :usuarioSenha");
 		}
 		String jpql = "Select usuario from Usuario usuario where " + predicate;
 		TypedQuery<Usuario> query = manager.createQuery(jpql, Usuario.class);
-		if(usuario.getMatricula() != null && usuario.getMatricula() != 0 && usuario.getTipo() != null){
+		if(usuario.getMatricula() != null && usuario.getMatricula() != 0 && usuario.getSenha() != null && usuario.getSenha().length() >= 6){
 			query.setParameter("usuarioMatricula", usuario.getMatricula());
 			query.setParameter("usuarioSenha", usuario.getSenha());
 		}
