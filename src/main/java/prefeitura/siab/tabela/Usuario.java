@@ -1,6 +1,7 @@
 package prefeitura.siab.tabela;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -27,6 +28,7 @@ public class Usuario implements Serializable{
 	private String email;
 	private Acs acs;
 	private Enfermeira enfermeira;
+	private Date tentativa;
 	
 	
 	@Id
@@ -89,6 +91,15 @@ public class Usuario implements Serializable{
 	public void setEnfermeira(Enfermeira enfermeira) {
 		this.enfermeira = enfermeira;
 	}
+	
+	@Column(name="USU_TENTATIVA")
+	public Date getTentativa() {
+		return tentativa;
+	}
+	public void setTentativa(Date tentativa) {
+		this.tentativa = tentativa;
+	}
+	
 	
 	@Override
 	public int hashCode() {

@@ -72,7 +72,9 @@
 			Informação à Atenção Básica</span></a>
 
 		<ul class='mini'>
-			<li><a>Bem-Vindo #{login.usuario.nome}</a></li>
+			<li><a href="/siab/conta/minhaConta.xhtml"> <img
+					src="/siab/libs/img/icons/fugue/user--pencil.png" alt="" />
+					Bem-Vindo #{login.usuario.nome}</a></li>
 			<li><a href="/siab/logout/logout.xhtml"> <img
 					src="/siab/libs/img/icons/fugue/control-power.png" alt="" />
 					Sair
@@ -96,6 +98,12 @@
 						<div class="ico">
 							<i class="icon-home icon-white"></i>
 						</div>Início
+				</a></li>
+				
+				<li><a href="/siab/conta/minhaConta.xhtml" class='light'>
+						<div class="ico">
+							<i class="icon-user icon-white"></i>
+						</div>Minha Conta
 				</a></li>
 
 				<li id="activeSelect2" ><a href="#" class='light toggle-collapsed'>
@@ -180,7 +188,12 @@
 					<ul class='collapsed-nav closed'>
 						<li><a href="/siab/usuario/newUsuario.xhtml">Cadastrar Usuário </a></li>
 						<li><a href="/siab/usuario/searchUsuario.xhtml">Procurar Usuário</a></li>
-					</ul></li>	
+					</ul></li>
+				<li><a href="/siab/logout/logout.xhtml" class='light'>
+						<div class="ico">
+							<i class="icon-off icon-white"></i>
+						</div>Sair
+				</a></li>		
 			</ul>
 		</div>
 		<div class="content">

@@ -2,6 +2,7 @@ package prefeitura.siab.controller;
 
 import java.util.List;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,6 +90,42 @@ public class UsuarioController {
 			dao.deleteUsuario(usuario);
 		}else{
 			throw new BusinessException("Impossível deletar, Esse usuário não existe!");
+		}
+	}
+	
+	@Transactional
+	public void updateMyAccount(Usuario usuario, String senha1, String senha2, String senhaAntiga) throws BusinessException{
+		Usuario auxiliar = dao.searchUsuarioMatricula(usuario.getMatricula());
+		if((senhaAntiga == null || senhaAntiga.length() == 0) && (senha1 == null || senha1.length() == 0) && (senha2 == null || senha2.length() == 0)){
+			if(usuario.getTipo().equals(TipoUsuario.ACS)){
+				usuario.setSenha(auxiliar.getSenha());
+				dao.updateUsuario(usuario);
+				controllerAcs.updateAcs(usuario.getAcs());
+			}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+				usuario.setSenha(auxiliar.getSenha());
+				dao.updateUsuario(usuario);
+				controllerEnfermeira.updateEnfermeira(usuario.getEnfermeira());
+			}else{
+				usuario.setSenha(auxiliar.getSenha());
+				dao.updateUsuario(usuario);	
+			}
+		}else{
+			senhaAntiga = DigestUtils.md5Hex(senhaAntiga);
+			if(auxiliar.getSenha().equals(senhaAntiga)){
+				if(senha1.equals(senha2)){
+					if(senha1.length() >= 6){
+						senha1 = DigestUtils.md5Hex(senha1);
+						usuario.setSenha(senha1);
+						dao.updateUsuario(usuario);						
+					}else{
+						throw new BusinessException("Tamanho mínimo para senha é de 6 Caracteres!");
+					}
+				}else{
+					throw new BusinessException("As novas senhas são diferentes!");
+				}
+			}else{
+				throw new BusinessException("Senha antiga não confere!");
+			}
 		}
 	}
 

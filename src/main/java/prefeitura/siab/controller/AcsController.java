@@ -70,4 +70,8 @@ public class AcsController {
 		}
 	}
 	
+	public Acs searchAcsMatricula(Integer matricula){
+		return dao.searchAcsMatricula(matricula);
+	}
+	
 }

@@ -38,6 +38,7 @@ public class AutenticacaoPhase implements PhaseListener{
 						if(usuario.getTipo().equals(TipoUsuario.ACS)){
 							boolean tenhoPermisao = (	paginaAtual.lastIndexOf("/familia/") > -1) 
 													|| (paginaAtual.lastIndexOf("/pessoa/") > -1)
+													|| (paginaAtual.lastIndexOf("/conta/") > -1)
 													|| (paginaAtual.lastIndexOf("/logout/") > -1)
 													|| (paginaAtual.lastIndexOf("index.xhtml") > -1) 
 													|| (paginaAtual.lastIndexOf("403.xhtml") > -1) 

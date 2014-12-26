@@ -17,7 +17,6 @@ public class Endereco implements Cloneable{
 
 	//ATRIBUTOS
 	private String rua;
-	private Integer numero;
 	private String bairro;
 	private String municipio;
 	private String uf;
@@ -32,14 +31,6 @@ public class Endereco implements Cloneable{
 	}
 	public void setRua(String rua) {
 		this.rua = rua;
-	}
-	
-	@Column(name="END_NUMERO")
-	public Integer getNumero() {
-		return numero;
-	}
-	public void setNumero(Integer numero) {
-		this.numero = numero;
 	}
 	
 	@Column(name="END_BAIRRO")
