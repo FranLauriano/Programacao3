@@ -169,8 +169,10 @@ public class NewFamilia {
 				List<Endereco> end = new ArrayList<>();
 				for(Acs agente: agentes){
 					for(Endereco endAux: endereco){
-						if(endAux.getAgente().getMatricula().equals(agente.getMatricula())){
-							end.add(endAux);
+						for(Acs acsAtual: endAux.getAgentes()){
+							if(acsAtual.getMatricula().equals(agente.getMatricula())){
+								end.add(endAux);
+							}
 						}
 					}
 				}
@@ -313,23 +315,17 @@ public class NewFamilia {
 	
 	public void setAcsMatricula(Integer matricula){
 		if(matricula == 0 || matricula == null){
-			familia.getRua().setAgente(null);
-			List<Endereco> end = new ArrayList<>();
-			endereco = controllerEndereco.searchListEndereco(new Endereco());
-			for(Acs agente: agentes){
-				for(Endereco endAux: endereco){
-					if(endAux.getAgente().getMatricula().equals(agente.getMatricula())){
-						end.add(endAux);
-					}
-				}
-			}
-			endereco = end;
+			familia.setAgente(null);
+			Endereco auxiliar = new Endereco();
+			auxiliar.setAgentes(agentes);
+			endereco = controllerEndereco.searchListEndereco(auxiliar);
 		}else{
 			for(Acs agente: agentes){
 				if(agente.getMatricula().equals(matricula)){
-					familia.getRua().setAgente(agente);
+					familia.setAgente(agente);
 					Endereco aux = new Endereco();
-					aux.setAgente(agente);
+					aux.setAgentes(new ArrayList<Acs>());
+					aux.getAgentes().add(agente);
 					endereco = controllerEndereco.searchListEndereco(aux);
 					break;
 				}
@@ -346,7 +342,8 @@ public class NewFamilia {
 		if(usuario != null){
 			if(usuario.getTipo().equals(TipoUsuario.ACS)){
 				Endereco aux = new Endereco();
-				aux.setAgente(usuario.getAcs());
+				aux.setAgentes(new ArrayList<Acs>());
+				aux.getAgentes().add(usuario.getAcs());
 				endereco = controllerEndereco.searchListEndereco(aux);
 				familia.setAgente(usuario.getAcs());
 				this.disabled = true;
@@ -363,12 +360,11 @@ public class NewFamilia {
 	
 	public void setEnderecoFamilia(Integer cep){
 		if(cep == null || cep == 0){
-			familia.getRua().setRua(null);
+			familia.setRua(null);
 		}else{
 			for(Endereco rua: endereco){
 				if(rua.getCep().equals(cep)){
 					familia.setRua(rua);
-					familia.setAgente(rua.getAgente());
 					break;
 				}
 			}

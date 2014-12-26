@@ -49,41 +49,43 @@ public class EnderecoDao {
 
 	public List<Endereco> searchListEndereco(Endereco endereco) {
 		StringBuilder predicate = new StringBuilder("1 = 1");
-		if (endereco.getRua() != null && endereco.getRua().length() != 0 && endereco.getCep() != 0) {
-			predicate.append(" and upper(endereco.rua) like :enderecoRua and endereco.cep = :enderecoCep");
-		} else {
-			if (endereco.getRua() != null && endereco.getRua().length() != 0) {
-				predicate.append(" and upper(endereco.rua) like :enderecoRua");
-			}
-			if (endereco.getCep() != null && endereco.getCep() != 0) {
-				predicate.append(" and endereco.cep = :enderecoCep");
-			}
+		
+		if (endereco.getRua() != null && endereco.getRua().length() != 0) {
+			predicate.append(" and upper(endereco.rua) like :enderecoRua");
 		}
-		if(endereco.getAgente() != null){
-			if (endereco.getAgente().getMatricula() != null && endereco.getAgente().getMatricula() != 0){
-				predicate.append(" and endereco.agente.matricula = :matriculaAcs");
-			}
+		if (endereco.getCep() != null && endereco.getCep() != 0) {
+			predicate.append(" and endereco.cep = :enderecoCep");
 		}
+		if (endereco.getBairro() != null && endereco.getBairro().length() != 0){
+			predicate.append(" and upper(endereco.bairro) like :enderecoBairro");
+		}
+		if (endereco.getMunicipio() != null && endereco.getMunicipio().length() != 0){
+			predicate.append(" and upper(endereco.municipio) like :enderecoMunicipio");
+		}
+		if (endereco.getUf() != null && endereco.getUf().length() != 0){
+			predicate.append(" and upper(endereco.uf) like :enderecoUF");
+		}
+			
 		String jpql = "Select endereco from Endereco endereco where " + predicate;
 		TypedQuery<Endereco> query = manager.createQuery(jpql, Endereco.class);
-		if (endereco.getRua() != null && endereco.getRua().length() != 0 && endereco.getCep() != 0) {
-			query.setParameter("enderecoRua", endereco.getRua().toUpperCase());
+		
+		if (endereco.getRua() != null && endereco.getRua().length() != 0) {
+			query.setParameter("enderecoRua", "%"+endereco.getRua().toUpperCase()+"%");
+		}
+		if (endereco.getCep() != null && endereco.getCep() != 0) {
 			query.setParameter("enderecoCep", endereco.getCep());
-		}else{
-			if (endereco.getRua() != null && endereco.getRua().length() != 0) {
-				query.setParameter("enderecoRua", endereco.getRua().toUpperCase());
-			}
-			if (endereco.getCep() != null && endereco.getCep() != 0) {
-				query.setParameter("enderecoCep", endereco.getCep());
-			}
 		}
-		if(endereco.getAgente() != null){
-			if (endereco.getAgente().getMatricula() != null && endereco.getAgente().getMatricula() != 0){
-				query.setParameter("matriculaAcs", endereco.getAgente().getMatricula());
-			}
+		if (endereco.getBairro() != null && endereco.getBairro().length() != 0){
+			query.setParameter("enderecoBairro", "%"+endereco.getBairro().toUpperCase()+"%");
 		}
+		if (endereco.getMunicipio() != null && endereco.getMunicipio().length() != 0){
+			query.setParameter("enderecoMunicipio", "%"+endereco.getMunicipio().toUpperCase()+"%");
+		}
+		if (endereco.getUf() != null && endereco.getUf().length() != 0){
+			query.setParameter("enderecoUF", "%"+endereco.getUf().toUpperCase()+"%");
+		}
+		
 		List<Endereco> result = query.getResultList();
-		System.out.println(result);
 		return result;
 	}
 	

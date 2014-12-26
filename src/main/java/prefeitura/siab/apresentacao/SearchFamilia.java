@@ -134,8 +134,10 @@ public class SearchFamilia {
 				List<Endereco> end = new ArrayList<>();
 				for(Acs agente: agentes){
 					for(Endereco endAux: enderecos){
-						if(endAux.getAgente().getMatricula().equals(agente.getMatricula())){
-							end.add(endAux);
+						for(Acs acsAtual: endAux.getAgentes()){
+							if(acsAtual.getMatricula().equals(agente.getMatricula())){
+								end.add(endAux);
+							}
 						}
 					}
 				}
@@ -160,23 +162,17 @@ public class SearchFamilia {
 	//Carrega todos os ACS's
 	public void setAcsMatricula(Integer matricula){
 		if(matricula == 0 || matricula == null){
-			options.getAgente().setMatricula(null);;
-			List<Endereco> end = new ArrayList<>();
-			enderecos = controllerEndereco.searchListEndereco(new Endereco());
-			for(Acs agente: agentes){
-				for(Endereco endAux: enderecos){
-					if(endAux.getAgente().getMatricula().equals(agente.getMatricula())){
-						end.add(endAux);
-					}
-				}
-			}
-			enderecos = end;
+			options.setAgente(null);
+			Endereco auxiliar = new Endereco();
+			auxiliar.setAgentes(agentes);
+			enderecos = controllerEndereco.searchListEndereco(auxiliar);
 		}else{
 			for(Acs agente: agentes){
 				if(agente.getMatricula().equals(matricula)){
 					options.setAgente(agente);
 					Endereco aux = new Endereco();
-					aux.setAgente(agente);
+					aux.setAgentes(new ArrayList<Acs>());
+					aux.getAgentes().add(agente);
 					enderecos = controllerEndereco.searchListEndereco(aux);
 					break;
 				}
@@ -194,7 +190,8 @@ public class SearchFamilia {
 		if(usuario != null){
 			if(usuario.getTipo().equals(TipoUsuario.ACS)){
 				Endereco aux = new Endereco();
-				aux.setAgente(usuario.getAcs());
+				aux.setAgentes(new ArrayList<Acs>());
+				aux.getAgentes().add(usuario.getAcs());
 				enderecos = controllerEndereco.searchListEndereco(aux);
 				options.setAgente(usuario.getAcs());
 				this.disabled = true;
@@ -261,13 +258,12 @@ public class SearchFamilia {
 	}
 	//Carrega todos os Endereços
 	public void setEnderecoFamilia(Integer cep){
-		if(cep == 0 || cep == null){
+		if(cep == null || cep == 0){
 			options.setRua(null);
 		}else{
 			for(Endereco end: enderecos){
 				if(end.getCep().equals(cep)){
 					options.setRua(end);
-					options.setAgente(end.getAgente());
 					break;
 				}
 			}
@@ -306,7 +302,7 @@ public class SearchFamilia {
 		try{
 			PessoaSearchOptions pAux = new PessoaSearchOptions();
 			Familia fam = new Familia();
-			fam.setCodigo(options.getCodigo());
+			fam.setNumeroFamilia(options.getNumeroFamilia());
 			pAux.setFamilia(fam);
 			List<Pessoa> jaCadastrada = controllerPessoa.searchListPessoa(pAux);
 			controller.updateFamilia(options);

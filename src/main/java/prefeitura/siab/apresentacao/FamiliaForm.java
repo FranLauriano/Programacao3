@@ -30,6 +30,8 @@ import prefeitura.siab.tabela.Escolaridade;
 import prefeitura.siab.tabela.Familia;
 import prefeitura.siab.tabela.Pessoa;
 import prefeitura.siab.tabela.Raca;
+import prefeitura.siab.tabela.TipoUsuario;
+import prefeitura.siab.tabela.Usuario;
 import prefeitura.siab.tabela.VinculoEmpregaticio;
 
 public class FamiliaForm {
@@ -271,207 +273,214 @@ public class FamiliaForm {
 	
 	
 	//Carrega todos os ACS's
-		public void setAcsMatricula(Integer matricula){
-			if(matricula == 0 || matricula == null){
-				familia.setAgente(null);
-				enderecos = controllerEndereco.searchListEndereco(new Endereco());
-			}else{
-				for(Acs agente: agentes){
-					if(agente.getMatricula().equals(matricula)){
-						familia.setAgente(agente);
-						Endereco aux = new Endereco();
-						aux.setAgente(agente);
-						enderecos = controllerEndereco.searchListEndereco(aux);
-						break;
-					}
+	public void setAcsMatricula(Integer matricula){
+		if(matricula == 0 || matricula == null){
+			familia.setAgente(null);
+			enderecos = controllerEndereco.searchListEndereco(new Endereco());
+		}else{
+			for(Acs agente: agentes){
+				if(agente.getMatricula().equals(matricula)){
+					familia.setAgente(agente);
+					Endereco aux = new Endereco();
+					aux.setAgentes(new ArrayList<Acs>());
+					aux.getAgentes().add(agente);
+					enderecos = controllerEndereco.searchListEndereco(aux);
+					break;
 				}
-				
 			}
+			
 		}
-		
-		public Integer getAcsMatricula(){
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-			ExternalContext externalContext = facesContext.getExternalContext();
-			Map<String, Object> mapa = externalContext.getSessionMap();
-			Login autenticacaoBean = (Login) mapa.get("login");
-			Acs servidor = autenticacaoBean.getAgente().getAgente();
-			if(servidor == null){
-				return null;
-			}else{
+	}
+	
+	public Integer getAcsMatricula(){
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		ExternalContext externalContext = facesContext.getExternalContext();
+		Map<String, Object> mapa = externalContext.getSessionMap();
+		Login autenticacaoBean = (Login) mapa.get("login");
+		Usuario usuario = autenticacaoBean.getUsuario();
+		if(usuario != null){
+			if(usuario.getTipo().equals(TipoUsuario.ACS)){
 				Endereco aux = new Endereco();
-				aux.setAgente(servidor);
+				aux.setAgentes(new ArrayList<Acs>());
+				aux.getAgentes().add(usuario.getAcs());
 				enderecos = controllerEndereco.searchListEndereco(aux);
+				familia.setAgente(usuario.getAcs());
 				this.disabled = true;
-				familia.setAgente(servidor);
-				return servidor.getMatricula();
+				return usuario.getMatricula();
+			}else{
+				if(familia.getAgente() != null){
+					return familia.getAgente().getMatricula();
+				}
+				return null;
 			}
 		}
-		
-		//Carrega todos os Endereços
-		public void setEnderecoFamilia(Integer cep){
-			if(cep == 0 || cep == null){
-				familia.setRua(null);
-			}else{
-				for(Endereco end: enderecos){
-					if(end.getCep().equals(cep)){
-						familia.setRua(end);
-						familia.setAgente(end.getAgente());
-						break;
-					}
+		return null;
+	}
+	
+	//Carrega todos os Endereços
+	public void setEnderecoFamilia(Integer cep){
+		if(cep == 0 || cep == null){
+			familia.setRua(null);
+		}else{
+			for(Endereco end: enderecos){
+				if(end.getCep().equals(cep)){
+					familia.setRua(end);
+					break;
 				}
 			}
 		}
-		
-		public Integer getEnderecoFamilia(){
-			if(familia.getRua() == null){
-				return null;			
-			}else{
-				return familia.getRua().getCep();
-			}
+	}
+	
+	public Integer getEnderecoFamilia(){
+		if(familia.getRua() == null){
+			return null;			
+		}else{
+			return familia.getRua().getCep();
 		}
-		
-		public void setSexoPessoa(char sexo){
-			if(sexo == 'f'){
-				aux.setSexo("Feminino");
-			}else{
-				aux.setSexo("Masculino");
-			}
+	}
+	
+	public void setSexoPessoa(char sexo){
+		if(sexo == 'f'){
+			aux.setSexo("Feminino");
+		}else{
+			aux.setSexo("Masculino");
 		}
-		
-		public char getSexoPessoa(){
-			if(aux.getSexo() != null){
-				if(aux.getSexo().equals("Feminino")){
-					return 'f';
-				}else{
-					return 'm';
-				}
+	}
+	
+	public char getSexoPessoa(){
+		if(aux.getSexo() != null){
+			if(aux.getSexo().equals("Feminino")){
+				return 'f';
 			}else{
 				return 'm';
 			}
+		}else{
+			return 'm';
 		}
-		
-		public void setFrequentaEscola(Integer frequentaEscola){
-			if(frequentaEscola.equals(1)){
-				aux.setFrequentaescola("Sim");
-			}else{
-				aux.setFrequentaescola("Não");
-			}
-		}
-		
-		public Integer getFrequentaEscola(){
-			if(aux.getFrequentaescola() != null){
-				if(aux.getFrequentaescola().equals("Sim")){
-					return 1;
-				}else{
-					return 0;
-				}
-			}else{
-				return 0;
-			}
-		}
-		
-		public void setBolsaEscola(Integer bolsaEscola){
-			if(bolsaEscola.equals(1)){
-				aux.setBolsaescola("Sim");
-			}else{
-				aux.setBolsaescola("Não");
-			}
-		}
-		
-		public Integer getBolsaEscola(){
-			if(aux.getBolsaescola() != null){
-				if(aux.getBolsaescola().equals("Sim")){
-					return 1;
-				}else{
-					return 0;
-				}
-			}else{
-				return 0;
-			}
-		}
-		
-		public void setCalculaIdade(Date data) {  
-			if(data != null){
-				this.aux.setDtnascimento(data);
-				Calendar dataNascimento = Calendar.getInstance();  
-				dataNascimento.setTime(data);  
-				Calendar dataAtual = Calendar.getInstance();  
-				
-				Integer diferencaMes = dataAtual.get(Calendar.MONTH) - dataNascimento.get(Calendar.MONTH);  
-				Integer diferencaDia = dataAtual.get(Calendar.DAY_OF_MONTH) - dataNascimento.get(Calendar.DAY_OF_MONTH);  
-				Integer idade = (dataAtual.get(Calendar.YEAR) - dataNascimento.get(Calendar.YEAR));  
-				
-				if(diferencaMes < 0  || (diferencaMes == 0 && diferencaDia < 0)) {  
-					idade--;  
-				}  
-				
-				this.aux.setIdade(idade);			
-			}
-		}
-		
-		public Date getCalculaIdade() {  
-			return this.aux.getDtnascimento();
-		}
-		
-		public void removeList(Pessoa pessoa) throws BusinessException{
-			FacesMessage message = new FacesMessage();
-
-			if(pessoas.size() == 1){
-				message.setSummary("Não é possível excluir a última Pessoa da Família. Para uma Família existir é necessário pelo menos 1 Pessoa.");
-				message.setSeverity(FacesMessage.SEVERITY_ERROR);
-			}else{
-				boolean achou = false;
-				for(Pessoa p: familia.getPessoas()){
-					if(p.getSus().equals(pessoa.getSus())){
-						achou = true;
-					}
-				}
-				if(achou){
-					familia.getPessoas().remove(pessoa);
-				}
-				message.setSummary("Pessoa Removida com sucesso da Família");
-				message.setSeverity(FacesMessage.SEVERITY_INFO);
-			}
-
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, message);
-		}
-		
-		public void addPessoa() throws BusinessException{
-			boolean achou = false;
-			FacesMessage message = new FacesMessage();
-
-			Pessoa pAux = controllerPessoa.searchPessoaCodigo(aux.getCodigo());
-			try{
-				if(pAux == null){
-					for(Pessoa pessoa: familia.getPessoas()){
-						if(pessoa.getSus().equals(aux.getSus())){
-							achou = true;
-							message.setSummary("O número do SUS informado, já foi Cadastrado!");
-							message.setSeverity(FacesMessage.SEVERITY_ERROR);
-						}
-					}
-					if(!achou){
-						aux.setFamilia(familia);
-						controllerPessoa.verificaPessoa(aux);
-						familia.getPessoas().add(aux);
-						resetAux();
-						message.setSummary("Pessoa adicionada com Sucesso!");
-						message.setSeverity(FacesMessage.SEVERITY_INFO);
-					}
-				}else{
-					message.setSummary("O número do SUS informado, já foi Cadastrado!");
-					message.setSeverity(FacesMessage.SEVERITY_ERROR);
-				}
-			}catch(BusinessException e){
-				message.setSummary(e.getMessage());
-				message.setSeverity(FacesMessage.SEVERITY_ERROR);
-			}catch(Exception e){
-				message.setSummary(e.getMessage());
-				message.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext context = FacesContext.getCurrentInstance();
-			context.addMessage(null, message);
-			}
-		}
+	}
 	
+	public void setFrequentaEscola(Integer frequentaEscola){
+		if(frequentaEscola.equals(1)){
+			aux.setFrequentaescola("Sim");
+		}else{
+			aux.setFrequentaescola("Não");
+		}
+	}
+	
+	public Integer getFrequentaEscola(){
+		if(aux.getFrequentaescola() != null){
+			if(aux.getFrequentaescola().equals("Sim")){
+				return 1;
+			}else{
+				return 0;
+			}
+		}else{
+			return 0;
+		}
+	}
+	
+	public void setBolsaEscola(Integer bolsaEscola){
+		if(bolsaEscola.equals(1)){
+			aux.setBolsaescola("Sim");
+		}else{
+			aux.setBolsaescola("Não");
+		}
+	}
+	
+	public Integer getBolsaEscola(){
+		if(aux.getBolsaescola() != null){
+			if(aux.getBolsaescola().equals("Sim")){
+				return 1;
+			}else{
+				return 0;
+			}
+		}else{
+			return 0;
+		}
+	}
+	
+	public void setCalculaIdade(Date data) {  
+		if(data != null){
+			this.aux.setDtnascimento(data);
+			Calendar dataNascimento = Calendar.getInstance();  
+			dataNascimento.setTime(data);  
+			Calendar dataAtual = Calendar.getInstance();  
+			
+			Integer diferencaMes = dataAtual.get(Calendar.MONTH) - dataNascimento.get(Calendar.MONTH);  
+			Integer diferencaDia = dataAtual.get(Calendar.DAY_OF_MONTH) - dataNascimento.get(Calendar.DAY_OF_MONTH);  
+			Integer idade = (dataAtual.get(Calendar.YEAR) - dataNascimento.get(Calendar.YEAR));  
+			
+			if(diferencaMes < 0  || (diferencaMes == 0 && diferencaDia < 0)) {  
+				idade--;  
+			}  
+			
+			this.aux.setIdade(idade);			
+		}
+	}
+	
+	public Date getCalculaIdade() {  
+		return this.aux.getDtnascimento();
+	}
+	
+	public void removeList(Pessoa pessoa) throws BusinessException{
+		FacesMessage message = new FacesMessage();
+
+		if(pessoas.size() == 1){
+			message.setSummary("Não é possível excluir a última Pessoa da Família. Para uma Família existir é necessário pelo menos 1 Pessoa.");
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+		}else{
+			boolean achou = false;
+			for(Pessoa p: familia.getPessoas()){
+				if(p.getSus().equals(pessoa.getSus())){
+					achou = true;
+				}
+			}
+			if(achou){
+				familia.getPessoas().remove(pessoa);
+			}
+			message.setSummary("Pessoa Removida com sucesso da Família");
+			message.setSeverity(FacesMessage.SEVERITY_INFO);
+		}
+
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, message);
+	}
+	
+	public void addPessoa() throws BusinessException{
+		boolean achou = false;
+		FacesMessage message = new FacesMessage();
+
+		Pessoa pAux = controllerPessoa.searchPessoaCodigo(aux.getCodigo());
+		try{
+			if(pAux == null){
+				for(Pessoa pessoa: familia.getPessoas()){
+					if(pessoa.getSus().equals(aux.getSus())){
+						achou = true;
+						message.setSummary("O número do SUS informado, já foi Cadastrado!");
+						message.setSeverity(FacesMessage.SEVERITY_ERROR);
+					}
+				}
+				if(!achou){
+					aux.setFamilia(familia);
+					controllerPessoa.verificaPessoa(aux);
+					familia.getPessoas().add(aux);
+					resetAux();
+					message.setSummary("Pessoa adicionada com Sucesso!");
+					message.setSeverity(FacesMessage.SEVERITY_INFO);
+				}
+			}else{
+				message.setSummary("O número do SUS informado, já foi Cadastrado!");
+				message.setSeverity(FacesMessage.SEVERITY_ERROR);
+			}
+		}catch(BusinessException e){
+			message.setSummary(e.getMessage());
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+		}catch(Exception e){
+			message.setSummary(e.getMessage());
+			message.setSeverity(FacesMessage.SEVERITY_ERROR);
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.addMessage(null, message);
+		}
+	}
+
 }

@@ -42,7 +42,7 @@
 		    	<h:selectOneMenu id="endereco" styleClass="form-control"	value="#{cc.attrs.classe.enderecoFamilia}">
 					<f:selectItem itemLabel="Selecione um Endereço" itemValue="#{null}" />
 					<f:selectItems value="#{cc.attrs.classe.endereco}" var="endereco"	itemLabel="#{endereco.rua}" itemValue="#{endereco.cep}"></f:selectItems>
-					<f:ajax process="@this" render="acs" />
+					<f:ajax process="@this" render="endereco" />
 				</h:selectOneMenu>
 		    </div>
 	  	</div> 
@@ -169,7 +169,7 @@
 					  	<div class="control-group">	  			
 						    <label class="control-label">Idade</label>
 						    <div class="controls">
-						    	<h:inputText id="idade" styleClass="form-control" value="#{cc.attrs.classe.aux.idade}" p:placeholder="Idade"></h:inputText>
+						    	<h:inputText id="idade" styleClass="form-control" value="#{cc.attrs.classe.aux.idade}" p:placeholder="Idade" disabled="true"></h:inputText>
 						    </div>
 					  	</div>
 					  	

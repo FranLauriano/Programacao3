@@ -1,5 +1,6 @@
 package prefeitura.siab.apresentacao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -24,13 +25,14 @@ public class SearchEndereco {
 
 	//ATRIBUTOS
 	private @Autowired EnderecoController controller;
-	private Endereco endereco;
-	private List<Endereco> result;
-	private boolean enderecoAlterado;
-	private EnderecoSearchOptions options;
-	private List<Acs> agentes;
 	private AcsController controllerAcs;
-
+	private Endereco options;
+	private Endereco endereco;
+	private boolean enderecoAlterado;
+	private List<Endereco> result;
+	private List<Acs> agentes;
+	private boolean update;
+	
 	//PROPRIEDADES
 	public Endereco getEndereco() {
 		return endereco;
@@ -53,13 +55,13 @@ public class SearchEndereco {
 		this.enderecoAlterado = enderecoDeletada;
 	}
 
-	public EnderecoSearchOptions getOptions() {
+	public Endereco getOptions() {
 		return options;
 	}
-	public void setOptions(EnderecoSearchOptions options) {
+	public void setOptions(Endereco options) {
 		this.options = options;
 	}
-	
+
 	public List<Acs> getAgentes() {
 		return agentes;
 	}
@@ -70,34 +72,25 @@ public class SearchEndereco {
 	//CONSTRUTOR
 	public SearchEndereco() {
 		endereco = new Endereco();
-		endereco.setAgente(new Acs());
+		List<Acs> agent = new ArrayList<>();
+		endereco.setAgentes(agent);
 		reset();
 	}
 	
 
 	//MÉTODOS
 	public String search(){
-		Endereco endAux = new Endereco();
-		endAux.setRua(options.getRua());
-		endAux.setBairro(options.getBairro());
-		endAux.setAgente(options.getAgente());
-		endAux.setCep(options.getCep());
-		endAux.setMunicipio(options.getMunicipio());
-		endAux.setUf(options.getUf());
-		result = controller.searchListEndereco(endAux);
+		result = controller.searchListEndereco(options);
+		if(options.getCep() == null || options.getCep() == 0){
+			options.setCep(null);
+		}
 		return null;
 	}
 	
 	public String update(Endereco endereco){
-		Endereco aux = new Endereco();
-		aux.setAgente(endereco.getAgente());
-		aux.setBairro(endereco.getBairro());
-		aux.setCep(endereco.getCep());
-		aux.setMunicipio(endereco.getMunicipio());
-		aux.setRua(endereco.getRua());
-		aux.setUf(endereco.getUf());
+		Endereco aux = endereco.clone();
 		this.endereco = aux;
-		enderecoAlterado = true;
+		this.update = true;
 		return "updateEndereco";
 	}
 	
@@ -108,9 +101,16 @@ public class SearchEndereco {
 		controllerAcs = applicationContext.getBean(AcsController.class);
 		agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
 		
-		options = new EnderecoSearchOptions();
-		options.setAgente(new Acs());
+		this.enderecoAlterado = false;
+		options = new Endereco();
+		List<Acs> ag = new ArrayList<Acs>();
+		options.setAgentes(ag);
 		result = null;
+	}
+	
+	public void inicializar(){
+		this.update = false;
+		this.enderecoAlterado = false;
 	}
 	
 	public String confirmUpdate(){
@@ -118,7 +118,7 @@ public class SearchEndereco {
 		try{
 			controller.updateEndereco(endereco);
 			reset();
-			//enderecoAlterado = false;
+			enderecoAlterado = true;
 			message.setSummary("Endereço atualizado com Sucesso!");
 			message.setSeverity(FacesMessage.SEVERITY_INFO);
 		}catch(BusinessException e){
@@ -131,21 +131,16 @@ public class SearchEndereco {
 		return null;
 	}
 	
-	/*
-	public String delete(Endereco endereco){
-		this.endereco = endereco;
-		this.enderecoDeletada = false;
-		return "deleteEndereco";
-	}
-	 */
-	
 	public String confirmDeletion(Endereco endereco) throws BusinessException{
 		controller.deleteEndereco(endereco);
-		options = new EnderecoSearchOptions();	
-		for(int i = 0; i < result.size(); i++){
-			if(result.get(i).equals(endereco)){
-				result.remove(i);
+		boolean achou = false;
+		for(Endereco end: result){
+			if(end.getCep().equals(endereco.getCep())){
+				achou = true;
 			}
+		}
+		if(achou){
+			result.remove(endereco);
 		}
 		FacesMessage message = new FacesMessage();
 		message.setSummary("O Endereço foi Deletado!");
@@ -155,43 +150,47 @@ public class SearchEndereco {
 		return null;
 	}
 	
-	public String back(){
-		reset();
-		return "searchEndereco";
-	}
-	
-	public void setAcsMatricula(Integer matricula){
-		if(matricula == 0 || matricula == null){
-			options.setAgente(null);
-			endereco.setAgente(null);
-			agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
+	public void setAcsMatricula(List<String> matriculas){
+		if(update){
+			endereco.getAgentes().clear();
+			for(String matricula: matriculas){
+				for(Acs agente: agentes){
+					if(agente.getMatricula().toString().equals(matricula)){
+						endereco.getAgentes().add(agente);
+					}
+				}
+			}
 		}else{
-			for(Acs agente: agentes){
-				if(agente.getMatricula().equals(matricula)){
-					options.setAgente(agente);
-					endereco.setAgente(agente);
-					agentes = controllerAcs.searchListAcs(new AcsSearchOptions());
-					break;
+			options.getAgentes().clear();
+			for(String matricula: matriculas){
+				for(Acs agente: agentes){
+					if(agente.getMatricula().toString().equals(matricula)){
+						options.getAgentes().add(agente);
+					}
 				}
 			}
 		}
 	}
-	
-	public Integer getAcsMatricula(){
-		if(enderecoAlterado){
-			if(endereco.getAgente() == null){
-				return null;			
-			}else{
-				return endereco.getAgente().getMatricula();
-			}
+
+	public List<String> getAcsMatricula(){
+		List<String> acs = new ArrayList<>();
+		
+		if(update){
+			for (Acs agente: endereco.getAgentes()){
+				acs.add(agente.getMatricula().toString());
+			}			
 		}else{
-			if(options.getAgente() == null){
-				return null;			
-			}else{
-				return options.getAgente().getMatricula();
+			for (Acs agente: options.getAgentes()){
+				acs.add(agente.getMatricula().toString());
 			}
 		}
 		
+		return acs;
+
+	}
+	
+	public String back(){
+		return "searchEndereco";
 	}
 	
 }

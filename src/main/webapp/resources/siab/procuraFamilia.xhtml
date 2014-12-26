@@ -56,7 +56,7 @@
 			    	<h:selectOneMenu id="endereco" styleClass="form-control"	value="#{cc.attrs.classe.enderecoFamilia}">
 						<f:selectItem itemLabel="Selecione um Endereço" itemValue="#{null}" />
 						<f:selectItems value="#{cc.attrs.classe.enderecos}" var="endereco"	itemLabel="#{endereco.rua}" itemValue="#{endereco.cep}"></f:selectItems>
-						<f:ajax process="@this" render="acs" />
+						<f:ajax process="@this" render="endereco" />
 					</h:selectOneMenu>
 			    </div>
 		  	</div> 

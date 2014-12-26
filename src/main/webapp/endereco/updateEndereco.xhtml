@@ -16,9 +16,10 @@
 
 
 	<ui:define name="content">
-		<siab:endereco id="endereco" endereco="#{searchEndereco}" disabled="true">
+		<siab:endereco id="endereco" endereco="#{searchEndereco}" disabled="true" disabledUpdate="#{searchEndereco.enderecoAlterado}">
 			<f:facet name="buttons">
 				<h:commandButton class="btn btn-primary" value="Salvar"	action="#{searchEndereco.confirmUpdate}" />
+				<h:commandButton class="btn btn-default" value="Voltar"	action="#{searchEndereco.back}" />
 			</f:facet>
 		</siab:endereco>
 	</ui:define>

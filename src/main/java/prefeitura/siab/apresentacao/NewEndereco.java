@@ -1,5 +1,6 @@
 package prefeitura.siab.apresentacao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -20,8 +21,8 @@ import prefeitura.siab.tabela.Endereco;
 
 @Component
 @Scope(WebApplicationContext.SCOPE_REQUEST)
-public class NewEndereco {
-
+public class NewEndereco{
+	
 	//ATRIBUTOS
 	private @Autowired EnderecoController controller;
 	private Endereco endereco;
@@ -45,6 +46,9 @@ public class NewEndereco {
 	//CONSTRUTOR
 	public NewEndereco() {
 		endereco = new Endereco();
+		List<Acs> agent = new ArrayList<>();
+		endereco.setAgentes(agent);
+		
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		ApplicationContext applicationContext = FacesContextUtils.getWebApplicationContext(facesContext);
 		
@@ -68,25 +72,25 @@ public class NewEndereco {
 		return null;
 	}
 	
-	public void setAcsMatricula(Integer matricula){
-		if(matricula == 0 || matricula == null){
-			endereco.setAgente(null);
-		}else{
+	public void setAcsMatricula(List<String> matriculas){
+		endereco.getAgentes().clear();
+		for(String matricula: matriculas){
 			for(Acs agente: agentes){
-				if(agente.getMatricula().equals(matricula)){
-					endereco.setAgente(agente);
-					break;
+				if(agente.getMatricula().toString().equals(matricula)){
+					endereco.getAgentes().add(agente);
 				}
 			}
 		}
 	}
-	
-	public Integer getAcsMatricula(){
-		if(endereco.getAgente() == null){
-			return null;			
-		}else{
-			return endereco.getAgente().getMatricula();
+
+	public List<String> getAcsMatricula(){
+		List<String> acs = new ArrayList<>();
+		
+		for (Acs agente: endereco.getAgentes()){
+			acs.add(agente.getMatricula().toString());
 		}
+		return acs;
+
 	}
 	
 }

@@ -15,6 +15,11 @@
 
 
 	<ui:define name="content">
+	
+		<f:metadata>
+			<f:event type="preRenderView" listener="#{searchEndereco.inicializar}"/>
+		</f:metadata>
+
 		<siab:procuraEndereco id="options" options="#{searchEndereco}">
 			<f:facet name="buttons">
 				<h:commandButton class="btn btn-primary" value="Procurar" action="#{searchEndereco.search}" ajax="false" />
@@ -48,8 +53,8 @@
 										#{endereco.municipio}
 								</h:column>
 								<h:column>
-									<f:facet name="header">ACS</f:facet>
-										#{endereco.agente.nome}
+									<f:facet name="header">Quantidade de ACS</f:facet>
+										#{endereco.agentes.size()}
 								</h:column>
 								<h:column>
 									<h:commandButton class="btn btn-primary" value="Alterar" action="#{searchEndereco.update(endereco)}" title="Update"/>

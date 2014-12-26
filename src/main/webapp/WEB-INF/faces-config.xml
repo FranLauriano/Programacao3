@@ -155,6 +155,7 @@
 		<navigation-case>
 			<from-outcome>searchEndereco</from-outcome>
 			<to-view-id>/endereco/searchEndereco.xhtml</to-view-id>
+			<redirect></redirect>
 		</navigation-case>
 	</navigation-rule>
 

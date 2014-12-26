@@ -1,16 +1,19 @@
 package prefeitura.siab.tabela;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name="TB_ENDERECO")
-public class Endereco {
+public class Endereco implements Cloneable{
 
 	//ATRIBUTOS
 	private String rua;
@@ -19,7 +22,7 @@ public class Endereco {
 	private String municipio;
 	private String uf;
 	private Integer cep;
-	private Acs agente;
+	private List<Acs> agentes;
 
 	//PROPRIEDADES
 	
@@ -71,14 +74,26 @@ public class Endereco {
 		this.cep = cep;
 	}
 	
-	@ManyToOne
-	@JoinColumn(name="END_ACS")
-	public Acs getAgente() {
-		return agente;
+	@ManyToMany()
+	@JoinTable(
+			name="TB_ACS_END", 
+			joinColumns=@JoinColumn(name="END_CEP"), 
+			inverseJoinColumns=@JoinColumn(name="ACS_MAT")
+	)
+	public List<Acs> getAgentes() {
+		return agentes;
 	}
-	public void setAgente(Acs agente) {
-		this.agente = agente;
-	}	
+	public void setAgentes(List<Acs> agentes) {
+		this.agentes = agentes;
+	}
+	
+	public Endereco clone() {
+		try {
+			return (Endereco) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new Error("Clonagem Impossível");
+		}  
+	}
 	
 	
 }
