@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="TB_ENFERMEIRA")
-public class Enfermeira implements Serializable{
+public class Enfermeira implements Serializable, Cloneable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -100,7 +100,14 @@ public class Enfermeira implements Serializable{
 		return true;
 	}
 	
-
+	public Enfermeira clone() {
+		try {
+			return (Enfermeira) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new Error("Impossível clonar esse Usuário!");
+		}
+	}
+	
 	
 	
 }

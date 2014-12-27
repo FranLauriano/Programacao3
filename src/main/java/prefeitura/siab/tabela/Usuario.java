@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name="TB_USUARIO")
-public class Usuario implements Serializable{
+public class Usuario implements Serializable, Cloneable{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -128,6 +128,13 @@ public class Usuario implements Serializable{
 	}
 	
 
+	public Usuario clone() {
+		try {
+			return (Usuario) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new Error("Impossível clonar esse Usuário!");
+		}
+	}
 	
 	
 }

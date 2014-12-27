@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import prefeitura.siab.persistencia.UsuarioDao;
+import prefeitura.siab.tabela.Acs;
+import prefeitura.siab.tabela.Enfermeira;
 import prefeitura.siab.tabela.TipoUsuario;
 import prefeitura.siab.tabela.Usuario;
 
@@ -69,18 +71,48 @@ public class UsuarioController {
 	}
 	
 	@Transactional
-	public void updateUsuario(Usuario usuario) throws BusinessException {
+	public void updateUsuario(Usuario usuario, String senha1, String senha2) throws BusinessException {
 		Usuario auxiliar = dao.searchUsuarioMatricula(usuario.getMatricula());
-		if(auxiliar != null){
-			if(auxiliar.getTipo().equals(TipoUsuario.ENFERMEIRA)){
-				controllerEnfermeira.updateEnfermeira(usuario.getEnfermeira());
-			}else if(auxiliar.getTipo().equals(TipoUsuario.ACS)){
-				controllerAcs.updateAcs(usuario.getAcs());
+		if((senha1 == null || senha1.length() == 0) && (senha2 == null || senha2.length() == 0)){
+			if(usuario.getTipo().equals(TipoUsuario.ACS)){
+				usuario.setSenha(auxiliar.getSenha());
+				usuario.setEnfermeira(null);
+				Acs acsAux = controllerAcs.searchAcsMatricula(usuario.getMatricula());
+				if(acsAux != null){
+					acsAux.setNome(usuario.getNome());
+					acsAux.setMicroarea(usuario.getAcs().getMicroarea());
+					acsAux.setArea(usuario.getAcs().getArea());
+					acsAux.setMicroregiao(usuario.getAcs().getMicroregiao());
+					acsAux.setSupervisor(usuario.getAcs().getSupervisor());
+					usuario.setAcs(acsAux);
+					controllerAcs.updateAcs(controllerAcs.searchAcsMatricula(usuario.getMatricula()));
+					dao.updateUsuario(usuario);
+				}else{
+					throw new BusinessException("Impossível modificar para o tipo ACS!!!");
+				}
+			}else if(usuario.getTipo().equals(TipoUsuario.ENFERMEIRA)){
+				usuario.setSenha(auxiliar.getSenha());
+				usuario.setAcs(null);
+				Enfermeira enfAux = controllerEnfermeira.searchEnfermeiraMatricula(usuario.getMatricula());
+				if(enfAux != null){
+					enfAux.setCoren(usuario.getEnfermeira().getCoren());
+					enfAux.setEquipe(usuario.getEnfermeira().getEquipe());
+					enfAux.setNome(usuario.getNome());
+					usuario.setEnfermeira(enfAux);
+					controllerEnfermeira.updateEnfermeira(enfAux);
+					dao.updateUsuario(usuario);					
+				}else{
+					throw new BusinessException("Impossível modificar para o tipo Enfermeira!!!");
+				}
 			}else{
+				usuario.setAcs(null);
+				usuario.setEnfermeira(null);
+				usuario.setSenha(auxiliar.getSenha());
 				dao.updateUsuario(usuario);
 			}
+		}else{
+			
 		}
-		dao.updateUsuario(usuario);
 	}
 	
 	@Transactional

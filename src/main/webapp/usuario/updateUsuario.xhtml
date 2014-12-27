@@ -16,11 +16,12 @@
   	
 
   	<ui:define name="content">
-		<siab:usuario id="usuario" classe="#{searchUsuario.updateUser}" disabled="true">
+		<siab:alteraUsuario id="usuario" classe="#{searchUsuario}" disabled="true">
 			<f:facet name="buttons">
 				<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchUsuario.confirmUpdate}"/>
+				<h:commandButton class="btn btn-default" value="Voltar" action="#{searchUsuario.reset}"/>
 			</f:facet>
-		</siab:usuario>
+		</siab:alteraUsuario>
   	</ui:define>
 
 </ui:composition>	

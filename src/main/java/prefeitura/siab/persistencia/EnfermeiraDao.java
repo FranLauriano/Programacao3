@@ -82,4 +82,16 @@ public class EnfermeiraDao implements Serializable{
 
 		return result;
 	}
+
+	public Enfermeira searchEnfermeiraMatricula(Integer matricula) {
+		TypedQuery<Enfermeira> query = manager.createQuery("Select enfermeira from Enfermeira enfermeira where enfermeira.matricula = :enfermeiraMatricula", Enfermeira.class);
+		query.setParameter("enfermeiraMatricula", matricula);
+		List<Enfermeira> result = query.getResultList();
+		
+		if(result.isEmpty()){
+			return null;
+		}else{
+			return result.get(0);
+		}
+	}
 }

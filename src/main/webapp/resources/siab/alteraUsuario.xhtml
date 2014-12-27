@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:f="http://java.sun.com/jsf/core">
+	
+	<composite:interface>
+		<composite:attribute name="classe"></composite:attribute>
+		<composite:facet name="buttons"></composite:facet>
+		<composite:attribute name="disabled" default="false"></composite:attribute>
+	</composite:interface>
+	
+	<composite:implementation>
+	
+	<h:form id="form" class="form-horizontal">
+		<div class="row-fluid">
+			  	
+		  	<div class="control-group">
+			    <label class="control-label">Tipo</label>
+			    <div class="controls">
+			    	<h:selectOneMenu id="tipo" styleClass="form-control" value="#{cc.attrs.classe.escolherTipo}" disabled="#{cc.attrs.disabled}">
+						<f:selectItem itemValue="100" itemLabel="Qual o tipo de Usuário?" />
+						<f:selectItem itemValue="0" itemLabel="Administrador" />  
+			        	<f:selectItem itemValue="1" itemLabel="Enfermeiro(a)" />  
+				        <f:selectItem itemValue="2" itemLabel="Agente Comunitário de Saúde" />  
+						<f:ajax process="@this" render="@form" />
+					</h:selectOneMenu>
+			    </div>
+		  	</div>
+			  	
+			  	
+			<h:form rendered="#{cc.attrs.classe.acs}">
+				<div class="control-group">	 
+					<h:outputLabel class="control-label">Matricula</h:outputLabel>   
+				    <div class="controls">
+				    	<h:inputText id="matricula" value="#{cc.attrs.classe.usuario.matricula}" disabled="#{cc.attrs.disabled}" p:placeholder="Matricula"></h:inputText>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">	  
+			  		<h:outputLabel class="control-label">Nome</h:outputLabel>     
+				    <div class="controls">
+				    	<h:inputText id="nome" value="#{cc.attrs.classe.usuario.nome}" p:placeholder="Nome"></h:inputText>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">	
+			  		<h:outputLabel class="control-label">Senha</h:outputLabel>     			
+				    <div class="controls">
+				    	<button class="btn btn-danger" data-toggle="modal"	data-target="#myModal" onclick="return false;">Trocar Senha</button>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">
+					<h:outputLabel class="control-label">Email</h:outputLabel>	    
+				    <div class="controls">
+				    	<h:inputText id="email" value="#{cc.attrs.classe.usuario.email}" p:placeholder="seu@email.com.br"></h:inputText>
+				    </div>
+			  	</div>
+				
+		  		<div class="control-group">
+				    <label class="control-label">Supervisor</label>
+				    <div class="controls">
+				    	<h:selectOneMenu id="supervisor" styleClass="form-control" value="#{cc.attrs.classe.enfermeiras}">
+							<f:selectItems value="#{cc.attrs.classe.supervisores}" var="enfermeira"	itemLabel="#{enfermeira.nome}" itemValue="#{enfermeira.matricula}"></f:selectItems>
+							<f:ajax process="@this" render="supervisor" />
+						</h:selectOneMenu>
+				    </div>
+			  	</div>
+		  		
+		  		<div class="control-group">	  			
+				    <h:outputLabel class="control-label">Micro-Área</h:outputLabel>
+				    <div class="controls">
+				    	<h:inputText id="microarea" styleClass="form-control" value="#{cc.attrs.classe.usuario.acs.microarea}" p:placeholder="Microarea"></h:inputText>
+				    </div>
+			  	</div>
+				  	
+			  	<div class="control-group">	 
+			  		<h:outputLabel class="control-label">Área</h:outputLabel> 			
+				    <div class="controls">
+				    	<h:inputText id="area" styleClass="form-control" value="#{cc.attrs.classe.usuario.acs.area}" p:placeholder="Área"></h:inputText>
+				    </div>
+			  	</div>
+				  	
+			  	<div class="control-group">
+			  		<h:outputLabel class="control-label">Micro-Região</h:outputLabel>	  			
+				    <div class="controls">
+				    	<h:inputText id="microregiao" styleClass="form-control" value="#{cc.attrs.classe.usuario.acs.microregiao}" p:placeholder="Microregiao"></h:inputText>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">
+					<div class="controls btn-toolbar">
+						<composite:renderFacet name="buttons"></composite:renderFacet>
+					</div>
+				</div>
+				
+			  	<!-- Início do Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static"	aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">×</button>
+								<h4 class="modal-title" id="myModalLabel">Trocar Senha</h4>
+							</div>
+							<div class="modal-body">
+								
+							<h:form id="alteraSenha" class="form-horizontal">
+							<div class="row-fluid">
+								<div class="control-group">	  			
+								    <label class="control-label">Senha Antiga</label>
+								    <div class="pw-input">
+										<div class="control-group">
+											<div class="input-prepend">
+												<span class="add-on">
+													<i class="icon-lock"></i>
+												</span>
+							    				<h:inputSecret id="senhaAntiga" value="#{cc.attrs.classe.senhaAntiga}" p:placeholder="Senha Antiga" disabled="#{cc.attrs.disabled}"></h:inputSecret>
+								    		</div>
+								    	</div>
+								    </div>
+							  	</div>
+							  	
+							  	<div class="control-group">	  			
+								    <label class="control-label">Nova Senha</label>
+								    <div class="pw-input">
+										<div class="control-group">
+											<div class="input-prepend">
+												<span class="add-on">
+													<i class="icon-lock"></i>
+												</span>
+								    			<h:inputSecret id="senha1" value="#{cc.attrs.classe.senha1}" p:placeholder="Nova Senha"></h:inputSecret>
+								    		</div>
+								    	</div>
+								    </div>
+							  	</div>
+							  	
+							  	<div class="control-group">	  			
+								    <label class="control-label">Confirme Nova Senha</label>
+								    <div class="pw-input">
+										<div class="control-group">
+											<div class="input-prepend">
+												<span class="add-on">
+													<i class="icon-lock"></i>
+												</span>
+								    			<h:inputSecret id="senha2" value="#{cc.attrs.classe.senha2}" p:placeholder="Confirme Nova Senha"></h:inputSecret>
+								    		</div>
+								    	</div>
+								    </div>
+							  	</div>
+							</div>	
+							</h:form>
+							</div>
+							<div class="modal-footer">
+								<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchUsuario.confirmUpdate}"/>
+								<h:commandButton class="btn btn-danger" value="Cancelar" action="#{searchUsuario.resetSenhas}"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim do Modal -->
+			  	
+			</h:form>
+			
+			<h:form rendered="#{cc.attrs.classe.enfermeira}">
+			  		<div class="control-group">	 
+					<h:outputLabel class="control-label">Matricula</h:outputLabel>   
+				    <div class="controls">
+				    	<h:inputText id="matricula" value="#{cc.attrs.classe.usuario.matricula}" disabled="#{cc.attrs.disabled}" p:placeholder="Matricula"></h:inputText>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">	  
+			  		<h:outputLabel class="control-label">Nome</h:outputLabel>     
+				    <div class="controls">
+				    	<h:inputText id="nome" value="#{cc.attrs.classe.usuario.nome}" p:placeholder="Nome"></h:inputText>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">	
+			  		<h:outputLabel class="control-label">Senha</h:outputLabel>     			
+				    <div class="controls">
+				    	<button class="btn btn-danger" data-toggle="modal"	data-target="#myModal" onclick="return false;">Trocar Senha</button>
+				    </div>
+			  	</div>	
+			  
+				<div class="control-group">
+					<h:outputLabel class="control-label">Email</h:outputLabel>	    
+				    <div class="controls">
+				    	<h:inputText id="email" value="#{cc.attrs.classe.usuario.email}" p:placeholder="seu@email.com.br"></h:inputText>
+				    </div>
+			  	</div>
+			  		
+		  		<div class="control-group">	  
+		  			<h:outputLabel class="control-label">COREN</h:outputLabel>	  			
+				    <div class="controls">
+				    	<h:inputText id="coren" styleClass="form-control" value="#{cc.attrs.classe.usuario.enfermeira.coren}" p:placeholder="COREN"></h:inputText>
+				    </div>
+			  	</div>
+				  	
+			  	<div class="control-group">	
+			  		<h:outputLabel class="control-label">Equipe</h:outputLabel>
+				    <div class="controls">
+				    	<h:inputText id="equipe" styleClass="form-control" value="#{cc.attrs.classe.usuario.enfermeira.equipe}" p:placeholder="Nome da Equipe"></h:inputText>
+				    </div>
+			  	</div>
+				
+				<div class="control-group">
+					<div class="controls btn-toolbar">
+						<composite:renderFacet name="buttons"></composite:renderFacet>
+					</div>
+				</div>
+				
+			  	<!-- Início do Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static"	aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">×</button>
+								<h4 class="modal-title" id="myModalLabel">Trocar Senha</h4>
+							</div>
+							<div class="modal-body">
+								
+							<h:form id="alteraSenha" class="form-horizontal">
+							<div class="row-fluid">
+								<div class="control-group">	  			
+								    <label class="control-label">Senha Antiga</label>
+								    <div class="pw-input">
+										<div class="control-group">
+											<div class="input-prepend">
+												<span class="add-on">
+													<i class="icon-lock"></i>
+												</span>
+							    				<h:inputSecret id="senhaAntiga" value="#{cc.attrs.classe.senhaAntiga}" p:placeholder="Senha Antiga" disabled="#{cc.attrs.disabled}"></h:inputSecret>
+								    		</div>
+								    	</div>
+								    </div>
+							  	</div>
+							  	
+							  	<div class="control-group">	  			
+								    <label class="control-label">Nova Senha</label>
+								    <div class="pw-input">
+										<div class="control-group">
+											<div class="input-prepend">
+												<span class="add-on">
+													<i class="icon-lock"></i>
+												</span>
+								    			<h:inputSecret id="senha1" value="#{cc.attrs.classe.senha1}" p:placeholder="Nova Senha"></h:inputSecret>
+								    		</div>
+								    	</div>
+								    </div>
+							  	</div>
+							  	
+							  	<div class="control-group">	  			
+								    <label class="control-label">Confirme Nova Senha</label>
+								    <div class="pw-input">
+										<div class="control-group">
+											<div class="input-prepend">
+												<span class="add-on">
+													<i class="icon-lock"></i>
+												</span>
+								    			<h:inputSecret id="senha2" value="#{cc.attrs.classe.senha2}" p:placeholder="Confirme Nova Senha"></h:inputSecret>
+								    		</div>
+								    	</div>
+								    </div>
+							  	</div>
+							</div>	
+							</h:form>
+							</div>
+							<div class="modal-footer">
+								<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchUsuario.confirmUpdate}"/>
+								<h:commandButton class="btn btn-danger" value="Cancelar" action="#{searchUsuario.resetSenhas}"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim do Modal -->
+				
+		  	</h:form>
+		  	
+		  	<h:form rendered="#{cc.attrs.classe.admin}">
+				<div class="control-group">	 
+					<h:outputLabel class="control-label">Matricula</h:outputLabel>   
+				    <div class="controls">
+				    	<h:inputText id="matricula" value="#{cc.attrs.classe.usuario.matricula}" disabled="#{cc.attrs.disabled}" p:placeholder="Matricula"></h:inputText>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">	  
+			  		<h:outputLabel class="control-label">Nome</h:outputLabel>     
+				    <div class="controls">
+				    	<h:inputText id="nome" value="#{cc.attrs.classe.usuario.nome}" p:placeholder="Nome"></h:inputText>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">	
+			  		<h:outputLabel class="control-label">Senha</h:outputLabel>     			
+				    <div class="controls">
+				    	<button class="btn btn-danger" data-toggle="modal"	data-target="#myModal" onclick="return false;">Trocar Senha</button>
+				    </div>
+			  	</div>
+			  	
+			  	<div class="control-group">
+					<h:outputLabel class="control-label">Email</h:outputLabel>	    
+				    <div class="controls">
+				    	<h:inputText id="email" value="#{cc.attrs.classe.usuario.email}" p:placeholder="seu@email.com.br"></h:inputText>
+				    </div>
+			  	</div>
+				
+		  		<div class="control-group">
+					<div class="controls btn-toolbar">
+						<composite:renderFacet name="buttons"></composite:renderFacet>
+					</div>
+				</div>
+				
+				
+			  	<!-- Início do Modal -->
+				<div class="modal fade" id="myModal" tabindex="-1" role="dialog" data-backdrop="static"	aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">×</button>
+								<h4 class="modal-title" id="myModalLabel">Trocar Senha</h4>
+							</div>
+							<div class="modal-body">
+								
+							<h:form id="alteraSenha" class="form-horizontal">
+							<div class="row-fluid">
+								<div class="control-group">	  			
+								    <label class="control-label">Senha Antiga</label>
+								    <div class="pw-input">
+										<div class="control-group">
+											<div class="input-prepend">
+												<span class="add-on">
+													<i class="icon-lock"></i>
+												</span>
+							    				<h:inputSecret id="senhaAntiga" value="#{cc.attrs.classe.senhaAntiga}" p:placeholder="Senha Antiga" disabled="#{cc.attrs.disabled}"></h:inputSecret>
+								    		</div>
+								    	</div>
+								    </div>
+							  	</div>
+							  	
+							  	<div class="control-group">	  			
+								    <label class="control-label">Nova Senha</label>
+								    <div class="pw-input">
+										<div class="control-group">
+											<div class="input-prepend">
+												<span class="add-on">
+													<i class="icon-lock"></i>
+												</span>
+								    			<h:inputSecret id="senha1" value="#{cc.attrs.classe.senha1}" p:placeholder="Nova Senha"></h:inputSecret>
+								    		</div>
+								    	</div>
+								    </div>
+							  	</div>
+							  	
+							  	<div class="control-group">	  			
+								    <label class="control-label">Confirme Nova Senha</label>
+								    <div class="pw-input">
+										<div class="control-group">
+											<div class="input-prepend">
+												<span class="add-on">
+													<i class="icon-lock"></i>
+												</span>
+								    			<h:inputSecret id="senha2" value="#{cc.attrs.classe.senha2}" p:placeholder="Confirme Nova Senha"></h:inputSecret>
+								    		</div>
+								    	</div>
+								    </div>
+							  	</div>
+							</div>	
+							</h:form>
+							</div>
+							<div class="modal-footer">
+								<h:commandButton class="btn btn-primary" value="Salvar" action="#{searchUsuario.confirmUpdate}"/>
+								<h:commandButton class="btn btn-danger" value="Cancelar" action="#{searchUsuario.resetSenhas}"/>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Fim do Modal -->
+			</h:form>
+	  	</div>
+ 		
+ 		
+	</h:form>
+		  	
+	</composite:implementation>
+</html>

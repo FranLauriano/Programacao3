@@ -54,4 +54,8 @@ public class EnfermeiraController{
 	public List<Enfermeira> searchListEnfermeira(Enfermeira enfermeira){
 		return dao.searchListEnfermeira(enfermeira);
 	}
+	
+	public Enfermeira searchEnfermeiraMatricula(Integer matricula){
+		return dao.searchEnfermeiraMatricula(matricula);
+	}
 }
