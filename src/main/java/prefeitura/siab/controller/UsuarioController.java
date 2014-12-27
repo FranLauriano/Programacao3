@@ -111,7 +111,17 @@ public class UsuarioController {
 				dao.updateUsuario(usuario);
 			}
 		}else{
-			
+			if(senha1.equals(senha2)){
+				if(senha1.length() >= 6){
+					senha1 = DigestUtils.md5Hex(senha1);
+					usuario.setSenha(senha1);
+					dao.updateUsuario(usuario);						
+				}else{
+					throw new BusinessException("Tamanho mínimo para senha é de 6 Caracteres!");
+				}
+			}else{
+				throw new BusinessException("As novas senhas são diferentes!");
+			}
 		}
 	}
 	

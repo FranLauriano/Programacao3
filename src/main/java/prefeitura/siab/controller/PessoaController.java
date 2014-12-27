@@ -1,6 +1,7 @@
 package prefeitura.siab.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,8 +101,9 @@ public class PessoaController {
 		}
 	}
 
+	@Transactional
 	public List<Pessoa> searchListPessoa(PessoaSearchOptions options) {
-		
+		atualizar();
 		if(options.getDoencas() != null && options.getDoencas().size() != 0){
 			List<Pessoa> resultado = new ArrayList<>();
 			List<Pessoa> resultDao = dao.searchListOptionsPessoa(options);
@@ -135,6 +137,36 @@ public class PessoaController {
 
 	public Pessoa searchPessoaCodigo(Integer codigo) {
 		return dao.searchPessoaCodigo(codigo);
+	}
+	
+	
+	public void atualizar(){
+		List<Pessoa> pessoas = dao.searchListOptionsPessoa(new PessoaSearchOptions());
+		for(Pessoa p: pessoas){
+			calculaIdade(p);
+		}
+	}
+	
+	
+	public void calculaIdade(Pessoa pessoa) {  
+	    Calendar dataNascimento = Calendar.getInstance();  
+	    dataNascimento.setTime(pessoa.getDtnascimento());  
+	    Calendar dataAtual = Calendar.getInstance();  
+	  
+	    Integer diferencaMes = dataAtual.get(Calendar.MONTH) - dataNascimento.get(Calendar.MONTH);  
+	    Integer diferencaDia = dataAtual.get(Calendar.DAY_OF_MONTH) - dataNascimento.get(Calendar.DAY_OF_MONTH);  
+	    Integer idade = (dataAtual.get(Calendar.YEAR) - dataNascimento.get(Calendar.YEAR));  
+	  
+	    if(diferencaMes < 0  || (diferencaMes == 0 && diferencaDia < 0)) {  
+	        idade--;  
+	    }  
+	      
+	    pessoa.setIdade(idade);  
+	    try{
+	    	this.updatePessoa(pessoa);	    	
+	    }catch(BusinessException e){
+	    	System.out.println(e.toString());
+	    }
 	}
 
 }
